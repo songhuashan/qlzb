@@ -1,0 +1,405 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	list-style: none;
+}
+
+.tou {
+	width: 100%;
+	height: 44px;
+	background-color: #333;
+	/* 定位导航栏 与轮播图父元素共同使用*/
+	/* position:fixed ;
+	top:0 ; */
+}
+
+.tou_nei {
+	width: 75.5px ;
+	height: 100%;
+	display: block ;
+}
+.sousuolan{width: 100%;}
+button{ height: 42px;
+            width: 42px;
+          }
+.tou .sousuolan button{background: url(img/未标题-2.png);
+float: right;
+width: 20px ;
+height:21px ;
+font-size: 16px;
+margin-top: -34px;
+margin-right: 58px ;
+background-repeat: no-repeat;
+outline: none;
+border: none;
+}
+.tou .an {width:35px  ;
+float: right;
+display: flex;
+height: 35px ;
+margin-right: 8px ;
+margin-top: 3px ;
+border-radius: 50%;}
+.tou .an img{width: 100%;}
+
+.tou  input  { float: right;
+     padding: 3px;
+    border: none;
+    margin-top: -33px;
+    margin-right:50px;
+	border-radius:3px ;
+    font-size: 23px;
+	/* background: url(./img/未标题-2.png); */
+	background-repeat: no-repeat;
+	/* background-color: #EEEEEE; */
+    outline: none;
+}
+
+
+.qllg img {
+	width: 76px;
+	height: 27.5px;
+	padding-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* 轮播区域 */
+
+ .container{
+  
+     width: 100%;
+  
+    /* height:167px; */
+  
+     position: relative;
+	/* margin-top: 44px ; */
+	 
+  
+ }
+  
+ .content{
+  
+     width: 100%;
+  
+     /* height: 167px;
+  */
+     position: relative;
+  
+     overflow: hidden;
+  
+     border-bottom: 1px solid #EEEEEE;
+  
+     margin: 0 auto;
+  
+ }
+  
+ .slider-img{
+  
+     width: 100%;
+  
+     /* height: 167px; */
+  
+     margin: 0 auto;
+  
+ }
+  
+ .slider-img img{
+  
+     vertical-align: top;
+  
+     width: 100%;
+  
+     height: 100%;
+  
+     margin: 0 auto;
+  
+     display: block;
+  
+ }
+  
+ .left{
+  
+     margin-top: -350px;
+  
+     margin-left: 50px;
+  
+     width: 0;
+  
+     height: 0;
+  
+  
+  
+ }
+  
+ .left img,.right img{
+  
+     width: 0;
+  
+     height: 0;
+  
+ }
+  
+ .right{
+  
+     margin-top: -350px;
+  
+     margin-right: 50px;
+    width: 100px;
+  
+     height: 100px;
+  
+ }
+  
+  
+  
+ .dot{
+  
+     position: relative;
+  
+     top:0;
+  
+     left: 0;
+  
+     width: 0;
+  
+ }
+  
+ .dotul{
+  
+     width:0px;
+  
+  
+  
+ }
+  
+ .dotul li{
+  
+     width:0px;
+  
+     height: 0px;
+  
+    /* background-color: seagreen; */
+  
+     list-style: none;
+  
+     float: left;
+  
+     border-radius: 0px;
+  
+     margin-left: 0px;
+  
+     z-index: 0;
+  
+     cursor: pointer;
+  
+ }
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+/* 精品推荐 */
+
+.jing {
+	margin-top: 36% ;
+	width: 97%;
+	height: 17px;
+	margin: 22px auto;
+	
+}
+
+
+/* 红色小矩形 */
+
+.jing .jing_redb {
+	width: 1.5px ;
+	height: 17px;
+	margin-top: 5px ;
+	background-color: #ff0000;
+	float: left;
+}
+
+
+/* 精品推荐 */
+
+.jing .jingpin {
+	font-size: 11px;
+	padding-top: 5.5px ;
+	padding-left: 3.5px;
+	/* margin-top: 0; */
+	line-height: 16px;
+	font-family:微雅软黑 ;
+}
+
+
+/* 2011期 */
+
+.jingpin_list {
+	display: flex;
+	padding-top: 0px;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.jingpin_list .jingpin_item  {
+	width: 47%;
+}
+
+
+.jingpin_list .jingpin_item .imgmes img{
+	width: 100%;
+	border-radius: 6px;
+}
+
+.tit_c {
+	width: 94%;
+	height: 20px;
+	margin-top: 2px;
+	/* line-height:20px;   */
+	overflow: hidden;
+	/* background-color: #FF0000; */
+	
+}
+
+.tit_c .c {
+	width: 5px;
+	height: 5px;
+	/* opacity: 0.5; */
+	background-color: #999999;
+	border-radius: 50%;
+	margin-top: 7px;
+	float: left;
+}
+.tit{margin-bottom: 15px ;}
+.tit h3 {
+	color: #000;
+	font-size: 13px;
+	font-weight: normal;
+	margin-top: -12px ;
+	
+	font-family: "微软雅黑";
+}
+
+.tit .num {
+	color: #999999;
+	padding-left: 10px;
+	/* opacity: 0.5; */
+	font-size: 9px;
+}
+
+
+/* 名师 */
+
+.teaher{
+	overflow: hidden;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0 .16rem;
+}
+.teaher ul li{
+	overflow: hidden;
+	border-bottom: 1px solid #eee;
+	padding: .26rem 0;
+}
+.teaher ul li a{
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	text-decoration: none;
+	font-style: normal;
+}
+.teaher ul li a img{
+	width: 1.4rem;
+	height: 1.4rem;
+	border-radius: 50%;
+	display: block;
+}
+.teaher ul li a div{
+	overflow: hidden;
+	margin-left: .33rem;
+}
+.teaher ul li a div p{
+	font-size: .34rem;
+	line-height: 1;
+	margin-bottom: .23rem;
+	
+	color: #000000;
+}
+.teaher ul li a div span{
+	font-size: .25rem;
+	color: #000000;
+	line-height: .35rem;
+	display: block;
+}
+.qllg{
+	font-size: 12px;
+	display: block;
+}
+
+
+
+.bj{width: 100%;
+height: 156.5px ;}
+.bj img{width: 100%;
+box-shadow: 0px 1px 5px #999;}
+
+
+
+/* 首页/课程/讲师 */
+
+.footer {
+	width: 100%;
+	height: 49px;
+	background-color: #333;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	box-shadow: 0px -1px 5px #999;
+}
+.footer a{
+	text-decoration-line: none;
+}
+.footer ul {
+	display: flex;
+}
+
+.footer li {
+	width: 25%;
+}
+
+.footer li img {
+	display: block;
+	width: 18px;
+	height: 17px;
+	margin: 0 auto;
+	padding: 9.5px;
+}
+
+.footer li p {
+	font-size: 15px;
+	color: #FFFFFF;
+	text-align: center;
+	margin-top: -10px;
+}

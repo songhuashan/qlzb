@@ -1,0 +1,171 @@
+<include file="__THEME__/public_header" />
+<!--<script>
+var CLICK_VERIFY="{:U('public/Passport/clickVerify')}";
+var CLICK_UNAME="{:U('public/Passport/clickUname')}";
+var CLICK_PHONE="{:U('public/Passport/clickPhone')}";
+var CLICK_PHONEVER="{:U('public/Passport/clickPhoneVer')}";
+var SETUSERFACE="{:U('public/Passport/setUserFace')}";
+var GET_PHONEVERIFY="{:U('public/Passport/getVerify')}";
+
+</script>-->
+
+<div class="content">
+    <div class="wrap">
+        <div class="content-con">
+            <div class="teacher-box">
+                <dl class="card-body" style="background: transparent">
+                    <dd class="clearfix select-catename" data-catename="subject_category" style="background: #fafafa;padding:0">
+                       <!-- <span>科目</span>-->
+                        <ul class="select-list">
+                            <li class="<eq name='cateId' value=''>selected</eq>"><a href="{:U('classroom/Teacher/index')}"  id="cate0">全部</a></li>
+                            <volist name="selCate" id="vo">
+                                <li class="<eq name='vo.zy_teacher_category_id' value='$cateId'>selected</eq>" >
+                                    <a href="javascript:;" class="screen" data-type="cateId" data-value="{$vo.zy_teacher_category_id}" >{:msubstr(t($vo['title']),0,10,'utf-8',true)}</a>
+                                </li>
+                            </volist>
+                        </ul>
+                        <div class="subs" <php>if(!$cate){</php>style="display: none"<php>}</php> style="max-width:100%;background:#fff;margin:0">
+                            <ul class="sub-course" id="pre">
+                                <li class="<eq name='cate_id' value=''>selected</eq>"><a href='javascript:;' id='cate_no' class="screen" data-type="cateId" data-value="{$cateId}">不限</a></li>
+                                <volist name="cate" id="vo">
+                                    <li class="<eq name='vo.zy_teacher_category_id' value='$cate_id'>selected</eq>" >
+                                        <a href="javascript:;"  class="screen" data-type="cateId" data-value="{$cateId}%2C{$vo.zy_teacher_category_id}" >{:msubstr(t($vo['title']),0,10,'utf-8',true)}</a>
+                                    </li>
+                                </volist>
+                            </ul>
+                            <div class="subs abb" <php>if(!$childCate){</php>style="display: none"<php>}</php>>
+                                <ul class="sub-course" id="citys">
+                                    <li class="<eq name='cate_ids' value=''>selected</eq>"><a href='javascript:;' id='cate_no' class="screen" data-type="cateId" data-value="{$cateId}%2C{$cate_id}">不限</a></li>
+                                    <volist name="childCate" id="vo">
+                                        <li class="<eq name='vo.zy_teacher_category_id' value='$cate_ids'>selected</eq>" >
+                                            <a href="javascript:;"  class="screen" data-type="cateId" data-value="{$cateId}%2C{$cate_id}%2C{$vo.zy_teacher_category_id}" >{:msubstr(t($vo['title']),0,10,'utf-8',true)}</a>
+                                        </li>
+                                    </volist>
+                                </ul>
+                            </div>
+                        </div>
+                    </dd>
+                    <!--<dd class="clearfix select-catename" data-catename="area">-->
+                        <!--<span>区域</span>-->
+                        <!--<ul class="select-list">-->
+                           <!--<li class="<eq name='area_id' value=''>selected</eq>"><a href="{:U('classroom/Teacher/index')}" data-cate_id="0" class="select_cate">不限</a></li>-->
+                           <!--<volist name="area" id="vo">-->
+                              <!--<li class="<eq name='vo.area_id' value='$area_id'>selected</eq>"><a href="javascript:;"  data-type="area" data-value="{$vo.area_id}" class="select_cate screen">{$vo.title}</a></li>-->
+                            <!--</volist>-->
+                        <!--</ul>-->
+                    <!--</dd>-->
+                </dl>
+            </div>
+            <div class="class_left">
+                <div class="content-card">
+                    <dl class="card-body">
+                        <dt>
+                            <div class="nav-item sortList <eq name='sort_type' value=''>active</eq>"><a href="{:U('classroom/Teacher/index')}" >综合排序</a></div>
+                            <div class="nav-item sortList <eq name='sort_type' value="1">active</eq>"><a href="javascript:;" class="screen" data-type="sort_type" data-value="1">最热</a></div>
+                            <div class="nav-item sortList <eq name='sort_type' value="2">active</eq>"><a href="javascript:;" class="screen" data-type="sort_type" data-value="2">最新</a></div>
+                            <div class="nav-item"><label><input type="checkbox" <php>if($live_type == 2){</php>checked="checked" data-type="live_type"<php>}else{</php>data-type="live_type" data-value="2"<php>}</php>class="screen" >直播课</label></div>
+                            <div class="nav-item"><label><input type="checkbox" <php>if($course_type == 1){</php>checked="checked" data-type="course_type"<php>}else{</php>data-type="course_type" data-value="1"<php>}</php>class="screen">点播课</label></div>
+                            <div class="nav-item top-pager">
+                                <php>if($data['nowPage'] >= 2  ){</php>
+                                <a href="{:U('classroom/Teacher/index',array('p'=>$data['nowPage']-1))}" class="prevPage"><i class="icon-prev"></i></a>
+                                <php>}else{</php>
+                                <a href="javascript:;" class="prevPage"><i class="icon-prev"></i></a>
+                                <php>}</php>
+                                <span id="nowPage">{$data.nowPage}</span>
+                                <php>if($data['nowPage'] < $data['totalPages']){</php>
+                                <a href="{:U('classroom/Teacher/index',array('p'=>$data['nowPage']+1))}" class="nextPage"><i class="icon-next"></i></a>
+                                <php>}else{</php>
+                                <a href="javascript:;" class="nextPage"><i class="icon-next"></i></a>
+                                <php>}</php>
+                            </div>
+                        </dt>
+                    </dl>
+                    <div class="card-main">
+                        <ul class="teacher_list">
+                            <php>if($listData){</php>
+                                <volist name="listData" id="vo">
+                                <li>
+                                    <div class="teacher_picture">
+                                        <a href="{:U('classroom/Teacher/view',array('id'=>$vo['id']))}"><img src="{:cutImg($vo['head_id'],120,120)}" class="lazyloading" alt="{$vo.name}"></a>
+                                    </div>
+                                    <a href="{:U('classroom/Teacher/view',array('id'=>$vo['id']))}"><p class="teacher_name">{:msubstr(t($vo['name']),0,10,'utf-8',false)}</p></a>
+                                    <a href="{$vo['school_url']}"><p class="shcool">{:msubstr(t($vo['school']),0,10,'utf-8',false)}</p></a>
+                                    <p class="introduce">{$vo['inro']}</p>
+                                </li>
+                                </volist>
+                            <php>}else{</php>
+                                <span>没有相关讲师。。</span>
+                            <php>}</php>
+                        </ul>
+
+                        <php>if($data['totalPages'] > 1){</php>
+                            <div class="page">
+                                <div class="pagebox"> {$data.html} </div>
+                            </div>
+                        <php>}</php>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+    $(".pagebox a").click(function(e){
+        e = e || window.event;
+        if(e.preventDefault) {
+            e.preventDefault();
+            e.stopPropagation();
+        }else{
+            e.returnValue = false;
+            e.cancelBubble = true;
+        }
+        var type = 'p',
+            value = $(this).attr('p'),
+            replace = {p:value},
+            baseUrl = "{:U('classroom/Teacher/index')}";
+        window.location.href = getRequestUrl(type,value,baseUrl,replace);
+    });
+    //同步请求
+    $(".screen").click(function(){
+        var _this = this;
+        var totalPages = "{$data.totalPages}";
+        var type = $(_this).data("type"),
+            value = $(_this).data("value"),
+            baseUrl = "{:U('classroom/Teacher/index')}",
+            replace = {p:1};
+        if(type == 'p'){
+            value = $("input[name='pageNum']").val();
+            if(value > totalPages){
+                value = totalPages;
+            }
+            replace = {p:value};
+        }
+        window.location.href = getRequestUrl(type,value,baseUrl,replace);
+    });
+ });
+    //收藏讲师
+    function collectTeacher(cate,type,tid){
+        if(UID=='0'){
+            reg_login();
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url:"{:U('classroom/Teacher/collect')}",
+            data:{type:type,source_id:tid},
+            dataType:"json",
+            cache: false,
+            success: function(data){
+                if(data.status == '0'){
+                    notes(data.info,'failure');
+                    window.location.reload();
+                } else {
+                    notes(data.info,'');
+                    window.location.reload();
+                }
+            },
+        });
+    }
+</script>
+<include file="__THEME__/public_footer" />

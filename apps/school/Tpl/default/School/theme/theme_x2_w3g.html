@@ -1,0 +1,242 @@
+<include file="__THEME__/public_header_w3g"/>
+
+<link rel="stylesheet" href="__APP__/css/common_mechanism_w3g.css">
+<link rel="stylesheet" href="__APP__/css/index_w3g_b.css">
+
+      <div class="min-height-wrap">
+       <!--banner start-->
+       <div class="device">
+           <div class="swiper-container">
+               <div class="swiper-wrapper">
+                   <div class="swiper-slide">
+                       <php>if($ad_list == ''){</php>
+                       <a href="javascript:;"><img src="__THEME__/images/banner4.jpg" /></a>
+                       <php>}else{</php>
+                       <a href="javascript:;"><img src="{:cutImg($ad_list[0]['banner'],640,329)}"/></a>
+                       <php>}</php>
+                   </div>
+               </div>
+           </div>
+           <div class="pagination"></div>
+       </div>
+       <!--banner end-->
+       <php>if(!$theme_items || in_array('topic',$theme_items)){</php>
+       <!-- 公告 -->
+       <div class="notice_box">
+         <div class="notice">
+           <div class="bd">
+             <ul class="infoList">
+                 <volist name="topicList" id="topic" offset="0" length="8">
+                     <li><span class="notice"><i class="icon icon-tongzhi"></i>最新资讯 : <i class="icon icon-dian"></i></span><span class="text">{:msubstr(t($topic['title']),0,32,'utf-8',true)}</span><p>{:getDateDiffer($topic['dateline'])}</p></li>
+                 </volist>
+             </ul>
+           </div>
+         </div>
+       </div>
+       <php>}</php>
+       <php>if(!$theme_items || in_array('live',$theme_items)){</php>
+       <!-- 最近直播 -->
+       <section>
+         <div class="title_p">
+           <p>最近直播</p>
+         </div>
+         <div class="soon_live">
+           <ul>
+               <if condition="$live_cate">
+               <volist name="live_cate" id="val" offset="0" length='4'>
+                   <li>
+                       <div class="div_box">
+                          <if condition="$val['mount_iand']">
+                              <a href="{:U('live/Index/view_mount',array('id'=>$val['id'],'mid'=>$mhm_id.''.$mount_url_str))}">
+                          <else/>
+                              <a href="{:U('live/Index/view',array('id'=>$val['id']))}">
+                          </if>
+                               <img src="{:getCover($val['cover'],250,160)}" alt="">
+                               <p class="time"><span>[{:date('m',$val['ctime'])}-{:date('d',$val['ctime'])}]</span></p>
+                           </a>
+                           <div class="pub_box">
+                               <p>{:msubstr(t($val['video_title']),0,10,'utf-8',true)}</p>
+                               <div class="content">
+                                   <span class="num">学员 : {$val.video_order_count|default="0"}人</span>
+                                   <span class="price">
+                                       <php>if($val['is_charge'] == 1  || $val['t_price'] == 0 ){</php>
+                                        免费
+                                        <php>}else{</php>
+                                        ￥{$val['t_price']}
+                                        <php>}</php>
+                                   </span>
+                               </div>
+                           </div>
+                       </div>
+                   </li>
+               </volist>
+               <else/>
+                   <li class="no-data">暂无直播。。</li>
+               </if>
+           </ul>
+           <!-- 查看更多 -->
+           <if condition="$count['cate'] gt 4">
+               <div class="more_box">
+                    <a href="{:U('school/School/live',array('id'=>$mhm_id))}">查看更多</a>
+               </div>
+            </if>
+         </div>
+       </section>
+       <hr>
+      <php>}</php>
+      <!-- 精品课程 -->
+      <section>
+          <div class="title_p">
+            <p>精品课程</p>
+          </div>
+            <div class="boutique_course">
+              <ul>
+                  <if condition="$cate">
+                  <volist name="cate" id="val" offset="0" length='8'>
+                      <li>
+                          <div class="div_box">
+                              <if condition="$val['mount_iand']">
+                                  <a href="{:U('classroom/video/view_mount',array('id'=>$val['id'],'mid'=>$mhm_id.''.$mount_url_str))}">
+                              <else/>
+                                  <a href="{:U('classroom/Video/view',array('id'=>$val['id']))}">
+                              </if>
+                              <img src="{:getCover($val['cover'],250,160)}" alt="">
+                              </a>
+
+                              <div class="pub_box">
+                                  <p>{:msubstr(t($val['video_title']),0,10,'utf-8',true)}</p>
+                                  <div class="content">
+                                      <div class="fl">
+                                          <i class="icon icon-yanjing3"></i>
+                                          <span class="num">{$val.video_order_count|default="0"}</span>
+                                          <i class="icon icon-pinglun2"></i>
+                                          <span class="num">{$val.video_comment_count|default="0"}</span>
+                                      </div>
+                                      <b class="fr">
+                                          <php>if($val['is_charge'] == 1  || $val['mzprice']['t_price'] == 0 ){</php>
+                                          免费
+                                          <php>}else{</php>
+                                          ￥{$val['mzprice']['t_price']}
+                                          <php>}</php>
+                                      </b>
+                                  </div>
+                              </div>
+                          </div>
+                      </li>
+                  </volist>
+                  <else/>
+                      <li class="no-data">暂无课程。。</li>
+                  </if>
+              </ul>
+              <!-- 查看更多 -->
+              <if condition="$count['cate'] gt 4">
+                  <div class="more_box">
+                      <a href="{:U('school/School/course',array('id'=>$mhm_id))}">查看更多</a>
+                  </div>
+              </if>
+            </div>
+      </section>
+      <!-- 广告 -->
+      <!--<div class="content bg_box">
+        <div class="opcity_bg">
+          <div class="text">
+            <p class="title">不知道放什么，那就可以放点广告语呗</p>
+            <p class="box_p">发挥想象，写你所想</p>
+          </div>
+        </div>
+      </div>-->
+      <php>if(!$theme_items || in_array('teacher',$theme_items)){</php>
+      <!-- 推荐讲师 -->
+      <section>
+        <div class="title_p">
+          <p>推荐讲师</p>
+        </div>
+        <div class="teacher_recommend">
+            <ul>
+                <if condition="$teacher">
+                <volist name="teacher" id="tea" key="k" offset="0" length='4'>
+                    <li>
+                        <div class="div_box">
+                            <a href="{:U('classroom/Teacher/view',array('id'=>$tea['id']))}">
+                                <img src="{:getCover($tea['head_id'],120,120)}" alt="">
+                            </a>
+                            <p class="name">{$tea.name}</p>
+                            <p class="school">{$tea.graduate_school}</p>
+                        </div>
+                    </li>
+                </volist>
+                <else/>
+                    <li class="no-data">暂无讲师。。</li>
+                </if>
+           </ul>
+           <!-- 查看更多 -->
+           <if condition="$count['teacher'] gt 4">
+                <div class="more_box">
+                    <a href="{:U('school/School/teacher_index',array('id'=>$mhm_id))}">查看更多</a>
+                </div>
+           </if>
+         </div>
+      </section>
+      <php>}</php>
+      <!-- 热门班级 -->
+      <!--<php>if(!$theme_items || in_array('album',$theme_items)){</php>
+      <section>
+          <div class="title_p">
+            <p>热门班级</p>
+          </div>
+          <div class="hot_class">
+            <ul>
+                <if condition="$album">
+                <volist name="album" id="val" offset="0" length='4'>
+                    <li>
+                        <a href="javascript:">
+                            <img src="{:getCover($val['cover'],270,192)}" alt="">
+                            <p>{:msubstr(t($val['album_title']),0,10,'utf-8',true)}</p>
+                            <span>共{$val.video_count}课</span>
+                        </a>
+                    </li>
+                </volist>
+                <else/>
+                    <li class="no-data">暂无班级。。</li>
+                </if>
+            </ul>
+          &lt;!&ndash; 查看更多 &ndash;&gt;
+          <if condition="$count['album'] gt 4">
+              <div class="more_box">
+                  <a href="{:U('school/School/album',array('id'=>$mhm_id))}">查看更多</a>
+              </div>
+          </if>
+          </div>
+      </section>
+      <php>}</php>-->
+      <php>if(!$theme_items || in_array('topic',$theme_items)){</php>
+      <!-- 热门资讯 -->
+      <section>
+          <div class="title_p">
+            <p>热门资讯</p>
+          </div>
+          <div class="text_list">
+            <ul>
+                <if condition="$topicList">
+                <volist name="topicList" id="topic" offset="0" length="8">
+                    <li><a href="{:U('classroom/Topic/view',array('id'=>$topic['id']))}"><span class="time">[{:date('m',$topic['dateline'])}-{:date('d',$topic['dateline'])}]</span><span class="text">{:msubstr(t($topic['title']),0,20,'utf-8',true)}</span></a></li>
+                </volist>
+                <else/>
+                    <li class="no-data">暂无资讯。。</li>
+                </if>
+            </ul>
+            <!-- 查看更多 -->
+            <if condition="$count['topicList'] gt 1">
+                <div class="more_box">
+                  <a href="{:U('classroom/Topic/index',array('id'=>$mhm_id))}">查看更多</a>
+                </div>
+            </if>
+          </div>
+      </section>
+      <php>}</php>
+
+  <script src="__APP__/js/index_3g.js" charset="utf-8"></script>
+  <script type="text/javascript">
+     $(".notice").slide({mainCell:".bd ul",autoPlay:true,effect:"leftMarquee",vis:1,interTime:20});
+  </script>
+<include file="__THEME__/public_footer_w3g"/>

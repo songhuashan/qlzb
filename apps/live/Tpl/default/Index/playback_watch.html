@@ -1,0 +1,39 @@
+<script type="text/javascript" src="https://view.csslcloud.net/js/_fix_.js"></script>
+<include file="__THEME__/public_header" />
+<style type="text/css">
+	#video .common-header{display: none;}
+</style>
+
+<div class="content">
+    <div class="wrap" style="padding-bottom: 20px;width:100%">
+        <if condition="$live_type eq 7">
+            <video controls="controls" autoplay="autoplay">
+                <source src="{$playback_url}" type="video/mp4" />
+            </video>
+            <else/>
+           
+            
+            <iframe name="videoBox" id="video" allowFullScreen src="{$playback_url}" width="100%"  height="800" frameborder="0" scrolling="no"></iframe>
+        </if>
+        <script>    
+    $(function(){
+        var url = window.location.href;     
+            // alert(url);
+        var id = url.split("&");
+        console.log(id[3]);
+        var id_num = id[3].split("=");
+        console.log(id_num);
+        var array = ["3392"];
+        if($.inArray(id_num[1],array) >= 0){
+            
+            //$(".content").css("width","118%");
+        }
+    });
+</script>
+    </div>
+</div>
+
+<!--footer-->
+<include file="__THEME__/public_footer" />
+<!-- 遮罩层 -->
+

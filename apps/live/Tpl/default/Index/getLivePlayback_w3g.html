@@ -1,0 +1,28 @@
+<include file="__THEME__/public_header_w3g" />
+<!-- 遮罩层 -->
+<div class="wrap" style=" position: fixed; right: 0; bottom: 0; left: 0; top: 0; -webkit-overflow-scrolling: touch; overflow-y: scroll;">
+<iframe id="video" src="{$playback_url}" width="100%"  height="auto" frameborder="0" scrolling="no" style=" height: 100%; width: 100%;"></iframe>
+</div>
+<script  type="text/javascript">
+	function jump(){
+		window.location.href="{$playback_url}";
+		alert({$playback_url})
+	}
+	var u = navigator.userAgent;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if(isiOS){ // ios机型
+       jump();
+    }
+    function Browser() {
+		var ua = window.navigator.userAgent;
+		var isSafari = ua.indexOf("Safari") != -1 && ua.indexOf("Version") != -1;
+		if (isSafari) {
+			return "Safari";
+		}
+	}
+	if(Browser() == "Safari"){
+		jump();
+	}
+</script>
+<include file="__THEME__/public_footer_w3g" />

@@ -1,0 +1,297 @@
+<include file="public/public_header"/>
+        <!--banner轮播-->
+		<div class="banner">
+			<div class="banner1">
+    			<ul class="banner2">
+    				<volist name="ad_list" id="adlt">
+    					<li><a href="{$adlt['bannerurl']}" title="{$adlt['banner_title']}" target="_blank"><img src="{:getCover($adlt['banner'],1920,435)}" style="height: 435px;" alt="{$adlt['banner_title']}"/></a></li>
+                    </volist>
+    			</ul>
+    			 <a class="prev" href="javascript:void(0)"></a>
+   				 <a class="next" href="javascript:void(0)"></a>
+    			<div class="num">
+    				<ul></ul>
+   				 </div>
+			</div>			
+		</div>
+<script>
+$(".banner1").hover(function(){
+	$(this).find(".prev,.next").fadeTo("show",0.1);
+},function(){
+	$(this).find(".prev,.next").hide();
+})
+$(".prev,.next").hover(function(){
+	$(this).fadeTo("show",0.4);
+},function(){
+	$(this).fadeTo("show",0.1);
+})
+$(".banner1").slide({ titCell:".num ul" , mainCell:".banner2" , effect:"fold", autoPlay:true, delayTime:700 , autoPage:true, });
+</script>
+			
+	<!--三大特点介绍-->
+		<div class="three">
+			<div class="three-all">
+				<div class="three">
+						<img src="__THEMENEW__/image/three1.png">
+						<h1>个性化定制</h1>
+						<h2>根据孩子天性、习惯、爱好、成绩等<br>为其高端定制成长规划。</h2>
+				</div>	
+				<div class="three">
+						<img src="__THEMENEW__/image/three2.png">
+						<h1>线上线下结合</h1>
+						<h2>采用线上+线下授课方式，全方位服<br>务孩子，满足孩子的成长需求。</h2>
+			    </div>
+					<div class="three">
+						<img src="__THEMENEW__/image/three3.png">
+						<h1>精英社群</h1>
+						<h2>营造高端精英社群，让孩子与家长浸<br>润精英圈层，共同成长。</h2>
+					</div>	
+			</div>
+		</div>
+
+	    <volist name="config_index.item" id="item_name">
+
+	<!--进阶之路介绍-->
+        <eq name="item_name" value="six">
+			<div class="six">
+				<h1>孩子的进阶之路</h1>
+				<div class="six1">
+					<img src="__THEMENEW__/image/cur.png">
+				</div>		
+			</div>
+		</eq>
+
+	<!--公开课-->
+		<eq name="item_name" value="open">
+			<div class="open">
+				<div class="open-cen">
+				<h1>{$site['site_keyword']}公开课</h1>
+					<div class="cur">
+						<ul>
+						<if condition="$openVideo['data'] neq ''" >
+							<volist name="openVideo.data" id="vo" offset="0" length='3'>
+								<li>
+									<a <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vo['id']))}"</eq>>
+			                            <img src="{:getCover($vo['cover'] ,334 , 184 )}" alt="" />
+			                        </a>
+									<div class="title">
+										<h5><a <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vo['id']))}"</eq>>{:msubstr(t($vo['video_title']),0,10,'utf-8',true)}</a></h5>
+									</div>
+								</li>
+		                    </volist>
+							<else/>
+							<li>暂时没有公开课数据。。</li>
+						</if>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</eq>
+
+	<!--热门课程-->
+		<eq name="item_name" value="hotVideo">
+			<div class="curriculum">
+				<div class="cur-cen">
+					<h1>热门课程</h1>
+					<div class="cur">
+						<ul>
+						<if condition="$hotVideo['data'] neq ''" >
+							<volist name="hotVideo.data" id="vo" offset="0" length='3'>
+								<li>
+									<a class="imgbox" <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vo['id']))}"</eq>>
+										<img src="{:getCover($vo['cover'] ,334 , 184 )}" alt="" />
+									</a>
+									<div class="title">
+										<h5><a <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vo['id']))}"</eq>>{:msubstr(t($vo['video_title']),0,10,'utf-8',true)}</a></h5>
+									</div>
+								</li>
+							</volist>
+							<else/>
+							<li>暂时没有课程数据。。</li>
+							</if>
+						</ul>
+					</div>
+				</div>
+				<div class="cur1">
+					<a href="{:U('classroom/Video/index')}" class="cur2">更多课程</a>
+				</div>
+			</div>
+		</eq>
+
+	<!--直播早知道-->
+		<eq name="item_name" value="live_new">
+			<div class="broadcast">
+				<h1>直播早知道</h1>
+				<div class="bro1">
+					<ul>
+					<php>if(empty($live) == false){</php>
+						<volist name="live_ctime" id="time" key="k" offset="0" length='5'>
+							<php>if($time != $nowTime){</php>
+	                        	<li><a href="javascript:;" onClick="showLive(this,{$k})">{:date('m',$time)}月{:date('d',$time)}日</a></li>
+							<php>}else{</php>
+								<li><a href="javascript:;" onClick="showLive(this,{$k})">今日</a></li>
+	                        <php>}</php>
+	                    </volist>
+	                <php>}else{</php>
+	                    <li>暂时没有最近直播数据</li>
+	                <php>}</php>
+					</ul>
+				</div>
+				<php>if(empty($live) == false){</php>
+				<div class="bro2">
+					<volist name="live" id="le"  key='k' offset="0" length="5">
+	                    <ul class="live_{$k}" style="display: none;">
+	                        <volist name="le" id="vo" offset="0" length="3">
+		                        <li><a href="{:U('live/Index/view',array('id'=>$vo['id']))}" class="imgbox"><img src="{:cutImg($vo['cover'] ,300, 165 )}"></a>
+									<div class="bro3">
+										<h5><a href="{:U('live/Index/view',array('id'=>$vo['id']))}">{:msubstr(t($vo['video_title']),0,7,'utf-8',true)}</a><small><php>if($marketConf['order_switch'] == 1) {</php>{$vo['video_order_count_mark']}<php>}else{</php>{$vo['video_order_count']}<php>}</php>人已预约</small></h5>
+									</div>
+								</li>
+	                        </volist>
+	                    </ul>
+	                </volist>
+				</div>
+	            <php>}</php>
+			</div>
+		</eq>
+
+	<!--名师阵容-->
+		<eq name="item_name" value="teacher_new">
+			<div class="teacher">
+				<h1>名师阵容</h1>
+				<div class="teacher1">
+					<ul>
+					<if condition="$teacher neq ''" >
+						<volist name="teacher" id="tea" offset="0" length="3">
+							<li>
+								<a href="{:U('classroom/Teacher/view',array('id'=>$tea['id']))}" class="imgbox"><img src="{:getCover($tea['head_id'],321,321)}"></a>
+								<div class="teacher2">
+									<h5><a href="{:U('classroom/Teacher/view',array('id'=>$tea['id']))}">{:msubstr(t($tea['name']),0,5,'utf-8',true)}</a><small>{:msubstr(t($tea['teacher_title_category']),0,7,'utf-8',true)}</small></h5>
+								</div>
+								<span>
+									<h4><a href="{:U('classroom/Teacher/view',array('id'=>$tea['id']))}" style="color: #fff;">{:msubstr(t($tea['name']),0,5,'utf-8',true)}</a></h4>
+									<p>{:msubstr(t($tea['inro']),0,100,'utf-8',true)}</p>
+								</span>
+							</li>
+						</volist>
+						<else/>
+						<li>暂时没有讲师数据。。</li>
+					</if>
+					</ul>
+				</div>
+				<div class="ciroles"></div>
+			</div>
+		</eq>
+
+	<!--明星学员-->
+		<eq name="item_name" value="starUser">
+			<div class="student">
+				<h1>明星学员</h1>
+				<div class="cut">
+					<ul>
+					<if condition="$star_user neq ''" >
+						<volist name="star_user" id="user" offset="0" length="3">
+	                        <li>
+	                            <a href="{:U('classroom/UserShow/index',array('uid'=>$user['uid']))}" class="imgbox"><img src="{:getUserFace($user['uid'],b)}"></a>
+								<div class="stu">
+									<h5><a href="{:U('classroom/UserShow/index',array('uid'=>$user['uid']))}">{:msubstr(t($user['uname']),0,10,'utf-8',true)}</a></h5>
+								</div>
+								<span>
+									<h4><a href="{:U('classroom/UserShow/index',array('uid'=>$user['uid']))}" style="color: #fff;">{:msubstr(t($user['uname']),0,10,'utf-8',true)}</a></h4>
+									<p>{:msubstr(t($user['intro']),0,100,'utf-8',true)}</p>
+								</span>
+	                        </li>
+	                    </volist>
+						<else/>
+						<li>暂时没有学员数据。。</li>
+					</if>
+					</ul>
+				</div>
+			</div>
+		</eq>
+
+		</volist>
+
+	<!--背景图-->
+		<div class="logo">
+			<a href="/"><img src="__THEMENEW__/image/logo1.jpg"></a>
+		</div>
+
+    <!--备案信息-->
+        <div class="float-right">
+            <a href="http://wpa.qq.com/msgrd?v=3&uin={$site.site_qq}&site=<php> echo isset($site["site_url"]) ? $site["site_url"] : SITE_URL;</php>&menu=yes">在线沟通
+                <img src="__THEMENEW__/image/flo1.png">
+                     <span>
+                         <strong>
+                             <button>QQ在线沟通</button>
+                             <h6>咨询热线：</h6>
+                             <p>{$site.site_phone}</p>
+                         </strong>
+                     </span>
+            </a>
+            <a href="javascript:;" >免费测评
+                <img src="__THEMENEW__/image/flo2.png" style="margin-top:3px;">
+            </a>
+            <a href="javascript:;" >关注微信
+                <img src="__THEMENEW__/image/flo3.png" style="margin-top:3px;">
+                     <span style="padding: 0;background: #fff;right: 55px;height: 140px;">
+                         <img src="{:getCover($site['wx_qrcode'],120,120)}">
+                         <h5>扫一扫关注官方微信</h5>
+                     </span>
+            </a>
+            <a href="javascript:;" class="backtop">回到顶部
+                <img src="__THEMENEW__/image/flo4.png" style="margin-top:8px;">
+            </a>
+        </div>
+
+<script>
+	var lanren = {
+		navFast:function(){
+			var defaultTop = (window.screen.height - $('.float-right').height())/2 - 100; 
+			//默认顶部保持上下居中，再往上去100像素
+			$(window).scroll(function(){
+				var offsetTop = defaultTop + $(window).scrollTop()+'px';
+				$('.float-right').animate({top:offsetTop},
+				{	duration: 600,	//滑动速度
+     				queue: false    //此动画将不进入动画队列
+     			});						  
+			});
+		}
+	};
+	lanren.navFast();
+
+	$(function(){
+		$(".live_1").show();
+	});
+	$(".bro1 li:first-child").addClass("on");
+	function showLive(cate,id){	
+		$(cate).parent().addClass('on').siblings().removeClass('on');
+		$(".live_"+id).show().siblings().hide();
+	}
+
+	for(var k=0;k<$(".teacher1").length;k++) {
+		var slixs = "<i></i>";
+		$(".ciroles").append(slixs);
+	}
+	$(".teacher1 ul:first-child").show();
+	$(".teacher .ciroles i:first-child").css("background","rgba(255,255,255,1)")
+	$(".teacher .ciroles i").click(function(){
+		$(this).css("background","rgba(255,255,255,1)").siblings().css("background","rgba(204,204,204,0.6)");
+		var i = $(this).index();
+		$(".teacher1 ul").hide();
+		$(".teacher1 ul").eq(i).show();
+	});
+
+	$(window).scroll(function() {
+		var wins =  $(document).scrollTop();
+		if(wins>100){
+			$(".top").css("box-shadow","0 2px 10px 0 rgba(121,129,143,0.4)");
+		}else{
+			$(".top").css("box-shadow","0 0 0 0 transparent");
+		}
+	});
+
+	$(".top_nav li:first").addClass("active");
+</script>
+
+<include file="public/public_footer"/>

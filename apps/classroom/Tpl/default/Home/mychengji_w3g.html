@@ -1,0 +1,155 @@
+<include file="__THEME__/public_header_w3g"/>
+<link rel="stylesheet" type="text/css" href="{$Think.APPS_URL}/exams/_static/css/public.css">
+<link rel="stylesheet" type="text/css" href="{$Think.APPS_URL}/exams/_static/icon/iconfont.css">
+<link rel="stylesheet" type="text/css" href="{$Think.APPS_URL}/exams/_static/css/public_header_footer_media.css">
+<link rel="stylesheet" type="text/css" href="{$Think.APPS_URL}/exams/_static/css/exam_2.0.css">
+
+<div class="cover"></div>
+
+<div class="min-height-wrap">
+    <div class="suren-box">
+        <div class="asmarfr-pr" style="margin-top:30px; ">
+	        <div>
+	        	<input type="text" id="idcard" value="" placeholder="请输入你的身份证号开始查询" >
+	        </div>
+	        <div style="text-align: center;">
+	        	<select id="kaoqi" class="select">
+			        <option value="">请选择</option>
+					<foreach name="type" item="l" key='k'>	
+				     	<option value="{$l['id']}">{$l['title']}</option>
+					</foreach>
+			    </select>
+	        </div>
+            
+			<div>
+	        	<input type="botton" value="查询" id="anniu" onclick="chanxun()">
+	        </div>
+        </div>
+        <div class="chengjixianshi hide">
+						<div style="background: url({$Think.APPS_URL}/exams/_static/images/bg_change.png);background-repeat:no-repeat;background-size:100% 100%;width: 90%;height: 60px;margin-left: 5%;">
+							<div style="width: 80%;float: left;height: 60px;line-height: 60px;font-size: 16px;font-weight: bold;color:white;margin-left: 10%;text-align: center;" id="cjtitle"></div>
+						</div>
+						<div>
+							<style>
+								table tr{
+									height: 30px;
+									line-height: 30px;
+									font-size: 16px;
+									font-weight: bold;
+								}
+							</style>
+							<table border="1" style="width: 90%;text-align: center;border: 1px solid #cecece;margin-top: 10px;margin-left: 5%;border-radius: 6px;">
+								<tr>
+									<td style="width: 30%;">姓名</td>
+									<td style="width: 70%;" id="xingming"></td>
+								</tr>
+								<tr>
+									<td style="width: 30%;">证件类型</td>
+									<td style="width: 70%;">身份证</td>
+								</tr>
+								<tr>
+									<td style="width: 30%;">证件号码</td>
+									<td style="width: 70%;" id="zhengjianhaoma"></td>
+								</tr>
+							</table>
+							<table border="1" style="width: 90%;text-align: center;border: 1px solid #cecece;margin-top: 10px;margin-left: 5%;border-radius: 6px;">
+								<tr>
+									<td style="width: 30%;">科目</td>
+									<td style="width: 70%;" id="kemu"></td>
+								</tr>
+								<tr>
+									<td style="width: 30%;">成绩</td>
+									<td style="width: 70%;" id="chengji"></td>
+								</tr>
+								<tr>
+									<td style="width: 30%;">是否合格</td>
+									<td style="width: 70%;" id="shifouhege"></td>
+								</tr>
+								<tr>
+									<td style="width: 30%;" >最终评定</td>
+									<td colspan="5" id="zuizhongpanding"></td>
+								</tr>
+							</table>
+						</div>
+			       </div>
+    </div>
+</div>
+<style>
+	#idcard{
+		width: 80%;
+		margin: 10px 10%;
+		height: 40px;
+		text-align: center;
+		border-radius: 10px;
+		border:1px solid #cecece;
+	}
+	#type{
+		width: 80%;
+		margin: 10px 10%;
+		height: 40px;
+		text-align: center;
+		background-color: white;
+		border-radius: 10px;
+		border:1px solid #cecece;
+	    text-align-last: center;
+	}
+	.hide{
+		display: none;
+	}
+
+	option{
+		text-align: center;
+	}
+	#anniu{
+		width: 40%;
+		height: 40px;
+		margin: 10px 30%;
+		background-color: #00BED4;
+		text-align: center;
+		color:white;
+		font-weight: bold;
+	}
+</style>
+<include file="__THEME__/public_footer_w3g"/>
+<script src="{$Think.APPS_URL}/exams/_static/js/public_header_footer_media.js"></script>
+<script src="{$Think.APPS_URL}/exams/_static/js/swipe.js" charset="utf-8"></script>
+<script type="text/javascript">
+	function chanxun(){
+		var kaoqi=$('#kaoqi').val();
+		var idcard=$('#idcard').val();
+		if(idcard=='')
+		{
+			alert('请输入身份证号')
+		}else if(kaoqi=='')
+		{
+			alert('请选择考期')
+		}else{
+			$.ajax({
+	            type: "POST",
+	            url:U('classroom/Home/mychengji'),
+	            data: "kaoqi="+kaoqi+'&idcard='+idcard+'&status=ajax',
+	            async:false,
+	            dataType:"JSON",
+	            success: function(data){
+	            		$('.chengjixianshi').addClass('hide');
+	                	if(data.code==1)
+	                	{	
+	                		$('.chengjixianshi').removeClass('hide');
+	                		$('#cjtitle').html(data.msg.bkxm+"-"+data.msg.level);
+	                		$('#xingming').html(data.msg.name)
+	                		$('#zhengjianhaoma').html(data.msg.idcard)
+	                		$('#kemu').html(data.msg.bkxm)
+	                		$('#chengji').html(data.msg.chengji)
+	                		$('#shifouhege').html(data.msg.status)
+	                		$('#zuizhongpanding').html(data.msg.status)
+	                	}else{
+	                		alert('该用户成绩还未录入或不存在');
+	                	}
+	            },
+	            error:function(xhr){
+	                alert('系统错误');
+	            }
+	        });
+		}
+	}
+</script>

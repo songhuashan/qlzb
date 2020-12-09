@@ -1,0 +1,97 @@
+
+<if condition="$type eq 1">
+    <!--课程为视频-->
+    <if condition="$video_type eq 4">
+        <!--视频存储在cc-->
+        <?php
+                        $spark_config = array(
+                            'charset' => 'utf-8',
+        'user_id' => $ccvideo_config['cc_userid'],
+        'key'     => $ccvideo_config['cc_apikey'],
+        );
+        ?>
+        <div class="learn-box" id="vplayer" style="z-index: 455;width: 700px;height: 500px;" ></div>
+        <script type="text/javascript" src="__THEME__/js/ccuploader/js/swfobject.js"></script>
+        <script type="text/javascript">
+            //	功能：创建播放器flash，需传递所需参数，具体参数请参考api文档
+            var swfobj = new SWFObject('https://union.bokecc.com/flash/player.swf', 'playerswf', '100%', '100%', '8');
+            swfobj.addVariable( "userid" , "{$ccvideo_config['cc_userid']}");	//	partnerID,用户id
+            swfobj.addVariable( "videoid" , "{$videokey}");	//	spark_videoid,视频所拥有的 api id
+            swfobj.addVariable( "mode" , "api");	//	mode, 注意：必须填写，否则无法播放
+            swfobj.addVariable( "autostart" , "true");	//	开始自动播放，true/false
+            swfobj.addVariable( "jscontrol" , "false");	//	开启js控制播放器，true/false
+
+            swfobj.addParam('allowFullscreen','true');
+            swfobj.addParam('allowScriptAccess','always');
+            swfobj.addParam('wmode','transparent');
+            swfobj.write('vplayer');
+
+
+            function on_spark_player_ready() {
+                //alert("播放器加载完毕");
+            }
+
+            function on_spark_player_start() {
+                //alert('开始播放');
+            }
+
+            function on_spark_player_pause() {
+                //alert('暂停播放');
+            }
+
+            function on_spark_player_resume() {
+                //alert('暂停后继续播放');
+            }
+
+            function on_spark_player_stop() {
+                //alert('播放停止');
+            }
+
+            function player_play() { //	调用播放器开始播放函数
+                document.getElementById("playerswf").spark_player_start();
+            }
+            function player_pause() { //	调用播放器暂停函数
+                document.getElementById("playerswf").spark_player_pause();
+            }
+            function player_resume() { //	调用播放器恢复播放函数
+                document.getElementById("playerswf").spark_player_resume();
+            }
+        </script>
+
+        <else/>
+        <!--七牛或者本地-->
+        <link href="__THEME__/js/videojs/video-js.css" rel="stylesheet" type="text/css" />
+        <script src="__THEME__/js/videojs/video.min.js"></script> 
+        <div style="z-index: 455;width: 700px;height: 500px;"> 
+        <php>if($is_hls == 1){</php>
+            <script type="text/javascript" src="__THEME__/js/videojs/videojs-contrib-hls.min.js"></script>
+            <video id="my-video" controls="controls" autoplay="autoplay" preload="auto" class="video-js vjs-big-play-centered">
+                <source src="{$video_address}" type="application/x-mpegURL">
+            </video>
+        <php>}else{</php>
+            <video id="my-video" controls="controls" autoplay="autoplay" preload="auto" class="video-js vjs-big-play-centered" style="z-index: 455;width: 700px;height: 500px;" >
+                <source src="{$video_address}" type="video/mp4" />
+            </video>
+        <php>}</php>
+        </div>
+        <script type="text/javascript">
+            var myPlayer   = videojs('my-video');
+            myPlayer.play();
+        </script>
+    </if>
+
+    <elseif condition="$type eq 2"/><!--课程为音频-->
+
+    <audio src="{$video_address}" controls="controls" autoplay>
+
+    </audio>
+
+    <elseif condition="$type eq 3"/><!--课程为文本-->
+
+    <div id="tplayer" class="learn-box" style="overflow-y: auto;background: #FFF;width: 700px;height: 500px;">{$video_address}</div>
+
+    <elseif condition="$type eq 4"/><!--课程为文档-->
+
+    <div id="dplayer" class="learn-box" > <iframe src="__THEME__/js/pdfjs/web/viewer.html?file={$video_address}" width="700" height="500" allowfullscreen="true"></iframe> </div>
+
+</if>

@@ -1,0 +1,636 @@
+<include file="__THEME__/public_header" />
+
+<link href="__THEME__/css/video.css" rel="stylesheet" type="text/css" />
+<php>if(empty($_SESSION['mid'])){</php>
+<include file="__THEME__/reg_login" />
+<php>}</php>
+<!-- 遮罩层 -->
+<div class="mask"></div>
+<div class="clear"></div>
+<!-- 购买确认弹出框 -->
+<div class="buyOperating">
+    <div class="w-close"><a class="mr15 mt5">×</a></div>
+    <div class="w-notice">
+        <h4>提示：该专辑需要支付<em id="myxuebinum" class="coin_num_l">0</em>学币，您当前账户余额为<em class="coin_num_l">{$balance['balance']}</em>学币。是否继续？</h4>
+    </div>
+    <div class="agreement">
+        <a><span id="protocol" class="agree"></span>我已经阅读并同意</a>
+        <a>《收费课程服务协议》</a>
+    </div>
+    <div class="buy-btn">
+        <a class="btn"  onclick="buyOperat({$vid});">确认支付</a>
+        <a class="btn" href="{:U('classroom/User/recharge')}">充值</a>
+        <a class="btn cancel">暂不支付</a>
+    </div>
+</div>
+<!--
+<div class="coursebox f-cb" id="j-coursebox">-->
+<div class="g-mn2c m-courselb">
+    <div id="video_play1" class="m-courselearn">
+        <!--左边视屏头部标题系列-->
+        <div class="video-top">
+            <div class="video-top-l">
+                <if condition="$_GET['is_look']"><a href="{:U('classroom/Video/view',array('id'=>$aid,'is_look'=>1))}"><else/><a href="{:U('classroom/Video/view',array('id'=>$aid))}"></if><i class="video-fh"></i><span>返回课程主页&nbsp;&nbsp;&nbsp;|</span></a>
+            </div>
+            <div class="video-top-con">
+                <a class="cl-pre" id="j-prev" href="#"></a>
+                <h2>{$video_title}</h2>
+                <a class="cl-next" id="j-next" href="#"></a>
+            </div>
+            <div class="video-top-r">
+                <!--<eq name="is_free" value="0"><a id="buyNowTop" href="javascript:;" class="fl">购买课程</a></eq>-->
+                <if condition=" $is_colle eq 0">
+                    <a class="wenda-gz fr" href="javascript:;" onClick="collectVideo(this,{$vid})" title="收藏课程"></a>
+                    <else />
+                    <a class="wenda-gz-Toggle"  href="#" title="已收藏此课程"></a>
+                </if>
+            </div>
+        </div>
+        <!--end-->
+        <!-- zhangr - start - video -->
+        <div class="learn-box" id="video_stop"></div>
+        <!---视屏提示-->
+        <div class="vedioPlay-msg" style="display: none">
+            <div class="vedioPlay-msgbox">
+                <p>需要继续观看视频，<a href="{:U('classroom/Video/view','id='.$aid)}">立即购买！</a></p>
+            </div>
+        </div>
+        <!--视屏提示结束-->
+
+        <php>if($video_type == 1){</php>
+            <!--课程为视频-->
+            <!--视频存储在cc-->
+            <if condition="$video_upload_room eq 4">
+                <?php
+                    $spark_config = array(
+                        'charset' => 'utf-8',
+                        'user_id' => $ccvideo_config['cc_userid'],
+                        'key'     => $ccvideo_config['cc_apikey'],
+                );
+                ?>
+                <div class="learn-box" id="vplayer" style="z-index: 455" ></div>
+                <script type="text/javascript" src="__THEME__/js/ccuploader/js/swfobject.js"></script>
+                <script type="text/javascript">
+                    //	功能：创建播放器flash，需传递所需参数，具体参数请参考api文档
+                    var swfobj = new SWFObject('https://union.bokecc.com/flash/player.swf', 'playerswf', '100%', '100%', '8');
+                    swfobj.addVariable( "userid" , "{$ccvideo_config['cc_userid']}");
+                    swfobj.addVariable( "videoid" , "{$videokey}");
+                    swfobj.addVariable( "mode" , "api");
+                    swfobj.addVariable( "autostart" , "true");
+                    swfobj.addVariable( "jscontrol" , "true");
+
+                    swfobj.addParam('allowFullscreen','true');
+                    swfobj.addParam('allowScriptAccess','always');
+                    swfobj.addParam('wmode','transparent');
+                    swfobj.write('vplayer');
+
+                    var _objectid;
+                    function on_cc_player_init( vid, objectID ){
+                        _objectid=objectID;
+                        var config = {};
+                        config.rightmenu_enable = 0;
+
+                        var player = getSWF(objectID);
+                        player.setConfig(config);
+                    }
+
+                    function getSWF( swfID ) {
+                        if (window.document[ swfID ]) {
+                            return window.document[ swfID ];
+                        } else if (navigator.appName.indexOf("Microsoft") == -1) {
+                            if (document.embeds && document.embeds[ swfID ]) {
+                                return document.embeds[ swfID ];
+                            }
+                        } else {
+                            return document.getElementById( swfID );
+                        }
+                    }
+
+                    function player_current(){
+                        var player = getSWF(_objectid );
+                        if(player) {
+                            var time = Math.floor(player.getPosition()+1);
+                            var length_of_time = player.getDuration();
+                            if(time >= 0 && time < length_of_time){
+                                addLearnLog(time,length_of_time);
+                            }else{
+                                clearInterval(interval_player);
+                            }
+                        }
+                    }
+
+                    var interval_player = setInterval("player_current()",1000);
+
+                    //添加观看记录
+                    function addLearnLog(timespan , total_time){
+                        var t          = parseInt(timespan);
+                        var total_time = parseInt(total_time);
+                        if(t && (t % 4 == 0)){
+                            lastAddtime = t;
+                            $.ajax({
+                                type: "POST",
+                                url:"{:U('classroom/Video/updateLearn')}",
+                                data:{time:t,vid:<php>echo $_GET['id'];</php>,sid:<php>echo $_GET['s_id'];</php>,totaltime:total_time},
+                                dataType:"json",
+                                success:function(){
+                                }
+                            });
+
+                        }
+                    }
+
+                </script>
+            <else/>
+                <link href="__THEME__/js/videojs/video-js.css" rel="stylesheet" type="text/css" />
+                <script src="__THEME__/js/videojs/video.min.js"></script>   
+                <!--视频存储在其他服务器-->
+                <div id="vplayer" class="learn-box">
+                    <php>if($is_hls == 1){</php>
+                        <script type="text/javascript" src="__THEME__/js/videojs/videojs-contrib-hls.min.js"></script>
+                        <video id="my-video" class="video-js vjs-big-play-centered"  controls preload="auto" width="100%" height="100%" poster="">
+                            <source src="{$video_address}" type="application/x-mpegURL">
+                        </video>
+                    <php>}else{</php>
+                        <video id="my-video" class="video-js vjs-big-play-centered" src="{$video_address}" controls preload="auto" width="100%" height="100%" poster="">
+                        </video>
+                    <php>}</php>
+                </div>
+                
+                <script type="text/javascript">
+                    var myPlayer   = videojs('my-video');
+                    myPlayer.play();
+                    //myPlayer.ready(function(){
+                        //var myPlayer = this;
+                        //myPlayer.play();
+                    //});
+                    myPlayer.on('timeupdate', function() { 
+                        var test_time  = {$test_time};
+                        var is_free    = {$is_free};//课程是否免费
+                        var free       = {$free};//课时是否免费
+                        var times      = myPlayer.currentTime(); 
+                        var total_time = myPlayer.duration();
+                        if(times > 4){
+                            addLearnLog(times , total_time);
+                        }
+                        if(is_free == 0 && free == 0){
+                            if (times > test_time){
+                                myPlayer.pause();
+                                $("#vplayer").html('');
+                                $(".vedioPlay-msg").css("display","block");
+                            }
+                        } 
+                    });
+                    //添加观看记录
+                    function addLearnLog(timespan , total_time){
+                        var t          = parseInt(timespan);
+                        var total_time = parseInt(total_time);
+                        if(t && (t % 4 == 0)){
+                            lastAddtime = t;
+                            $.ajax({
+                                type: "POST",
+                                url:"{:U('classroom/Video/updateLearn')}",
+                                data:{time:t,vid:<php>echo $_GET['id'];</php>,sid:<php>echo $_GET['s_id'];</php>,totaltime:total_time},
+                                dataType:"json",
+                                success:function(){
+                                }
+                            });
+                            
+                        }
+                    }
+                </script>
+            </if>
+        <php>}else if($video_type == 2){</php>
+            <!--课程为音频-->
+            <if condition="$upload_room neq 4">
+                <div id="mplayer" class="learn-box">
+                    <div id="aplayer" class="aplayer"></div>
+                </div>
+                <script src="__THEME__/js/aplayer/APlayer.min.js"></script>
+                <link href="__THEME__/js/aplayer/APlayer.min.css" rel="stylesheet"/>
+                <script>
+                    var ap = new APlayer({
+                        element: document.getElementById('aplayer'),
+                        narrow: false,
+                        autoplay: true,
+                        showlrc: false,
+                        music: {
+                            title: "{$video_title}",
+                            author: "{:getUsername($teacher_id)}",
+                            url: "{$video_address}",
+                            pic: "{:getCover($cover,920,500)}"
+                        }
+                    });
+                    ap.init();
+                </script>
+
+                <else/>
+                <div id="mplayer" class="learn-box">
+                    <div id="aplayer" class="aplayer">{$video_address}</div>
+                </div>
+            </if>
+        <php>}else if($video_type == 3){</php>
+            <!--课程为文本-->
+            <div id="tplayer" class="learn-box" style="overflow-y: auto;background: #FFF;">{$video_address}</div>
+        <php>}else if($video_type == 4){</php>
+            <!--课程为文档-->
+            <div id="dplayer" class="learn-box" > <iframe src="__THEME__/js/pdfjs/web/viewer.html?file={$video_address}" width="100%" height="100%" allowfullscreen="true"></iframe> </div>
+        <php>}</php>
+
+        <!-- zhangr - end - video -->
+        <div class="cl-info f-cb">
+            <!--  <div class="cli-intro"><i></i><a href="#">资源下载</a></div>
+             <div class="cli-phon"><i></i><a href="#">手机观看</a></div> -->
+            <div style="" title="分享" class="cli-share j-sharebox auto-1390289261253-parent" id="auto-id-Wgv0KyQS2q5GtCJz">
+                <span class="fl">分享到：</span>
+                <div data-bd-bind="1411956524693" class="bdsharebuttonbox bdshare-button-style1-16">
+                    <a data-cmd="more" class="bds_more " href="#"></a>
+                    <a title="分享到微信" data-cmd="weixin" class="bds_weixin" href="#"></a>
+                    <a title="分享到QQ好友" data-cmd="sqq" class="bds_sqq" href="#"></a>
+                    <a title="分享到QQ空间" data-cmd="qzone" class="bds_qzone" href="#"></a>
+                    <a title="分享到新浪微博" data-cmd="tsina" class="bds_tsina" href="#"></a>
+                </div>
+                <script>
+                    window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["weixin","sqq","qzone","tsina","tqq","renren","kaixin001","douban"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='__THEME__/js/baiduShare/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                </script>
+            </div>
+        </div>
+        <!--底部加分享系列-->
+        <div id="j-hideRightBtn" class="u-hideleftbtn" title="隐藏课程目录"></div>
+    </div>
+
+</div>
+
+
+<!------------右边------------>
+<div id="course-toolbar-box" class="g-sd2">
+    <div class="m-ctb">
+        <!--右边上面第一部分-->
+        <div class="courseintro">
+            <h2>{$video_title}</h2>
+            <div class="video_rinfo">
+                <img src="{:getCover($cover,147,95)}" />
+                <div class="video_rinfo-con">
+                    <ul class=" fl">
+                        <span>评分：</span>
+                        <li class="<if condition="$score GT 0 ">grade-back-set<else />grade-back-default</if>"></li>
+                        <li class="<if condition="$score GT 1 ">grade-back-set<else />grade-back-default</if>"></li>
+                        <li class="<if condition="$score GT 2 ">grade-back-set<else />grade-back-default</if>"></li>
+                        <li class="<if condition="$score GT 3 ">grade-back-set<else />grade-back-default</if>"></li>
+                        <li class="<if condition="$score GT 4 ">grade-back-set<else />grade-back-default</if>"></li>
+                    </ul>
+                    <p>购买人数:{$video_order_count}人</p>
+                    <p>上架时间:{$listingtime|date='Y-m-d',###}</p>
+                    <p>更新时间:{$utime|date='Y-m-d',###}</p>
+                </div>
+            </div>
+        </div>
+        <!--右边teb-->
+        <ul class="tabs" id="tags">
+            <li class="current"><a style="color:#FFF;" href="javascript:;" onClick="muluBang(this)" class=""><i class="tabs-ml"></i>目录</a></li>
+            <li><a href="javascript:;" id="note" onClick="noteBang(this,{$aid},{$type})"><i class="tabs-bj"></i>笔记</a></li>
+            <!-- <li><a href="javascript:;" ><i class="tabs-dp"></i>点评</a> </li> -->
+            <li><a href="javascript:;" id="question" onClick="questionBang(this,{$aid},{$type})"><i class="tabs-tw"></i>提问</a></li>
+        </ul>
+    </div>
+    <!--teb内容切换盒子-->
+    <div id="tagcontent_box">
+        <!--课程-->
+        <div class="m-chapterList" id="tagcontent0" style="display: block;">
+            <volist name="menu" id="vo">
+                <div class="section">
+                    <div class="section_bj"> </div>
+                    <a class="fl ksname"  href="javascript:;" >{:limitNumber($vo['title'], 25)}</a>
+                </div>
+                <php>if($vo['child']){</php>
+                <volist name="vo.child" id="vo1">
+                    <if condition="$vo1['is_activity'] eq 1 || ($_GET['is_look'] eq 1 and $vo1['is_activity'] neq 0)">
+                        <div <if condition=" $sid eq $vo1['id']" > class="section-cur section" <else />class="section" </if> >
+                            <div class="section_bj"> </div>
+                            <span class="fl ksicon-30-mark ksicon-0-mark"></span>
+                            <a class="fl ksname"  href="{:U('classroom/Video/watch',array('id'=>$vo1['vid'],'s_id'=>$vo1['id'],'is_look'=>$_GET['is_look']))}" >{:limitNumber($vo1['title'], 25)}</a>
+                        </div>
+                    </if>
+                </volist>
+                <php>}</php>
+            </volist>
+
+        </div>
+
+        <!--笔记-->
+        <div class="p10 tagcontent txt_l" id="tagcontent1" style="display: none">
+            <form>
+                <input type="hidden" value="1" name="kztype">
+                <input type="hidden" value="0" class="kzid" name="kzid">
+                <div class="tips1 l5">我的笔记</div>
+                <div class="editwrap_tittle mt22">
+                    <div class="tips r5">标题限<span id="notetittle_length">45</span>字符内</div>
+                    <textarea name="tittle" class="j-edittxt edittxt" maxlength="50" id="notetittle" placeholder="在此输入笔记标题... " onblur=""></textarea>
+                    <label for="edittxt" class="j-hint hint" id="auto-id-drt6TisVISpRhnQa"></label>
+                </div>
+                <div class="editwrap mt22">
+                    <div class="tips r5">内容限<span id="notecont_length">300</span>字符内</div>
+                    <textarea name="content" class="j-edittxt edittxt" maxlength="100" id="notecont" placeholder="在此记录你的想法... "></textarea>
+                    <label for="edittxt" class="j-hint hint" id="auto-id-drt6TisVISpRhnQa"></label>
+                </div>
+                <div class="mt5 clearfix">
+                    <label class="checklabel fl">
+                        <input type="checkbox" class="j-privatecheck" hidefocus="true" id="note_isopen" checked="checked" value="1" name="is_open">
+                        &nbsp;公开</label>
+                    <input type="button" onClick="noteaddBang(this,{$aid},{$type})" class="bg_btn_gray Secrecy fr" style="cursor:pointer" value="保存">
+                </div>
+            </form>
+            <ul class="video-list"></ul>
+            <div style="margin-top:28px;" class="wie" id="txtmydianbonote">
+                <div style="text-align:center;height:auto;overflow:hidden; color:#999999; font-size:12px">暂无数据</div>
+            </div>
+        </div>
+        <div class="p10 tagcontent txt_r" id="tagcontent3" style="display: none;">
+            <form >
+                <input type="hidden" value="1" name="kztype">
+                <input type="hidden" value="0" class="kzid" name="kzid">
+                <div class="tips1 l5">我的提问</div>
+                <!--
+                <div class="editwrap_tittle mt22">
+                 <div class="tips r5">标题限<span id="questiontitle_length">45</span>字符内</div>
+                    <textarea name="tittle" class="j-edittxt edittxt" maxlength="50" id="questiontitle" placeholder="请键入问题标题... "></textarea>
+                    <label for="edittxt" class="j-hint hint" id="auto-id-drt6TisVISpRhnQa"></label>
+                </div>
+                -->
+                <div class="editwrap mt22">
+                    <div class="tips r5">内容限<span id="questioncont_length">450</span>字符内</div>
+                    <textarea name="content" class="j-edittxt edittxt" maxlength="100" id="questioncont" placeholder="请添加问题描述... "></textarea>
+                    <label for="edittxt" class="j-hint hint" id="auto-id-drt6TisVISpRhnQa"></label>
+                </div>
+                <div class="mt5 clearfix">
+                    <input type="button" onClick="addquestionBang(this,{$aid},{$type})" style="border:none;cursor:pointer;" class="bg_btn_gray Secrecy fr" value="保存">
+                </div>
+            </form>
+            <ul class="video-list">
+
+            </ul>
+            <div style="margin-top:28px;" class="wie" id="txtmydianboqst">
+                <div style="text-align:center;height:auto;overflow:hidden; color:#999999; font-size:12px">暂无数据</div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $('#notetittle').bind('input propertychange', function() {
+        length=45-$("#notetittle").val().length;
+        $("#notetittle_length").html(length);
+    });
+    $('#notecont').bind('input  propertychange', function() {
+        length=300-$("#notecont").val().length;
+        $("#notecont_length").html(length);
+    });
+    $('#questiontitle').bind('input propertychange', function() {
+        length=45-$("#questiontitle").val().length;
+        $("#questiontitle_length").html(length);
+    });
+    $('#questioncont').bind('input propertychange', function() {
+        length=450-$("#questioncont").val().length;
+        $("#questioncont_length").html(length);
+    });
+    
+    //收藏课程
+    function collectVideo(cate,vid){
+        if(UID=='0'){
+            reg_login();
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url:"{:U('classroom/Public/collect')}",
+            data:{type:1,sctype:2,source_id:vid},
+            dataType:"json",
+            cache: false,
+            success: function(data){
+                if(data.status == '0'){
+                    notes(data.info,'failure');
+                } else {
+                    $(cate).removeClass().addClass("wenda-gz-Toggle");
+                }
+
+            },
+
+        });
+    }
+
+    $(function(){
+        '<php>if(!$video_address){</php>'
+            alert('该课程无法播放');
+            return false;
+        '<php>}</php>'
+
+        '<php>if($is_free==0 && $isBuyVideo==false && $free==0 && $video_type>1){</php>'
+            $("#mplayer,#tplayer,#dplayer,#aplayer").html('');
+            $(".vedioPlay-msg").css("display","block");
+        '<php>}</php>'
+
+        $('#myxuebinum').html(parseFloat('<?php echo $price;?>'));
+        //获取上一个兄弟节点的href
+        var prevhref=$('.section-cur').prev().children('a').attr("href");
+        $("#j-prev").attr("href",prevhref);
+        //获取下一个兄弟节点href
+        var nexthref=$('.section-cur').next().children('a').attr("href");
+        $("#j-next").attr("href",nexthref);
+        //立即购买
+        $("#buyNow,#buyNowTop").live('click',function(){
+            var mid = "{$mid}";
+            if(mid <= 0){
+                reg_login();
+                return false;
+            }
+            $('.buyOperating').show();
+            var mask_height = $(document).height();
+            $('.mask').height(mask_height).show();
+            return false;
+        });
+        //暂不购买
+        $('.w-close a,.buy-btn .cancel').live('click',function(){
+            $('.buyOperating,.mask').hide();
+        });
+        //同意协议
+        $('.agreement #protocol').click(function(){
+            var type = $(this).attr('class');
+            if(type == 'no-agree'){
+                $(this).attr('class','agree');
+            }else{
+                $(this).attr('class','no-agree');
+            }
+        });
+    });
+    var status=1;//1为展开  0为收缩
+    var width=$("#course-toolbar-box").width();
+    var vwidth=$(".m-courselearn").width();
+    $("#j-hideRightBtn").click(function(){
+        if(status==1){
+            var cont=width+vwidth;
+            $(this).removeClass().addClass("u-hiderightbtn");
+
+            $("#course-toolbar-box").animate({width:"0px"});
+            $(".m-courselearn").animate({width:cont});
+            status=0;
+        }else{
+            var csum=vwidth-width;
+            $(this).removeClass().addClass("u-hideleftbtn");
+            $("#course-toolbar-box").animate({width:width});
+            $(".m-courselearn").animate({width:vwidth});
+            status=1;
+        }
+    });
+
+    //目录点击
+    function muluBang(cate){
+        $("#tagcontent_box").children().css("display","none");
+        $("#tags").children().removeClass("current");
+        $("#tagcontent0").css("display","block");
+        $(cate).parent().addClass("current");
+
+    }
+    //笔记点击
+    function noteBang(cate,aid,type){
+        $("#tagcontent_box").children().css("display","none");
+        $("#tags").children().removeClass("current");
+        $("#tagcontent1").css("display","block");
+        $(cate).parent().addClass("current");
+        $.ajax({
+            type: 'POST',
+            url:"{:U('classroom/Album/getnotelist')}",
+            data:{type:type,oid:aid},
+            dataType:"json",
+            cache: false,
+            success: function(data){
+                if(data.data!=""){
+                    $(".video-list").html("");
+                    $(".video-list").append(data.data);
+                    $("#txtmydianbonote").css("display","none");
+                }
+
+            },
+
+        });
+    }
+    //提问点击
+    function questionBang(cate,aid,type){
+        $("#tagcontent_box").children().css("display","none");
+        $("#tags").children().removeClass("current");
+        $("#tagcontent3").css("display","block");
+        $(cate).parent().addClass("current");
+        $.ajax({
+            type: 'POST',
+            url:"{:U('classroom/Album/getquestionlist')}",
+            data:{type:type,oid:aid},
+            dataType:"json",
+            cache: false,
+            success: function(data){
+                if(data.data!=""){
+                    $(".video-list").html("");
+                    $(".video-list").append(data.data);
+                    $("#txtmydianbonote").css("display","none");
+                }
+
+            },
+
+        });
+    }
+    //添加笔记
+    function noteaddBang(cate,aid,type){
+        if(MID=='0'){
+            reg_login();
+            return;
+        }
+        var cont=$("#notecont").val();
+        var tittle=$("#notetittle").val();
+        var isopen=0;
+        if($("#note_isopen").attr("checked")){
+            isopen=1;
+        }
+        $(cate).val("保存中..");
+        $(cate).attr("disabled",true);
+        $.ajax({
+            type: 'POST',
+            url:"{:U('classroom/Note/add')}",
+            data:{kztype:type,kzid:aid,is_open:isopen,title:tittle,content:cont},
+            dataType:"json",
+            cache: false,
+            success: function(data){
+                if(data.status == '0'){
+                    $(cate).val("保存");
+                    $(cate).attr("disabled",false);
+                    notes(data.info,'failure');
+                } else {
+                    $("#notecont").val("");
+                    $(cate).val("保存");
+                    $(cate).attr("disabled",false);
+                    noteBang("#note",aid,type);
+                }
+
+
+            },
+
+        });
+    }
+
+    //添加提问
+    function addquestionBang(cate,aid,type){
+        if(MID=='0'){
+            reg_login();
+            return;
+        }
+
+        var cont = $("#questioncont").val();
+        var title= $("#questiontitle").val();
+
+        $(cate).val("保存中..");
+        $(cate).attr("disabled",true);
+        $.ajax({
+            type: 'POST',
+            url:"{:U('classroom/Question/add')}",
+            data:{kztype:type,kzid:aid,title:title,content:cont},
+            dataType:"json",
+            cache: false,
+            success: function(data){
+                if(data.status == '0'){
+                    $(cate).val("保存");
+                    $(cate).attr("disabled",false);
+                    notes(data.info,'failure');
+                } else {
+                    $("#questioncont").val("");
+                    $(cate).val("保存");
+                    $(cate).attr("disabled",false);
+                    questionBang("#question",aid,type);
+                }
+
+
+            },
+
+        });
+    }
+    //购买操作
+    var buyOperat = function(id){
+        if(!id){
+            notes('该课程不存在','failure');
+            return;
+        }
+        if($(".agree").size() < 1){
+            notes("购买专辑必须同意《收费课程服务协议》",'failure');
+            return;
+        }
+        // var id = '<?php echo $_GET["aid"]; ?>';
+        $.post(U('classroom/Video/buyOperating'),{id:id},function(txt){
+            if(txt.status == '0'){
+                $(".buyOperating").hide();
+                $(".mask").hide();
+                notes(txt.info,'failure');
+            } else {
+                $(".buyOperating").hide();
+                $(".mask").hide();
+                notes(txt.info,'success');
+                window.location.href = window.location.href;
+            }
+        },'json');
+    }
+</script>

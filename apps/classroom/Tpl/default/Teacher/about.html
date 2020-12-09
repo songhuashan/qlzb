@@ -1,0 +1,31 @@
+<!--header-->
+<include file="__THEME__/public_header" />
+<!--header end-->
+
+<style media="screen">
+    .main{width: 1200px;margin: 0 auto;overflow: hidden;}
+    .card-main{margin: 30px 0;font-size: 14px;line-height: 25px;}
+</style>
+<!--top-->
+<include file="./top" />
+<!--top end-->
+
+<!--content-->
+<div class="main">
+    
+    <div class="card-main">
+        {$data.details}
+    </div>
+</div>
+<!--content end-->
+
+<script type="text/javascript">
+   $(".tab_box li").click(function(){
+      var tab_index=$(this).index();
+      $(this).parents(".tab_box").siblings(".tab_list_box").eq(tab_index).show().siblings(".tab_list_box").hide();
+      $(this).addClass("on").siblings().removeClass("on");
+   })
+</script>
+
+<!--footer-->
+<include file="__THEME__/public_footer" />

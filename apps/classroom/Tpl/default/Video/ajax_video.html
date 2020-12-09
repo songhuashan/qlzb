@@ -1,0 +1,22 @@
+<php>if($listData){</php>
+<volist name="listData" id="vo">
+	<li>
+		<php>if($vo['type'] == 1){</php>
+			<a href="{:U('classroom/Video/view',array('id'=>$vo['id']))}">
+		<php>}else{</php>
+			<a href="{:U('live/Index/view',array('id'=>$vo['id']))}">
+		<php>}</php>
+			<strong><img src="{:cutImg($vo['cover'],140,85)}" alt=""></strong>
+			<span>
+				<h4>{:limitNumber($vo['video_title'],30)}</h4>
+				<!-- <b>
+					<php>if($vo['mzprice']['price'] == 0) {</php><i style="color: #39b75d;">免费</i> <php>} else {</php>￥{$vo['mzprice']['price']}<php>}</php>
+				</b> -->
+				<i class="icon icon-dian"></i>
+				<em><php>if($marketConf['order_switch'] == 1) {</php>{$vo['video_order_count_mark']}<php>}else{</php>{$vo['video_order_count']}<php>}</php>人在学习</em>
+			</span>
+		</a>
+
+	</li>
+</volist>
+<php>}</php>

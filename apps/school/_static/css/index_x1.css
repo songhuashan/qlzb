@@ -1,0 +1,60 @@
+@charset "utf-8";
+.content{width: 100%;background: #f0f0f2;}
+.main{width: 1200px;margin: 0 auto;}
+.clear{clear: both;}
+
+.title_box{overflow: hidden;line-height: 60px;}
+.title_box .name{float: left;font-size: 20px;}
+.title_box .more{float: right;font-size: 14px;color: #888;display: inline-block;margin-top: 5px;}
+.choice_course ul{margin-left: -30px;}
+.choice_course ul li{float: left;width: 25%}
+.choice_course ul li .div_box{overflow: hidden;margin: 0 0 30px 30px;border:1px solid #F0F1EC;border-radius:4px;transition:box-shadow .2s;background: #fff;}
+.choice_course ul li .div_box:hover{box-shadow:2px 4px 10px rgba(58,69,88,.3)}
+.choice_course ul li .div_box:hover a>img{transform:scale(1.05,1.05)}
+.choice_course ul li .div_box a{overflow:hidden;width: 100%;display: block;position: relative;}
+.choice_course li a>img{height:192px;transition:0.2s;width: 100%;}
+.choice_course li .title{width:248px;margin-top:-4px;float:left;padding:0 10px;}
+.choice_course li .title h5{width:100%;float:left}
+.choice_course li .title h5 a{font-size:16px;line-height:16px;padding:15px 0 10px 0;color:#333}
+.choice_course li .title b{display:table;font-size:12px;line-height:12px}
+.choice_course li .title b a{color:#888}
+.choice_course li .title span strong{float:left;font-size:18px;color:#ff4000;line-height:58px}
+.choice_course .title span small{float:right;color:#888;line-height:58px}
+.choice_course li a p{position: absolute;left: 0;top: 0;}
+.hot_class ul{margin-left: -30px;}
+.hot_class ul li{float: left;width: 33.333333%;}
+.hot_class ul li .div_box{overflow: hidden;margin: 0 0 30px 30px;background: #fff;transition: .2s;border-radius: 4px;position: relative;}
+.hot_class ul li .div_box:hover{box-shadow:2px 4px 10px rgba(58,69,88,.3);overflow: hidden;}
+.hot_class ul li .div_box:hover .text{bottom: 0;}
+.hot_class ul li .div_box b img{width: 100%;height: 204px;border-radius: 4px;}
+.hot_class ul li .div_box>p{height: 60px;width: 100%;line-height: 60px;text-indent: 15px;font-size:20px; }
+.hot_class ul li .div_box .text{height: 160px;width: 100%;position: absolute;left: 0;bottom: -160px;transition: bottom 0.2s;overflow: hidden;}
+.hot_class ul li .div_box .details{height: 100px;background: rgba(255,2555,255,.8)}
+.hot_class .div_box .details p span{display: block;float: left;font-size: 20px;margin-left: 15px;}
+.hot_class .div_box .details p strong{float: right;font-size: 18px;color:#ff4000;margin-right: 15px;}
+.hot_class .div_box .details p{overflow: hidden;padding: 20px 0 12px 0}
+.hot_class .div_box .details>span{display: inline-block;width: 80px;border-right: 1px solid #656565;font-size: 14px;color: #656565;text-align: center;}
+.hot_class .div_box .details .num{margin-left: 10px;}
+.hot_class .div_box a{display: block;width: 100%;height: 60px;text-align: center;line-height: 60px;color: #00BED4;font-size: 20px;background: #fff;}
+.teacher_list ul{margin-left: -30px;}
+.teacher_list ul li{float: left;width: 33.3333%;}
+.teacher_list ul li .div_box{background: #fff;margin: 30px 0 40px 30px;height: 90px;transition: all 0.2s;border-radius: 90px 0 0 90px;}
+.teacher_list ul li .div_box:hover{box-shadow:2px 4px 10px rgba(58,69,88,.3);}
+.teacher_list ul li .div_box:hover img{box-shadow:2px 4px 10px rgba(58,69,88,.3);}
+.teacher_list ul li .div_box .text_box a{width: 100%;font-size: 20px;color: #333;display: block;margin: 16px 0 16px 16px;}
+.teacher_list ul li .div_box span{margin-left: 15px;font-size: 14px;color: #656565;display: block;}
+.teacher_list ul li .div_box img{border-radius: 50%;height: 120px;width: 120px;margin-top: -15px;}
+.teacher_list ul li .div_box a{display: block;float: left;}
+.teacher_list ul li .div_box .text_box{float: left;;}
+.information_list ul{width: 100%;overflow: hidden;padding-bottom: 50px;}
+.information_list ul li{width: 50%;float: left;margin-bottom: 20px;}
+.information_list ul li .div_box{margin: 0 30px 30px 0;display: block;}
+.information_list li .div_box .img_p{float: left;width: 170px;height: 120px;}
+.information_list li .div_box .img_p img{width: 100%;height: 100%;}
+.information_list li .div_box .content_box{float: left;width: 66%;padding-left: 20px;}
+.information_list li .div_box .content_box a{font-size: 17px;color: #333;}
+.information_list li .div_box .content_box a:hover{color: #00bdd6;}
+.information_list li .div_box .content_box .say{display: inline-block;margin-left: 10px;}
+.information_list li .div_box .content_box p{font-size: 15px;color: #888;margin: 15px 0 22px 0;height: 40px;overflow: hidden;}
+.information_list li .div_box .content_box .time{font-size: 13px;color: #888;display: inline-block;width: max-content;border-right: 1px solid #dcdcdc;margin-right: 20px;}
+.information_list li .div_box .content_box .seen{font-size: 13px;color: #888;}

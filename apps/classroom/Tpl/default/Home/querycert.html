@@ -1,0 +1,131 @@
+<php>if($is_info == 1){</php>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <title>
+            	证书信息
+            </title>
+			<link rel="stylesheet" type="text/css" href="{$Think.APPS_URL}/exams/_static/css/cert_pring.css" />
+        </meta>
+    </head>
+    <body>
+
+        <div class="query_box">
+            <div class="certificate">
+                <div class="content_box">
+                    <p class="head_p">
+                        荣誉证书
+                    </p>
+                    <div class="text">
+                        {$info.cert_content}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="printImg">
+            <img src="" />
+        </div>
+        <div class="down_box">
+          <a id="download" href="javascript:">下载<a/>
+          <a id="print" href="javascript:">打印<a/>
+        </div>
+    </body>
+</html>
+<script type="text/javascript" src="__THEME__/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="__THEME__/js/html2canvas.js"></script>
+<script type="text/javascript" src="__THEME__/js/jquery.jqprint-0.3.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	html2canvas(document.querySelector(".query_box"),{width:600}).then(function(canvas) {
+	        $(".printImg img").attr("src",canvas.toDataURL());
+	    });
+	    // 打印证书
+        $("#print").click(function(){
+	        $(".printImg").jqprint({
+	            importCSS:false,
+	            printContainer:false,
+	        });
+	    });
+
+	    // 下载证书
+	    $("#download").click(function(){
+	    	var type ='png';
+	    	var imgdata = $(".printImg img").attr("src");
+	    	var fixtype=function(type){
+	            type=type.toLocaleLowerCase().replace(/jpg/i,'jpeg');
+	            var r=type.match(/png|jpeg|bmp|gif/)[0];
+	            return 'image/'+r;
+	        };
+	        imgdata=imgdata.replace(fixtype(type),'image/octet-stream');
+	        var savaFile=function(data,filename){
+	            var save_link=document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+	            save_link.href=data;
+	            save_link.download=filename;
+	            var event=document.createEvent('MouseEvents');
+	            event.initMouseEvent('click',true,false,window,0,0,0,0,0,false,false,false,false,0,null);
+	            save_link.dispatchEvent(event);
+	        };
+        	var filename='{$info.cert_code}-证书下载.'+type;
+        	savaFile(imgdata,filename);
+	    });
+    });
+</script>
+<php>}else{</php>
+<include file="__THEME__/public_header" />
+<link rel="stylesheet" type="text/css" href="{$Think.APPS_URL}/exams/_static/css/user_exams.css">
+<link rel="stylesheet" type="text/css" href="{$Think.APPS_URL}/exams/_static/css/cert.css">
+<!--header end-->
+<include file="../User/public/_top" />
+<style type="text/css">
+.no-data{padding: 25px;}
+</style>
+<!--centerbox end-->
+<div class="content cbg">
+    <div class="wrap">
+        <div class="center_right">
+
+            <div class="center_right_tit">
+                <ul>
+                    <li class="on"> <a href="{:U('classroom/Home/querycert')}">我获得的证书</a></li>
+                </ul>
+            </div>
+
+            <div class="center_right_con">
+                <div class="content-card">
+			     <div class="query_box">
+			     	<!--
+			       <div class="card_box">
+			          <input type="text" name="uname" value="" placeholder="请输入你的姓名开始查询">
+			          <span class="submit_querycert">查询</span>
+			       </div>-->
+			       <div class="certificate">
+			       	<php>if($list){</php>
+			         <ul>
+			         	<volist name="list" id="vo">
+				           <li>
+				             <div class="content_box">
+                       			<a target="_blank" href="{:U('classroom/Home/querycert',['cert_code'=>$vo['cert_code']])}" class="print_cert">查看证书</a>
+				               <p class="head_p">荣誉证书</p>
+				               <div class="text">
+				                 {$vo.cert_content}
+				               </div>
+				             </div>
+				           </li>
+			           </volist>
+			         </ul>
+			         <php>}else{</php>
+			         	<div class="no-data">暂时没有获得任何证书</div>
+			         <php>}</php>
+			       </div>
+			     </div>
+			   </div>
+            </div>
+
+        </div>
+
+        <include file="../User/public/_right" />
+    </div>
+</div>
+<include file="__THEME__/public_footer" />
+<php>}</php>

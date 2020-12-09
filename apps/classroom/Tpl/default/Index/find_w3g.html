@@ -1,0 +1,69 @@
+<include file="public/public_header_w3g"/>
+
+    <style media="screen">
+    .more_list{background: #fff;margin: 15px 0;}
+    .more_list li{height:50px;border-bottom: 1px solid #f0f0f0;}
+    .more_list li a{display: block;width: 100%;line-height: 50px;overflow: hidden;}
+    .more_list li a img{float: left;width:25px;height: 25px;margin-top: 13px;margin-left: 20px;}
+    .more_list li a p{float: left;font-size: 16px;color: #333;margin-left: 15px;}
+    .more_list li a .icon-youjiantou{float: right;color: #888;margin-right: 20px;font-size: 18px;}
+    </style>
+
+     <section>
+      <ul class="more_list">
+          <volist name="site_top_nav" id="vo">
+              <php>if(isset($vo['navi_key'])){</php>
+                  <if condition="$vo['navi_key'] neq 'index' and $vo['navi_key'] neq 'course' and $vo['navi_key'] neq 'album' ">
+                      <li>
+                          <a href="{$vo['url']}">
+                              <if condition="$vo['navi_key'] eq 'teacher_index'">
+                                  <img src="__APP__/image/faxian_teacher.png" alt="{$vo.navi_name}">
+                                  <else/>
+                                  <img src="__APP__/image/faxian_lineclass.png" alt="{$vo.navi_name}">
+                              </if>
+                              <p>{$vo.navi_name}</p><i class="icon icon-youjiantou"></i>
+                          </a>
+                      </li>
+                  </if>
+              <php>}else{</php>
+              <if condition="$vo['app_name'] neq 'Index' and $vo['app_name'] neq 'Album' and $vo['app_name'] neq 'Vip' and $vo['app_name'] neq 'more'">
+                  <if condition="$vo.child neq ''">
+                      <volist name="vo.child" id="child">
+                          <if condition="$child['app_name'] eq 'lineclass'">
+                              <li>
+                                  <a href="{$child['url']}">
+                                      <img src="__APP__/image/faxian_{:lcfirst($child['app_name'])}.png" alt="{$child.navi_name}">
+                                      <p>{$child.navi_name}</p><i class="icon icon-youjiantou"></i>
+                                  </a>
+                              </li>
+                          </if>
+                      </volist>
+                      <else/>
+                      <li>
+                          <a href="{$vo['url']}">
+                              <img src="__APP__/image/faxian_{:lcfirst($vo['app_name'])}.png" alt="{$vo.navi_name}">
+                              <p>{$vo.navi_name}</p><i class="icon icon-youjiantou"></i>
+                          </a>
+                      </li>
+                  </if>
+                  <elseif  condition="$vo['app_name'] eq 'more'"/>
+                  <volist name="vo.child" id="child">
+                      <li>
+                          <a href="{$child['url']}">
+                              <img src="__APP__/image/faxian_{:lcfirst($child['app_name'])}.png" alt="{$child.navi_name}">
+                              <p>{$child.navi_name}</p><i class="icon icon-youjiantou"></i>
+                          </a>
+                      </li>
+                  </volist>
+              </if>
+              <php>}</php>
+          </volist>
+      </ul>
+     </section>
+
+  <script type="text/javascript">
+  $(document).ready(function(){
+              $(".nav_list ul li:eq(2)").addClass("on");
+          });
+  </script>
+<include file="__THEME__/public_footer_w3g"/>

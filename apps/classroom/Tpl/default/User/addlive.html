@@ -1,0 +1,584 @@
+<style type="text/css">
+    *{
+        font-style: normal!important;
+    }
+    .center_right_tit{
+        margin-bottom: 50px;
+    }
+    .new_title{
+       background-color: #fafafa;
+        margin-right: 30px;
+        height: 40px;
+    }
+
+    .infobox dt {
+        margin-left:-114 !important;
+    }
+    .class_name{
+        margin-left: 20px;
+    }
+.form_class dl{
+     margin-left: -28px;
+}
+    /*
+    下边框
+    */
+    .boder_bottom{
+        border-bottom: 1px solid #e5e5e5;
+        margin-left: 57px;
+        margin-right:29px;
+        margin-bottom: 16px;
+    }
+    /*
+    放大
+    */
+
+    .font{
+        width: 10px;
+        height: 10px;
+        font-weight: bold;
+        font-size: 27px;
+        color: #00BED4!important;
+       position: absolute;
+        left: 30px;
+        top: -12px;
+        font-style: normal;
+    }
+    .relative{
+        position: relative;
+    }
+    .creat_node{
+        border:0;
+        outline: 0;
+        background: transparent;
+        color: #00BED4;
+        font-size: 14px;
+    }
+    .motai{
+        position: fixed;
+        left:0;
+        top:0;
+        z-index:100;
+        background:rgba(0,0,0,0.3);
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+    .add_class{
+        font-size:16px;
+        text-indent: 130px;
+        margin-bottom: 20px;
+    }
+     .form_class{
+         position: fixed;
+         left:0;
+         top: 200px;;
+         right:0;
+         left:0;
+         width: 520px;
+         height: 540px;
+         background: white;
+         z-index: 1000;
+         margin: auto;
+    }
+    .guanbi{
+        position: absolute;
+        right: 18px;
+        top:5px;
+        font-size: 30px;
+    }
+     .shenhe{
+         border:0;
+         outline: 0;
+         color: #00a0e9;
+         background: transparent;
+         margin-left: 137px;
+     }
+    .wrap:after{
+        clear: none!important;
+    }
+    .sub{
+        background: #00BED4;
+        width: 100px;
+        height: 32px;
+    }
+    .btn{
+        width: 200px!important;
+        height: 32px!important;
+        line-height: 32px!important;
+        font-size: 16px!important;
+        border-radius: 4px;
+        margin: 20px 0 0 50px;
+        padding: 0px!important;
+    }
+  .a1{
+       display: block;
+       width: 200px!important;
+       height: 32px!important;
+       color: #fff!important;
+       background: #00BED4;
+       border-radius: 4px;
+       line-height: 32px;
+       text-align: center;
+       margin:  0 193px;
+  }
+  .a1：hover{
+       color: #fff!important;
+  }
+  .edit_chapter{
+        margin-left: 180px;
+  }
+  .chapter_name{
+        background-color: #fafafa;
+        color: #656565;
+  }
+  .icon{
+    font-size: 18px!important;
+  }
+  .cancel_upload{
+    width: 100px;
+    height: 29px;
+    margin: -21px 0px 0px 20px ;
+    font-size: 8pt;
+    color: #535353;
+    border: #dcdcdc solid 1px;
+  }
+  .infobox dd{
+    margin-left: 60px;
+  }
+  .infobox dt{
+    width: 140px !important;
+  }
+  .user-pbottom{
+    min-height: inherit !important;
+  }
+</style>
+<include file="__THEME__/public_header" />
+<!--分类筛选使用的jquery1.7.1不兼容，故使用jquery  主要用于课程直播分类筛选-->
+<!--<script type="text/javascript" src="__THEME__/js/jquery.js"></script>-->
+<include file="../User/public/_top" />
+
+<div id="content cbg">
+    <div class="wrap position-rt">
+        <div class="user-con fl user-pbottom">
+            <div class="center_right_tit">
+                <ul>
+                    <li><a href="{:U('classroom/User/teacherVideo')}">我上传的课程</a></li>
+                    <li class="on"><a onclick="navClick(this,'uploadvideo')" href="javascript:;">课时管理</a></li>
+                </ul>
+            </div>
+            <i class="uploadvideo center_right_con">
+                <form method="POST" action="{:U('classroom/User/doaddliveSession')}" class="infobox" id="detail_form" name="detail_form" onsubmit="return j_validateCallback(this,checkForm,post_callback)">
+                    <volist name ="list"  id ="vo" >
+                        <dl class="new_title">
+                            <dt><span></span>直播课时名称：</dt>
+                            <dd>
+                                <input class="inp01 chapter_name" name="video_title"  value="{:msubstr($vo['subject'],0,20,'utf-8',true)}"  readonly="readonly"  style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;width: 300px;"/>
+                                <if condition="$live_type eq 1">
+                                    <a target='_blank' href='{$vo['teacherJoinUrl']}?nickname={$tea_name}&token={$vo['teacherToken']}'>老师讲课</a>
+                                <elseif condition="$live_type eq 4" />
+                                    <a target='_blank' href='{$vo['teacherJoinUrl']}&publishname={$tea_name}&publishpassword={$vo['teacherToken']}' >老师讲课</a>
+                                <elseif condition="$live_type eq 5" />
+                                   <a target='_blank' href='{$vo['teacherJoinUrl']}' >老师讲课</a>
+                                <elseif condition="$live_type eq 6" />
+                                   <a target='_blank' href='{$vo['teacherJoinUrl']}&autoLogin=true&username={$tea_name}&password={$vo['teacherToken']}' >老师讲课</a>
+                                <elseif condition="$live_type eq 7" />
+                                    <a target='_blank' href='{$vo['teacherJoinUrl']}' >老师讲课</a>
+                                <elseif condition="$live_type eq 8" />
+                                    <a target='_blank' href='{$vo['teacherJoinUrl']}' >老师讲课</a>
+                                </if>
+                                <i type="button" value="修改课时" class ="addcc edit_chapter icon icon-compile" title=""    id="editchapterstate"   data-type="edit_chapter"  onclick = editchapter(this,"{$vo.id}","{$vo.live_id}") ></i>
+                                <i type="button" style="margin-left: 24px" value="删除课时" class ="addcc icon icon-shanchu" onclick = delchapter("{$vo.id}") ></i>
+
+                            </dd>
+                        </dl>
+                    </volist>
+                    <dl>
+                        <dt class="relative"><span class="font">+</span><input class="creat_node" type="button"  onclick ="addchaptertitle()"  value = "新增直播课时"></dt>
+                        <dd>
+                            <input type="text"  readonly="readonly"  style="border:1px;border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;"/>
+                        </dd>
+                    </dl>
+                    <div class="form2" style="display: none;">
+                        <!--公用数据-->
+                        <dl class="lineD" id="dl_subject">
+                            <dt><font color="red"> * </font>直播课时标题：</dt>
+                            <dd>
+                                <input name="subject" id="form_subject" type="text" value="" class="inp01">
+                            </dd>
+                        </dl>
+                        <dl class="lineD" id="dl_startDate">
+                            <dt><font color="red"> * </font>开始时间：</dt>
+                            <dd>
+                                <input name="startDate" type="text" class="inp01" id="form_startDate" value="" onfocus="core.rcalendar(this,'full');" readonly="readonly">
+                            </dd>
+                        </dl>
+                        <dl class="lineD" id="dl_invalidDate">
+                            <dt><font color="red"> * </font>结束时间：</dt>
+                            <dd>
+                                <input name="invalidDate" type="text" class="inp01" id="form_invalidDate" value="" onfocus="core.rcalendar(this,'full');" readonly="readonly">
+                            </dd>
+                        </dl>
+                        <!--展示互动-->
+                        <if condition="in_array($live_type,['1','8'])">
+                            <dl class="lineD" id="dl_scene">
+                                <dt>直播场景：</dt>
+                                <dd>
+                                    <if condition="$live_type eq 1">
+                                        <label><input type="radio" name="scene" value="0" checked="checked">大讲堂 </label>
+                                        <label><input type="radio" name="scene" value="1">小班课 </label>
+                                        <else/>
+                                        <label><input type="radio" name="scene" value='0'  checked="checked"  >一对一 </label>
+                                        <label><input type="radio" name="scene" value='3'   >一对多 </label>
+                                    </if>
+                                </dd>
+                            </dl>
+                        </if>
+                        <!--展示互动 CClive CC小班课 eeo小班课 共用数据-->
+                        <if condition="in_array($live_type,['1','4','6','7','8'])">
+                            <dl class="lineD" id="dl_maxAttendees">
+                                <dt><font color="red"> * </font>最大支持人数：</dt>
+                                <dd>
+                                    <input name="maxAttendees" id="form_maxAttendees" type="text" value="{$maxnums}" class="inp01">
+                                </dd>
+                            </dl>
+                        </if>
+                        <if condition="in_array($live_type,['1','4','5','6'])">
+                            <dl class="lineD" id="dl_uiMode">
+                                <dt><font color="red"> * </font>直播模式：</dt>
+                                <!--展示互动-->
+                                <if condition="$live_type eq 1">
+                                    <dd>
+                                        <label><input type="radio" name="uiMode" value="1">模板一 视频直播+聊天互动+直播问答 三分屏 </label>
+                                        <label><input type="radio" name="uiMode" value="2">模板二 视频为主 文档为小窗 </label>
+                                        <label><input type="radio" name="uiMode" value="3">模板三 视频直播+直播文档 两分屏 </label>
+                                        <label><input type="radio" name="uiMode" value="4" checked="checked">模板四 视频直播+聊天互动+直播文档+直播问答 </label>
+                                        <br>
+                                    </dd>
+                                <!--CCLive-->
+                                <elseif condition="$live_type eq 4" />
+                                    <dd>
+                                        <label><input type="radio" name="uiMode" value="1" onclick="admin.uiMode(this)">模板一 视频直播 </label>
+                                        <label><input type="radio" name="uiMode" value="2" onclick="admin.uiMode(this)">模板二 视频直播+聊天互动+直播问答 </label>
+                                        <label><input type="radio" name="uiMode" value="3" onclick="admin.uiMode(this)">模板三 视频直播+聊天互动 </label>
+                                        <label><input type="radio" name="uiMode" value="4" onclick="admin.uiMode(this)">模板四 视频直播+聊天互动+直播文档 </label>
+                                        <label><input type="radio" name="uiMode" value="5" checked="checked" onclick="admin.uiMode(this)">模板五 视频直播+聊天互动+直播文档+直播问答 </label>
+                                        <label><input type="radio" name="uiMode" value="6" onclick="admin.uiMode(this)">模板六 视频直播+直播问答 </label>
+                                        <br> <br>
+                                    </dd>
+                                <!--微吼-->
+                                <elseif condition="$live_type eq 5" />
+                                    <dd>
+                                        <label><input type="radio" name="uiMode" value="1">模板一 视频直播+聊天互动 </label>
+                                        <label><input type="radio" name="uiMode" value="2">模板二 文档直播+聊天互动 </label>
+                                        <label><input type="radio" name="uiMode" value="3" checked="checked">模板三 文档+视频+聊天互动 </label>
+                                        <br>
+                                    </dd>
+                                <!--CC小班课-->
+                                <elseif condition="$live_type eq 6" />
+                                    <dd>
+                                        <label><input type="radio" name="uiMode" value="1">模板一 讲课模式 </label>
+                                        <label><input type="radio" name="uiMode" value="2" checked="checked">模板二 主视角模式 </label>
+                                        <label><input type="radio" name="uiMode" value="4">模板四 平铺模式 </label>
+                                        <br>
+                                    </dd>
+                                </if>
+                            </dl>
+                            <dl class="lineD" id="dl_clientJoin">
+                                <!--展示互动-->
+                                <if condition="$live_type eq 1">
+                                    <dt><font color="red"> * </font>是否支持手机端：</dt>
+                                    <dd>
+                                        <label><input type="radio" name="clientJoin" value="0">不开启 </label>
+                                        <label><input type="radio" name="clientJoin" value="1" checked="checked">开启 </label>
+                                        <br>
+                                    </dd>
+                                <!--CCLive-->
+                                <elseif condition="$live_type eq 4" />
+                                    <dt><font color="red"> * </font>是否开启客户端：</dt>
+                                    <dd>
+                                        <label><input type="radio" name="clientJoin" value="0">否 </label>
+                                        <label><input type="radio" name="clientJoin" value="1" checked="checked">是 </label>
+                                        <br>
+                                    </dd>
+                                <!--微吼-->
+                                <elseif condition="$live_type eq 5" />
+                                    <dt>是否公开：</dt>
+                                    <dd>
+                                        <label><input type="radio" name="clientJoin" value="0">否 </label>
+                                        <label><input type="radio" name="clientJoin" value="1" checked="checked">是 </label>
+                                        <br>
+                                        <p>开启后在微吼平台不可见</p>
+                                    </dd>
+                                <!--CC小班课-->
+                                <elseif condition="$live_type eq 6" />
+                                    <dt><font color="red"> * </font>连麦音视频：</dt>
+                                    <dd>
+                                        <label><input type="radio" name="clientJoin" value="1" checked="checked">音视频 </label>
+                                        <label><input type="radio" name="clientJoin" value="2">仅音频 </label>
+                                        <br>
+                                    </dd>
+                                </if>
+                            </dl>
+                            <dl class="lineD" id="dl_webJoin">
+                                <!--展示互动-->
+                                <if condition="$live_type eq 1">
+                                    <dt><font color="red"> * </font>是否支持WEB端：</dt>
+                                    <dd>
+                                        <label><input type="radio" name="webJoin" value="0">不开启 </label>
+                                        <label><input type="radio" name="webJoin" value="1" checked="checked">开启 </label>
+                                        <br>
+                                    </dd>
+                                <!--CC小班课-->
+                                <elseif condition="$live_type eq 6" />
+                                    <dt><font color="red"> * </font>连麦模式：</dt>
+                                    <dd>
+                                        <label><input type="radio" name="webJoin" value="1">点名 </label>
+                                        <label><input type="radio" name="webJoin" value="2" checked="checked">自由 </label>
+                                        <br>
+                                    </dd>
+                                </if>
+                            </dl>
+                        </if>
+                        <!--展示互动 CClive CC小班课 共用数据-->
+                        <if condition="in_array($live_type,['1','4','6','8'])" >
+                            <dl class="lineD" id="dl_teacherToken">
+                                <dt><font color="red"> * </font>讲师口令：</dt>
+                                <dd>
+                                    <input name="teacherToken" id="form_teacherToken" type="text" value="894450" class="inp01">
+                                    <p>默认值，可修改。请输入6-15位数字，四个口令不能重复</p>
+                                </dd>
+                            </dl>
+                            <dl class="lineD" id="dl_assistantToken">
+                                <dt><font color="red"> * </font>助教口令：</dt>
+                                <dd>
+                                    <input name="assistantToken" id="form_assistantToken" type="text" value="524597" class="inp01">
+                                    <p>默认值，可修改。请输入6-15位数字，四个口令不能重复</p>
+                                </dd>
+                            </dl>
+                            <dl class="lineD" id="dl_studentClientToken">
+                                <dt><font color="red"> * </font>学生端口令：</dt>
+                                <dd>
+                                    <input name="studentClientToken" id="form_studentClientToken" type="text" value="455520" class="inp01">
+                                    <p>默认值，可修改。请输入6-15位数字，四个口令不能重复</p>
+                                </dd>
+                            </dl>
+                            <if condition="in_array($live_type,['1','8'])" >
+                                <dl class="lineD" id="dl_studentToken">
+                                    <dt><font color="red"> * </font><if condition="$live_type eq 8">巡课口令<else/>WEB端学生口令</if>：</dt>
+                                    <dd>
+                                        <input name="studentToken" id="form_studentToken" type="text" value="669450" class="inp01">
+                                        <p>默认值，可修改。请输入6-15位数字，四个口令不能重复</p>
+                                    </dd>
+                                </dl>
+                            </if>
+                        </if>
+                        <!--共用数据-->
+                        <if condition="in_array($live_type,['1','4','5','6'])">
+                            <dl class="lineD" id="dl_description">
+                                <dt><font color="red"> * </font>直播课时简介：</dt>
+                                <dd>
+                                    <textarea name="description" id="form_description" rows="10" cols="80" class="tex01"></textarea>
+                                    <p>用于第三方直播信息显示</p>
+                                </dd>
+                            </dl>
+                        </if>
+                        <!--展示互动-->
+                        <if condition="$live_type eq 1">
+                            <dl class="lineD" id="dl_scheduleInfo">
+                                <dt><font color="red"> * </font>直播课时安排信息：</dt>
+                                <dd>
+                                    <textarea name="scheduleInfo" id="form_scheduleInfo" rows="10" cols="80" class="tex01"></textarea>
+                                    <p>用于第三方直播信息显示</p>
+                                </dd>
+                            </dl>
+                        </if>
+                        <dl>
+                            <dd>
+                                <input type="hidden" name="id" value="{$_GET['id']}" />
+                                <input type="hidden" name="live_type" value="{$live_type}"/>
+                                <input type="hidden" name="teacher_id" value="{$tea_id}"/>
+                                <input type="hidden" name="roomid" value=""/>
+                                <input type="hidden" name="add_type" value="add"/>
+                                <input  class="btn" id="save"  type="submit"  style="float: left;" value="保存">
+                            </dd>
+                        </dl>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--右-->
+        <include class="right_list" file="../User/public/_right" />
+    </div>
+</div>
+
+<script src="__THEME__/js/jquery-migrate-1.2.1.js"></script>
+<script src="__THEME__/js/fulljquery-ui.custom.min.js"></script>
+<script src="__THEME__/js/fullcalendar.min.js"></script>
+
+<script type="text/javascript">
+    function j_validateCallback(form,call,callback) {
+
+    var   lastidnb = ($('#idtypestate').val());
+       var idcontent =$("#"+lastidnb+"000").val();
+        $("input[name='couretitle']").val(idcontent);
+
+
+
+        var $form = $(form);
+        if(typeof call != 'undefined' && call instanceof Function){
+            $i = call($form);
+            if(!$i){
+                return false;
+            }
+        }
+
+        data = $form.serializeArray();
+        var _submitFn = function(){
+            $.ajax({
+                type: form.method || 'POST',
+                url:$form.attr("action"),
+                data:$form.serializeArray(),
+                dataType:"json",
+                cache: false,
+                success: function(xMLHttpRequest, textStatus, errorThrown){
+                    if(typeof callback != 'undefined' && callback instanceof Function){
+                        callback($form,xMLHttpRequest);
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    ui.error("未知错误!");
+                }
+            });
+        }
+        _submitFn();
+        return false;
+
+
+    }
+
+    function checkForm(form){
+        return true;
+
+    }
+    function post_callback(_form,data){
+        if(data.status != undefined){
+            if(data.status == '0'){
+                ui.error(data.info);
+            } else {
+                ui.success(data.info);
+                location.reload();
+                //window.location.href = U('classroom/User/teacherVideo')+"&tabHash=index";
+            }
+        }
+    }
+
+    function callback(data){
+        $("#"+data.input_id+"_cover").remove();
+        $("#image_"+data.input_id).append(
+                '<div id='+data.input_id+'_cover>'
+                +'<img style="max-width:100px;padding:2px; border:1px solid #ccc" src='+UPLOAD_URL+'/'+data.src+' />'
+                +'</div>'
+        ).find('input:file').val('');
+        $("#"+data.input_id+"_ids").val(data.attach_id);
+    }
+    function filecallback(data){
+        $("#old_coursefile_ids").remove();
+        $("#coursefile_ids").val(data.attach_id);
+    }
+
+    //新增课时
+    function addchaptertitle()
+    {
+        //ui.box.load(U('classroom/User/addchapter')+'&id= {$id}');
+        $(".form2").toggle();
+        //$(".form2").find("input").val('');
+        //$(".form2").find("textarea").val('');
+        $("#form_subject").val('');
+        $("#form_startDate").val('');
+        $("#form_invalidDate").val('');
+        $("#form_maxAttendees").val('');
+        $("#form_teacherToken").val('894450');
+        $("#form_assistantToken").val('524597');
+        $("#form_studentClientToken").val('455520');
+        $("#form_studentToken").val('669450');
+        $("#form_description").val('');
+        $("#form_scheduleInfo").val('');
+        //单选框状态修改
+        $("input[type='radio']").attr("checked", false);
+        $("input[name='scene']").eq(0).attr("checked", true);
+        $("input[name='uiMode']").eq(0).attr("checked", true);
+        $("input[name='clientJoin']").eq(1).attr("checked", true);
+        $("input[name='webJoin']").eq(1).attr("checked", true);
+
+        $("input[name='add_type']").val('add');
+        return false;
+    }
+
+    function delchapter(id) {
+
+        if(!confirm("是否确认删除此课时？")){
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url:"{:U('classroom/User/colseLiveRoom')}",
+            data:"id="+id,
+            dataType:"json",
+            success:function(data){
+                if(data.status == 1){
+                    ui.success("删除成功");
+                }else{
+                    ui.error("删除失败");
+                    return false;
+                }
+                callback = "location.href = location.href";
+                setTimeout(callback,1000);
+            },
+            error: function(){
+                ui.error("未知错误!");
+            }
+        });
+    }
+
+    function editchapter(cate,id,live_id) {
+        $.ajax({
+            type: "POST",
+            url:"{:U('classroom/User/addlive')}",
+            data:"id="+id+"&live_id="+live_id,
+            dataType:"json",
+            success:function(data){
+                if(typeof data != 'object'){
+                    var data = eval('('+data+')');
+                }
+                console.log(data);
+                $(".form2").show();
+                $("#form_subject").val(data.subject);
+                $("#form_startDate").val(data.startDate);
+                $("#form_invalidDate").val(data.invalidDate);
+                $("#form_maxAttendees").val(data.maxAttendees);
+                $("#form_teacherToken").val(data.teacherToken);
+                $("#form_assistantToken").val(data.assistantToken);
+                $("#form_studentClientToken").val(data.studentClientToken);
+                $("#form_studentToken").val(data.studentToken);
+                $("#form_description").val(data.description);
+                $("#form_scheduleInfo").val(data.scheduleInfo);
+                //单选框状态修改
+                $("input[type='radio']").attr("checked", false);
+                $("input[name='scene']").eq(data.scene).attr("checked", true);
+                $("input[name='uiMode']").eq(parseInt(data.uiMode)-1).attr("checked", true);
+                $("input[name='clientJoin']").eq(parseInt(data.clientJoin)).attr("checked", true);
+                $("input[name='webJoin']").eq(parseInt(data.webJoin)).attr("checked", true);
+
+                $("input[name='roomid']").val(data.roomid);
+                $("input[name='add_type']").val('edit');
+            },
+            error: function(){
+                ui.error("未知错误!");
+            }
+        });
+    }
+
+</script>
+<include file="__THEME__/public_footer" />

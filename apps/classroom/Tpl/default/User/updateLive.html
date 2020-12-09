@@ -1,0 +1,180 @@
+<include file="__THEME__/public_header" />
+
+<include file="../User/public/_top" />
+<div id="content cbg">
+    <div class="wrap position-rt">
+        <div class="user-con fl user-pbottom">
+            <div class="center_right_tit">
+                <ul>
+                    <li><a href="{:U('classroom/User/teacherVideo')}">我上传的课程</a></li>
+                    <li class="on"><a onclick="navClick(this,'updatevideo')" href="javascript:;">修改直播课程</a></li>
+                </ul>
+            </div>
+            <div class="updatevideo">
+                <form method="POST" action="{:U('classroom/User/doAddLive')}" class="infobox" id="detail_form" name="detail_form" onsubmit="return j_validateCallback(this,checkForm,post_callback)">
+                    <div class="form2">
+                        <input type = "hidden"  name ="id"   value ="{$id}">
+                        <input type = "hidden"  name ="video_type"   value ="2">
+                        <dl>
+                            <dt><span>*</span>直播名称：</dt>
+                            <dd>
+                                <input type="text" class="inp01" name="video_title" id="form_video_title"  value="{$data.video_title}">
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span>*</span>直播分类：</dt>
+                            <dd style="width: 450px;">
+                                <style>
+                                    select {
+                                        margin-right: 15px !important;
+                                        height: 40px;
+                                        width: 121px !important;
+                                        border-radius: 4px;
+                                        border: solid 1px #b6c7d6;
+                                        line-height: 34px;
+                                        padding: 0;
+                                    }
+                                </style>
+                                <php>$fullcategorypaths = trim($data['fullcategorypath'] , ',');</php>
+                                {:W('CategoryLevel',array('table'=>'zy_currency_category','id'=>'video_level','default'=>$fullcategorypaths ))}
+                            </dd>
+                        </dl>
+                        <!--
+                        <dl class="lineD" id="dl_video_binfo">
+                            <dt><font color="red"> * </font>直播简介：</dt>
+                            <dd>
+                                <textarea name="video_binfo" id="video_binfo" rows="10" cols="54">{$data.video_binfo}</textarea>
+                            </dd>
+                        </dl>
+                        -->
+
+                        <dl class="lineD" id="dl_video">
+                            <dt><font color="red"> * </font>直播简介：</dt>
+                            <dd>
+                                {:W('Editor',array('contentName'=>'video_intro','value'=>$data['video_intro'],'width'=>'98%','height'=>'350'))}
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span>*</span>市场价格：</dt>
+                            <dd>
+                                <input type="text"  class="inp01" name="v_price" value="{$data.v_price}" id="form_v_price">
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span>*</span>销售价：</dt>
+                            <dd>
+                                <input type="text"  class="inp01" name="t_price" value="{$data.t_price}" id="form_t_price">
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span>*</span>上架时间：</dt>
+                            <dd>
+                                <input name="listingtime"  id ="listingtime" type="text" value="<php>if($data.listingtime){</php>{:date("Y-m-d H:i:s", $data['listingtime'])}<php>}</php>" class="inp01" onfocus="core.rcalendar(this,'full');" readonly="readonly">
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span>*</span>下架时间：</dt>
+                            <dd>
+                                <input name="uctime" type="text"  id ="uctime"  value="<php>if($data.uctime){</php>{:date("Y-m-d H:i:s", $data['uctime'])}<php>}</php>" class="inp01" onfocus="core.rcalendar(this,'full');" readonly="readonly">
+                            </dd>
+                        </dl>
+                        <dl id="image_cover">
+                            <dt><span>*</span>封面上传：</dt>
+                            <dd>
+                                {:W('Upload',array('callback'=>'callback','attachIds'=>$data['cover'], 'uploadType'=>'image','limit'=>1,'inputname'=>'cover','urlquery'=>'input_id=cover'))}建议尺寸：580px*350px
+                                <input type="hidden" name="cover_ids" data="cover_ids" value="{$data.cover}" />
+                            </dd>
+                        </dl>
+                        <dl class="lineD maxmannums">
+                            <dt><span>*</span>最大并发量：</dt>
+                            <dd>
+                                <input type="text"  class="inp01" name="maxmannums" value="{$data.maxmannums}" id="form_maxmannums" <if condition="$data.is_activity eq 1">readonly</if> >
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dd>
+                                <input  class="btn"  type="submit"  style="line-height: 0;" value="保 存">
+                            </dd>
+                        </dl>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--左-->
+        <include file="../User/public/_right" />
+    </div>
+</div>
+<script type="text/javascript">
+    function j_validateCallback(form,call,callback) {
+        var $form = $(form);
+        if(typeof call != 'undefined' && call instanceof Function){
+            $i = call($form);
+            if(!$i){
+                return false;
+            }
+        }
+        var _submitFn = function(){
+            $.ajax({
+                type: form.method || 'POST',
+                url:$form.attr("action"),
+                data:$form.serializeArray(),
+                dataType:"json",
+                cache: false,
+                success: function(xMLHttpRequest, textStatus, errorThrown){
+                    if(typeof callback != 'undefined' && callback instanceof Function){
+                        callback($form,xMLHttpRequest);
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    ui.error("未知错误!");
+                }
+            });
+        }
+        _submitFn();
+        return false;
+    }
+
+    function checkForm(form){
+//      $("textarea[name='video_intro']").html(E.getData());
+        return true;
+
+    }
+    function post_callback(_form,data){
+        if(data.status != undefined){
+            var vid = data.data;
+            if(data.status == '0'){
+                ui.error(data.info);
+            } else {
+                ui.success(data.info);
+                window.location.href = U('classroom/User/teacherVideo')+"&tab=1";
+            }
+        }
+    }
+
+    function callback(data){
+        $("#"+data.input_id+"_cover").remove();
+        $("#image_"+data.input_id).append(
+                '<div id='+data.input_id+'_cover>'
+                +'<img style="max-width:100px;padding:2px; border:1px solid #ccc" src='+UPLOAD_URL+'/'+data.src+' />'
+                +'</div>'
+        ).find('input:file').val('');
+        $("#"+data.input_id+"_ids").val(data.attach_id);
+    }
+    function filecallback(data){
+        $("#old_coursefile_ids").remove();
+        $("#coursefile_ids").val(data.attach_id);
+    }
+    $('#is_tlimit').change(function(){
+        var che = $("#is_tlimit").attr("checked");
+        if(che){
+            $("#is_tlimit").val(1);
+            $("#form_limit_discount,#form_starttime,#form_endtime").show();
+            $("#limit_discount,#starttime,#endtime").removeAttr("readonly");
+        } else {
+            $("#form_limit_discount,#form_starttime,#form_endtime").hide();
+            $("#form_limit_discount,#form_starttime,#endtime").attr("readonly","readonly");
+            $("#limit_discount,#starttime,#endtime").val('');
+            $("#is_tlimit").val(0);
+        }
+    });
+</script>

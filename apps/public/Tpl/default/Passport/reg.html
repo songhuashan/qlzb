@@ -1,0 +1,244 @@
+<include file="__THEME__/_header" />
+<style>
+    .content{background: #fff;} .wrap{margin-top:0; }
+</style>
+<div class="header">
+    <div class="loginhead">
+        <div class="wrap">
+            <php>if($register_type == 'open'):</php>
+            <php>endif;</php>
+            <div class="fr" style="margin-top: 10px;font-size: 14px;color: #fff;">已有账号？<a href="{:U('public/Passport/login_g')}" style="color: #fff;margin-left: 15px;padding-left: 15px;border-left: solid 1px #a0a0a0;">登录</a></div>
+            <div class="logo"><a href="/" title="{$site['site_keyword']}在线教育系统"><img style="margin: 4px 0px;" src="{$site.logo_head}" width="150" height="52"/></a></div>
+        </div>
+    </div>
+</div>
+<!--header end-->
+
+<script>
+var CLICK_VERIFY="{:U('public/Passport/clickVerify')}";
+var CLICK_UNAME="{:U('public/Passport/clickUname')}";
+var CLICK_PHONE="{:U('public/Passport/clickPhone')}";
+var CLICK_PHONEVER="{:U('public/Passport/clickPhoneVer')}";
+var SETUSERFACE="{:U('public/Passport/setUserFace')}";
+var GET_PHONEVERIFY="{:U('public/Passport/getVerify')}";
+
+//更换验证码
+function changeverify(){
+    var date = new Date();
+    var ttime = date.getTime();
+    var url = "__ROOT__/public/captcha.php";
+    $('#verifyimg').attr('src',url+'?'+ttime);
+
+};
+</script>
+
+<div class="content">
+    <div class="wrap">
+        <div class="logincontent reg_set_info">
+            <div class="title"><em></em>注册账号</div>
+            <form class="loginform">
+                <input type="hidden" id="this_mhm_id" value ="{$this_mhm_id}" />
+                <input type="hidden" id="mount_reg"  value ="{$mount_reg}" />
+                <if condition="($register_type eq 'phone') or ($register_type eq 'all')">
+                    <div id="phoneReg"  style='<if condition="($register_type eq 'phone') or ($register_type eq 'all')">display: block;<else/>display: none;</if>'>
+                        <dl>
+                            <dt><span>*</span>手机:</dt>
+                            <dd>
+                                <input class="inp" type="text" id="prphone" placeholder="请输入手机号码" />
+                                <if condition="($register_type eq 'email') or ($register_type eq 'all')">
+                                    <p>或使用<a href="javascript:;" onclick="emailReg(this)">邮箱注册</a></p>
+                                </if>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span>*</span>验证码:</dt>
+                            <dd>
+                                <input class="inp" type="text" id="prverify" placeholder="请输入收到的验证码" style="width:145px;">
+                                <a class="yzm width80" href="javascript:;" onclick="getPhoneVerify()">获取验证码</a>
+                                <span class="width97"  style="display:none;" ><a id="dtime"></a>后可重新发送</span>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span>*</span>昵称:</dt>
+                            <dd>
+                                <input class="inp" id="uname" type="text" maxlength="10" placeholder="请输入用户昵称">
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span>*</span>设置密码:</dt>
+                            <dd>
+                                <input class="inp" id="prpassword" type="password" placeholder="请设置登录密码，6-20个字符">
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span>*</span>确认密码:</dt>
+                            <dd>
+                                <input class="inp" id="prpassword2" type="password" placeholder="请设置登录密码，6-20个字符">
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dd>
+                                <p></p><label class="check"><input type="checkbox" checked >我已阅读并同意<a href="{:U('public/Single/info',array('id'=>28))}" style="color: #188eee;">《{$site['site_keyword']}网站服务条款》</a></label>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dd>
+                                <a class="btn" type="button" href="javascript:;" onclick="phoneNext()">立即注册</a>
+                            </dd>
+                        </dl>
+                    </div>
+                </if>
+
+                <if condition="($register_type eq 'email') or ($register_type eq 'all')">
+                    <div id="emailReg" style='<if condition="($register_type eq 'email') and ($register_type neq 'all')">display: block;<else/>display: none;</if>' >
+                        <dl>
+                            <dt><span>*</span>邮箱地址:</dt>
+                            <dd>
+                                <input value="" class="inp" id="erusername" type="text" placeholder="请输入您的常用邮箱地址">
+                                <if condition="($register_type eq 'phone') or ($register_type eq 'all')">
+                                    <p>或使用<a href="javascript:;" onclick="phoneReg(this)">手机注册</a></p>
+                                </if>
+                            </dd>
+                        </dl>
+                        
+                        <dl>
+                            <dt><span>*</span>昵称:</dt>
+                            <dd>
+                                <input class="inp" id="eruname" type="text" maxlength="10" placeholder="请输入用户昵称">
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span>*</span>设置密码:</dt>
+                            <dd>
+                                <input class="inp" id="erpasswrod" type="password" placeholder="请设置登录密码，6-20个字符">
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span>*</span>确认密码:</dt>
+                            <dd>
+                                <input class="inp" id="erpasswrod2" type="password" placeholder="请设置登录密码，6-20个字符">
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><span>*</span>验证码:</dt>
+                            <dd>
+                                <input class="inp" type="text" id="erverify" placeholder="请输入右侧验证码" style="width:145px;">
+                                <img class="yzm" src="__ROOT__/public/captcha.php" title="点击刷新" onclick="changeverify()" id="verifyimg" style="border-radius:0;">
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dd>
+                                <p></p><label class="check"><input type="checkbox" checked >我已阅读并同意<a href="{:U('public/Single/info',array('id'=>28))}" style="color: #188eee;">《{$site['site_keyword']}网站服务条款》</a></label>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dd>
+                                <a class="btn" type="button" href="javascript:;" onclick="onemaliNext()">立即注册</a>
+                            </dd>
+                        </dl>
+                    </div>
+                </if>
+            </form>
+        </div>
+
+ 
+    </div>
+</div>
+
+<!--itembox end-->
+
+<include file="__THEME__/public_footer" />
+
+<script>
+    $(document).keydown(function(event){
+        if($("#transparent").css("display")=="block"){
+            if(event.keyCode == 13){
+                logSub();
+            }
+        }
+
+    });
+    $(function(){
+        //验证手机信息
+        $("#prphone").blur(function(){
+            var phone=$.trim($("#prphone").val());//获取用户手机号
+            if(phone){
+                //检查手机号格式
+                if(!phone.match(/^1[3|4|5|7|8][0-9]\d{8}$/)){
+                    ui.error('对不起，请填写正确的手机号!');
+                    return;
+                }
+                //验证此手机是否已被注册
+                $.ajax({
+                    type: "POST",
+                    url:CLICK_PHONE,
+                    data:"phone="+phone,
+                    dataType:"text",
+                    success:function(data){
+                        if(data==0){
+                            $("#prphone").val('');
+                            ui.error('对不起，此手机已被注册，请更换!');
+                            return;
+                        }
+                    }
+                });
+            }
+        });
+        //验证邮箱信息
+        $("#erusername").blur(function(){
+            var email=$.trim($("#erusername").val());//获取用户手机号
+            if(email){
+                if(!email.match(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/)){
+                    ui.error('对不起，邮箱格式错误!');
+                    return;
+                }else{
+                    //验证此邮箱是否已被注册
+                    $.ajax({
+                        type: "POST",
+                        url:CLICK_EMIL,
+                        data:"email="+email,
+                        dataType:"text",
+                        success:function(data){
+                            if(data==0){
+                                $("#erusername").val('');
+                                ui.error('对不起，此邮箱已被注册，请更换!');
+                                return;
+                            }
+                        }
+                    });
+
+                }
+            }
+        });
+        //手机注册---验证昵称
+        $("#uname").blur(function(){
+            var uname=$.trim($("#uname").val());//获取用户手机号
+            if(uname){
+                checkName(uname);
+            }
+        });
+        //邮箱注册---验证昵称
+        $("#eruname").blur(function(){
+            var eruname=$.trim($("#eruname").val());//获取用户手机号
+            if(eruname){
+                checkName(eruname);
+            }
+        });
+        //验证昵称是否被注册
+        function checkName(name){
+            $.ajax({
+                type: "POST",
+                url:CLICK_UNAME,
+                data:"uname="+name,
+                dataType:"text",
+                success:function(data){
+                    if(data==0){
+                        ui.error('对不起，此昵称已被注册，请更换!');
+                        return;
+                    }
+                }
+            });
+        }
+    });
+</script>

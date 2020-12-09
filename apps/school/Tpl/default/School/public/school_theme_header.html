@@ -1,0 +1,446 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{$seo['_title']}</title>
+    <meta content="{$seo['_keywords']}" name="keywords">
+    <meta content="{$seo['_description']}" name="description">
+    <meta name="viewport" charset="UTF-8" content="user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta property="qc:admins" content="1403267155765154541656375" />
+    <meta property="wb:webmaster" content="fdcd9430a88b1552" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+    <!-- 站点css -->
+    <!--<link href="__THEME__/css/css.php?t=css&f=common_new.css,basic_new.css,common.css,index.css,logincss.css,media.css,style.css,style_add.css,style_new.css,wenda.css,_header_footer.css&v={$site.sys_version}.css" rel="stylesheet" type="text/css" />-->
+	<link rel="stylesheet" type="text/css" href="__THEME__/css/common_new.css?v={$site.sys_version}">
+	<link rel="stylesheet" type="text/css" href="__THEME__/css/basic_new.css?v={$site.sys_version}">
+	<link rel="stylesheet" type="text/css" href="__THEME__/css/common.css?v={$site.sys_version}">
+	<link rel="stylesheet" type="text/css" href="__THEME__/css/logincss.css?v={$site.sys_version}">
+	<link rel="stylesheet" type="text/css" href="__THEME__/css/media.css?v={$site.sys_version}">
+
+    <link rel="stylesheet" type="text/css" href="__APP__/css/public_header_footer.css">
+	<link rel="stylesheet" type="text/css" href="__APP__/css/public.css">
+	<link rel="stylesheet" type="text/css" href="__APP__/css/index_x{$theme_version|default='1'}.css">
+	<link rel="stylesheet" type="text/css" href="__APP__/css/banner2.0.css">
+	<link rel="stylesheet" type="text/css" href="__APP__/css/swiper02.css">
+	<link rel="stylesheet" type="text/css" href="__APP__/icon/iconfont.css">
+	<link rel="stylesheet" type="text/css" href="__APP__/css/common_mechanism.css">
+
+    <script type="text/javascript" src="__THEME__/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="__THEME__/js/lazyload/jquery.lazyload.min.js"></script>
+    <!--<script src="__THEME__/js/js.php?t=js&f=jquery.form.js,common.js,core.js,module.js,module.common.js,jwidget_1.0.0.js,jquery.atwho.js,jquery.caret.js,ui.core.js,ui.draggable.js,plugins/core.comment.js,plugins/core.digg.js&v={$site.sys_version}.js"></script>-->
+	
+	<script type="text/javascript" src="__THEME__/js/jquery.form.js?v={$site.sys_version}"></script>
+	<script type="text/javascript" src="__THEME__/js/common.js?v={$site.sys_version}"></script>
+	<script type="text/javascript" src="__THEME__/js/core.js?v={$site.sys_version}"></script>
+	<script type="text/javascript" src="__THEME__/js/module.js?v={$site.sys_version}"></script>
+	<script type="text/javascript" src="__THEME__/js/module.common.js?v={$site.sys_version}"></script>
+	<script type="text/javascript" src="__THEME__/js/jwidget_1.0.0.js?v={$site.sys_version}"></script>
+	<script type="text/javascript" src="__THEME__/js/jquery.atwho.js?v={$site.sys_version}"></script>
+	<script type="text/javascript" src="__THEME__/js/jquery.caret.js?v={$site.sys_version}"></script>
+	<script type="text/javascript" src="__THEME__/js/ui.core.js?v={$site.sys_version}"></script>
+	<script type="text/javascript" src="__THEME__/js/ui.draggable.js?v={$site.sys_version}"></script>
+	<script type="text/javascript" src="__THEME__/js/plugins/core.comment.js?v={$site.sys_version}"></script>
+	<script type="text/javascript" src="__THEME__/js/plugins/core.digg.js?v={$site.sys_version}"></script>
+	
+    <script type="text/javascript" src="__THEME__/js/user/user.js"></script>
+    <script type="text/javascript" src="__THEME__/js/cyjs/title_common.js"></script>
+    <script type="text/javascript" src="__THEME__/js/cyjs/cyjs_common.js"></script>
+    <script type="text/javascript" src="__THEME__/js/cyjs/offlights.js"></script>
+    <script type="text/javascript" src="__THEME__/js/jquery.qrcode.min.js"></script>
+
+	<script src="__APP__/icon/iconfont.js" charset="utf-8"></script>
+	<script src="__APP__/js/curriculum.js" charset="utf-8"></script>
+
+    <script>
+        //全局变量
+        var SITE_URL  = '<php> echo $SITE_URL;</php>';
+        var UPLOAD_URL= '<php> echo UPLOAD_URL;</php>';
+        var THEME_URL = '__THEME__';
+        var APPNAME   = '<php> echo APP_NAME;</php>';
+        var MID		  = '<php> echo $mid;</php>';
+        var UID		  = '<php> echo $uid;</php>';
+        var initNums  =  '<php> echo $initNums;</php>';
+        var SYS_VERSION = '<php> echo $site["sys_version"];</php>';
+        var _ROOT_    = '__ROOT__';
+        // Js语言变量
+        var LANG = new Array();
+        //注册登录模板
+        var REG_LOGIN="{:U('public/Passport/regLogin')}";
+        //邮箱验证地址
+        var CLICK_EMIL="{:U('public/Passport/clickEmail')}";
+        //异步注册地址
+        var REG_ADDRESS="{:U('public/Passport/ajaxReg')}";
+        //异步登录
+        var LOGIN_ADDRESS="{:U('public/Passport/ajaxLogin')}";
+        //退出登录
+        var LOGINOUT_ADDRESS="{:U('public/Passport/logout')}";
+
+        function login_box() {
+            reg_login();
+        }
+
+        function closeMsg(obj){
+            $(".news-msg").remove();
+        }
+
+        /**
+         * 退出成功
+         */
+        function logout(){
+            $.ajax({
+                type: "POST",
+                async:false,
+                url:LOGINOUT_ADDRESS,
+                dataType:"json",
+                success:function(data){
+                    ui.success("退出成功！");
+                    location.reload();
+                }
+            });
+        }
+
+        $(function(){
+            $('.backtop').click(function(){
+                $('body,html').animate({scrollTop:0},300);
+                return false;
+            });
+            $('.full-course').hover(function(){
+                $(this).addClass('hover');
+            },function(){
+                $(this).removeClass('hover');
+            });
+
+            $(".search_index_val span a").click(function(){
+                var span_Val = $(this).text();
+                var a_Attr = $(this).attr("attr");
+                $(".search_index_val p").html(span_Val);
+                $("#search_cate").val(a_Attr);
+                $(".search_index #search_combo_input").attr("placeholder","搜索"+span_Val);
+                $(this).hide().siblings().show();
+            })
+
+            $(".search_index input").focus(function(){
+                $(".search_index").css("width","250px");
+                $(".search_index input").css("width","140px");
+            });
+
+        });
+        
+        $(window).scroll(function(){
+            if($(window).scrollTop()>300){
+                $('.backtop').fadeIn(300);
+            }else{
+                $('.backtop').fadeOut(200);
+            }
+        });
+
+        if(navigator.userAgent.match(/(iPhone|Android|ios)/i)) {
+            $(window).load(function () {
+                $('.modular,.logos,.window-box').show();
+                $('.users').attr('style','display:block');
+            });
+        }
+
+    </script>
+
+    <php>if(!empty($langJsList)) {</php>
+    <volist name="langJsList" id="vo">
+        <script src="{$vo}?v={$site.sys_version}"></script>
+    </volist>
+    <php>}</php>
+    
+
+</head>
+<body>
+
+<if condition="$_SESSION['mid'] eq ''">
+    <include file="__THEME__/reg_login" />
+</if>
+
+<div class="win hide"></div>
+
+<div class="top">
+    <div class="header_new2">
+        <div class="top1">
+            <div class="top1img">
+                <a href="/" title="{$site['site_keyword']}在线教育系统" style="display: block;float: left;"><img src="{$site.logo_head}" width="150"/></a>
+            </div>
+
+            <div class="nav">
+                <ul>
+                    <volist name="site_top_nav" id="vo" key="k" offset="0" length='7'>
+                        <li <php>if(APP_NAME == lcfirst( $vo['app_name'] ) || ( APP_NAME == 'classroom' && MODULE_NAME == ucfirst( $vo['app_name'] ) ) ){echo "class='active'";}</php>>
+                        <a href="{$vo['url']}" target="{$vo['target']}">{$vo['navi_name']}</a>
+                        <if condition="$vo.child neq ''">
+                            <span class="course-class">
+                            <volist name="vo.child" id="child" key="k">
+                                <a href="{$child['url']}" target="{$child['target']}">{$child['navi_name']}</a>
+                            </volist>
+                            </span>
+                        </if>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+
+        <div class="top3">
+            <!--消息提示-->
+            <ul class="news-msg"
+            <php>if(!empty($mid) &&(!empty($unreadnum) || !empty($systemnum) || !empty($commentnum))){</php>
+            style="display:block;"
+            <php>}else{</php>
+            style="display:none;"
+            <php>}</php> >
+
+            <a class="shanchu-ico" href="javascript:;" onClick="closeMsg(this)">×</a>
+
+            <php>if(!empty($unreadnum) && !empty($mid)){</php>
+            <li>{$unreadnum}条新的私信，&nbsp;<a href="{:U('public/Message/index')}">查看消息</a></li>
+            <php>}</php>
+
+            <php>if(!empty($systemnum) && !empty($mid)){</php>
+            <li>{$systemnum}条新的系统消息，&nbsp;<a href="{:U('public/Message/notify')}">查看消息</a></li>
+            <php>}</php>
+
+            <php>if(!empty($commentnum) && !empty($mid)){</php>
+            <li>{$commentnum}条新的评论消息，&nbsp;<a href="{:U('public/Message/comment')}">查看消息</a></li>
+            <php>}</php>
+            </ul>
+
+            <div class="search_index">
+                <div class="search_index_val">
+                    <p>课程</p><i></i>
+                    <span>
+                        <a href="javascript:void(0)" attr="course">课程</a>
+                        <a href="javascript:void(0)" attr="school">机构</a>
+                        <a href="javascript:void(0)" attr="teacher">讲师</a>
+                    </span>
+                    <input value="video" id="search_cate" type="hidden" disabled />
+                </div>
+                <p class="bd_right"></p>
+                <input type="text" id="search_combo_input" placeholder="搜索课程">
+                <i class="search_start" id="btn_search_site"></i>
+            </div>
+            <script>
+            $(function(){
+                $('#btn_search_site').click(function(){
+                    var search_cate = $('#search_cate').val();
+                    var search_combo_input = $('#search_combo_input').val();
+                    if(search_combo_input != ''){
+                        if(search_cate == 'video'){
+                            window.open("{:U('classroom/Video/index')}"+"?search="+search_combo_input);
+                        }else if(search_cate == 'school'){
+                            window.open("{:U('school/Index/index')}"+"?search="+search_combo_input);
+                        }else if(search_cate == 'teacher'){
+                            window.open("{:U('classroom/Teacher/index')}"+"?search="+search_combo_input);
+                        }
+                    }
+                });
+
+                $(".search_index_val").hover(function(){
+                  $(".search_index").css("border-radius","4px 4px 4px 0px")
+                },function(){
+                  $(".search_index").css("border-radius","4px 4px 4px 4px")
+                })
+            })
+
+        </script>
+            <div class="nav1">
+                <div class="look_scanning">
+                    <i></i>
+                    <div class="ewm">
+                        <div class="h5">
+                            <div id="nav_h5_qrcode"><img style="display: block;" width="86" height="86" src="/api/pay/wxpay/qrcode.php?data={$site['phone_url']}" data-bd-imgshare-binded="1"></div>
+                            <p>手机网页端</p>
+                        </div>
+                        <div class="app">
+                            <div id="nav_app_qrcode"><img src="/api/pay/wxpay/qrcode.php?data={$site['download_url']}" data-bd-imgshare-binded="1"></div>
+                            <p>APP下载</p>
+                        </div>
+                    </div>
+                </div>
+                <ul class="page_header_adiv">
+                    <if condition="$_SESSION['mid']">
+                        <li class="header_top_nav">
+                            <a href="{:U('classroom/User/setInfo')}">{:getUserName($_SESSION['mid'])}</a>
+                            <i class="icon-nav-arrow"></i>
+                        </li>
+                        <dl class="login-after-position">
+                            <dd class="login-after-bdbt"><a href="{:U('classroom/User/index')}">个人中心</a></dd>
+                            <dd class="login-after-bdbt"><a href="{:U('classroom/Home/order')}">财务中心</a></dd>
+                            <dd class="login-after-bdbt"><a href="{:U('classroom/User/setInfo')}">我的设置</a></dd>
+                            <dd class="login-after-bdbt"><a href="{:U('public/Message/index')}">我的消息</a></dd>
+
+                            <if condition="$is_school and $school_info">
+                                <dd class="login-after-bdbt">
+                                    <a href="{:U('school/School/index',array('id'=>$school_info['id'],'doadmin'=>$school_info['doadmin']))}">我的网校</a>
+                                </dd>
+                            </if>
+
+                            <if condition="$is_school and $school_info">
+                                <dd class="login-after-bdbt"><a href="{:U('school/User/index')}">网校设置</a></dd>
+                            </if>
+
+                            <php>if( is_admin($_SESSION['mid']) || is_school($_SESSION['mid'])  ) {</php>
+                            <if condition="$is_school and $school_info"><dd class="login-after-bdbt"><a href="{:U('classroom/Mount/index')}">课程挂载申请</a></dd></if>
+                            <php>}</php>
+
+                            <php>if( is_admin($_SESSION['mid']) || is_school($_SESSION['mid']) || CheckPermission('admin_login') ) {</php>
+                            <dd class="login-after-bdbt"><a href="{:U('admin')}"><if condition="$is_school and $school_info">网校</if>后台管理</a></dd>
+                            <php>}</php>
+
+                            <dd class="login-after-bdbt"><a href="javascript:;" onClick="logout()">退出</a></dd>
+                        </dl>
+
+                        <else/>
+                        <li><a href="javascript:;" onclick="reg_login();">登录</a></li>
+                        <li style="line-height: 80px;">丨</li>
+                        <li>
+                            <if condition="$this_mhm_id neq ''">
+                                <a href="{:U('public/Passport/reg',array('this_mhm_id'=> $this_mhm_id))}">注册</a>
+                                <else/>
+                                <a href="{:U('public/Passport/reg')}">注册</a>
+                            </if>
+                        </li>
+                    </if>
+                </ul>
+            </div>
+
+			<php>if( !is_school($_SESSION['mid']) ){</php>
+                <div class="nav2">
+					<php>if( $_SESSION['mid'] ){</php>
+						<a class="page_header_adiv" href="{:U('school/User/setInfo')}">机构入驻</a>
+					<php>}else{</php>
+						<a class="page_header_adiv" href="{:U('public/Passport/login_g')}">机构入驻</a>
+					<php>}</php>
+                </div>
+            <php>}</php>
+        </div>
+    </div>
+</div>
+<style>
+    .banner-box{
+        background: url({:getCover($ad_list[0]['banner'],1920,320)}) center 0px / cover no-repeat !important;
+    }
+    .mechanism-box{float:left;width:100%;height:320px;background:url(../images/banner3.jpg) center 0/cover no-repeat;text-align:center}
+	.mechanism-head-portrait{width:140px;height:140px;border:solid 2px #fff;border-radius:50%;overflow:hidden;margin:70px auto 0}
+	.mechanism-head-portrait img{width:140px}
+	.mechanism-box h5{color:#fff;font-size:20px;line-height:40px;}
+</style>
+
+<!--header end-->
+
+<!--background-->
+<div class="mechanism-box <if condition='$ad_list neq 0'>banner-box</if>">
+    <div class="mechanism-head-portrait">
+        <img src="{$school['logo']}" height="140px">
+    </div>
+    <h5>{$school.title}</h5>
+</div>
+<!-- 优惠券 -->
+<div class="content discount_box">
+  <div class="main">
+    <div class="discount">
+      <php>if(!$theme_items || in_array('topic',$theme_items)){</php>
+      <div class="top_box">
+        <div class="bd">
+          <ul class="infoList">
+            <volist name="topicList" id="topic" offset="0" length="8">
+            <li>
+              <span class="notice">
+                <i class="icon icon-tongzhi"></i>
+                最新资讯 : <i class="icon icon-dian"></i>
+              </span>
+              <span class="text"><a target="_blank" href="{:U('classroom/Topic/view',array('id'=>$topic['id']))}">{:msubstr(t($topic['title']),0,32,'utf-8',true)}</a></span>
+              <p>{:getDateDiffer($topic['dateline'])}</p>
+            </li>
+            </volist>
+          </ul>
+        </div>
+      </div>
+      <php>}</php>
+      <php>if(!$theme_items || in_array('coupon',$theme_items)){</php>
+      <div class="receipt_pub_box">
+         <ul>
+          <!-- 打折卡-->
+          <volist name="discount" id="coupon" offset="0" length="1">
+           <li>
+             <div class="div_box_one">
+               <div class="left_box">
+                   <p class="first_p"><span class="num">{$coupon.discount}</span><span class="fracture">折</span><span class="coupon">打折券</span></p>
+                   <p class="three_p">机构内所有课程可用</p>
+                   <p class="four_p">{:date('Y-m-d H:i',$coupon['ctime'])} - {:date('Y-m-d H:i',$coupon['end_time'])}</p>
+               </div>
+               <a href="javascript:" class="btn_use" onclick="draw({$coupon.coupon_id})"><i class="data-icon"></i>立<br>即<br>使<br>用</a>
+             </div>
+           </li>
+           </volist>
+           <!-- 课程券 -->
+           <volist name="video_coupon" id="coupon" offset="0" length="1">
+           <li>
+             <div class="div_box_two">
+               <div class="left_box">
+                   <p class="first_p"><span class="num"></span><span class="fracture">{$coupon.video_title}</span><span class="coupon">课程券</span></p>
+                   <p class="second_p">仅限指定课程使用</p>
+                   <p class="four_p">{:date('Y-m-d H:i',$coupon['ctime'])} - {:date('Y-m-d H:i',$coupon['end_time'])}</p>
+               </div>
+               <a href="javascript:" class="btn_use" onclick="draw({$coupon.coupon_id})">立<br>即<br>使<br>用</a>
+             </div>
+           </li>
+           </volist>
+           <!-- 优惠券 -->
+           <volist name="discount_coupon" id="coupon" offset="0" length="1">
+           <li>
+             <div class="div_box_three">
+               <div class="left_box">
+                   <p class="first_p"><span class="fracture">￥ </span><span class="num">{$coupon.price|default="0"}</span><span class="coupon">优惠券</span></p>
+                   <p class="second_p">满{$coupon.maxprice|default="0"}元可用</p>
+                   <p class="three_p">机构内所有课程可用</p>
+                   <p class="four_p">{:date('Y-m-d H:i',$coupon['ctime'])} - {:date('Y-m-d H:i',$coupon['end_time'])}</p>
+               </div>
+               <a href="javascript:" class="btn_use" onclick="draw({$coupon.coupon_id})">立<br>即<br>使<br>用</a>
+             </div>
+           </li>
+           </volist>
+           <!-- 会员券-->
+           <volist name="vip_card" id="coupon" offset="0" length="1">
+           <li>
+             <div class="div_box_four">
+               <div class="left_box">
+                   <p class="first_p"><span class="num">{$coupon.vip_date|default="0"}</span><span class="fracture">天</span><span class="coupon">会员券</span></p>
+                   <p class="second_p">{$coupon.vip_grade}</p>
+                   <p class="four_p">{:date('Y-m-d H:i',$coupon['ctime'])} - {:date('Y-m-d H:i',$coupon['end_time'])}</p>
+               </div>
+               <a href="javascript:" class="btn_use" onclick="draw({$coupon.coupon_id})"><i class="data-icon"></i>立<br>即<br>领<br>取</a>
+             </div>
+           </li>
+           </volist>
+         </ul>
+      </div>
+      <php>}</php>
+    </div>
+  </div>
+</div>
+
+<script>
+    /*卡券领取操作*/
+    function draw(coupon_id){
+        if(MID == 0){
+            reg_login();
+            return false;
+        }
+        var url = '{:U("school/School/saveUSerCoupon")}';
+        $.post(url,{coupon_id:coupon_id},function(data){
+            if(data.status){
+                ui.success(data.info);
+                setTimeout('window.location.reload();', 1500);
+            }else{
+                ui.error(data.info);
+            }
+        },'json');
+    }
+</script>

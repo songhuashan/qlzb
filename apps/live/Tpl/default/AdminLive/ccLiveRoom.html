@@ -1,0 +1,440 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="https://www.qiluzhibo.com/apps/admin/_static/admin.css" rel="stylesheet" type="text/css">
+    <link href="https://www.qiluzhibo.com/addons/theme/stv1/layui/css/layui.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="https://www.qiluzhibo.com/addons/theme/stv1/layui/layui.js" ></script>
+    <script>
+        /**
+         * 全局变量
+         */
+        var SITE_URL  = 'https://www.qiluzhibo.com';
+        
+        var THEME_URL = 'https://www.qiluzhibo.com/addons/theme/stv1/_static';
+        var APPNAME   = 'classroom';
+        var UPLOAD_URL ='https://www.qiluzhibo.com/data/upload';
+        var MID		  = '1';
+        var UID		  = '1';
+        // Js语言变量
+        var LANG = new Array();
+    </script>
+    <script type="text/javascript" src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/core.js"></script>
+    <script src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/module.js"></script>
+    <script src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/common.js"></script>
+    <script src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/module.common.js"></script>
+    <script src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/module.weibo.js"></script>
+    <script type="text/javascript" src="https://www.qiluzhibo.com/apps/admin/_static/admin.js?t=11"></script>
+    <script type="text/javascript" src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/ui.core.js"></script>
+    <script type="text/javascript" src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/ui.draggable.js"></script>
+
+    <script type="text/javascript" src="https://www.qiluzhibo.com/apps/classroom/_static/admin.js"></script>
+    <script src="https://www.qiluzhibo.com/apps/classroom/_static/admin/common.js"></script>
+    <script src="https://www.qiluzhibo.com/apps/classroom/_static/mz.js"></script>
+    <script src="https://www.qiluzhibo.com/apps/classroom/_static/wayne.js"></script>
+    <script src="https://www.qiluzhibo.com/data/lang/public_zh-cn.js"></script>
+    <script src="https://www.qiluzhibo.com/data/lang/classroom_zh-cn.js"></script>
+</head>
+<body>
+<style type="text/css">
+    .hide{
+        display: none;
+    }
+    .ico_top, .ico_btm {
+        background: url("https://www.qiluzhibo.com/addons/theme/stv1/_static/admin/image/ico_top_btm.gif") no-repeat scroll 0 0 transparent;
+        height: 14px;
+        width: 12px;
+    }
+    .ico_top, .ico_btm {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .ico_top {
+        background-position: -12px 0;
+    }
+    .ico_btm {
+        background-position: -24px 0;
+    }
+    .ico_top:hover {
+        background-position: 0 0;
+    }
+    .ico_btm:hover {
+        background-position: -35px 0;
+    }
+</style>
+
+<div id="container" class="so_main">
+    <!-- START TOOLBAR -->
+    <div class="Toolbar_inbox">
+        <a href="javascript:void(0);" class="btn_a" onclick="admin.addTreeCategory(0,{$live_id});"><span>添加</span></a>
+        <button type="button" class="layui-btn layui-btn-normal" onclick="addCurriculum()">克隆科目</button>
+
+    </div>
+    <!-- END TOOLBAR -->
+
+    <!-- START LIST -->
+
+    <div class="list" id="list">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr>
+                <th style="width: 14%;">直播目录/节点名</th>
+                <th style="width: 5%;">ID</th>
+                <th style="width: 5%;">上传者</th>
+                <th style="width: 5%;">讲师口令</th>
+                <th style="width: 5%;">助教口令</th>
+                <th style="width: 5%;">学生端口令</th>
+                <th style="width: 5%;">最大并发</th>
+                <th style="width: 8%;">开始时间</th>
+                <th style="width: 8%;">结束时间</th>
+                <th style="width: 8%;">是否开启客户端</th>
+                <th style="width: 5%;">是否审核</th>
+                <th style="width: 5%;">是否禁用</th>
+
+                <th style="width: 27%;">操作</th>
+            </tr>
+            <volist name="category" id="v">
+
+                <tr>
+                    <td>{$v['title']}</td>
+                    <td colspan="11" style="text-align: center;" id="fa{$v.id}" class="fa{$v.id}1 fa" onclick="changestate({$v.id},1)" >+ 展开直播子节点</td>
+                    <td>
+                        <?php $list=M('zy_live_thirdparty')->where('categoryid = '.$v['id'])->find(); ?>
+
+                        <?php if(empty($list)){ ?>
+                        <a href="javascript:;" onclick="admin.addTreeCategory({$v['id']},{$v['videoid']})">添加直播子节点</a> |
+                        <?php }?>
+                        <?php if(empty($v['child'])){ ?>
+                        <a href="{:U('live/AdminLive/addCcLiveRoom',array('id'=>$live_id,'categoryid'=>$v['id'],'sssy'=>1))}">新建直播课时</a> |<?php } ?>
+
+                        <a href="javascript:;" onclick="admin.isEnable({$v['id']},{$v['is_enable']})">
+
+                            <?php if(empty($v['is_enable'])){ ?>
+                            禁用
+                            <?php }else{ ?>
+                            启用
+                            <?php } ?>
+
+
+                        </a> | <a href="javascript:;" onclick="admin.upTreeCategory({$v['id']})">修改</a> | <a href="javascript:;" onclick="admin.rmTreeCategory({$v['id']},{$v['videoid']});">删除</a>
+                    </td>
+                </tr>
+
+                <if condition ="isset($v['child'])">
+
+                    <volist name="v['child']" id="v2">
+                        <tr class="san{$v['id']}1 hide">
+                            <td>ㅏ {$v2['title']}</td>
+                            <td colspan="11" style="text-align: center;" id="fa{$v2.id}" class="fa{$v2.id}2 fa{$v.id}1 fa" onclick="changestate({$v2.id},2)">+ 展开直播子节点</td>
+                            <td>
+                                <?php $list=M('zy_live_thirdparty')->where('categoryid = '.$v2['id'])->find(); ?>
+                                <a href="{:U('live/AdminLive/addCcLiveRoom',array('id'=>$live_id,'categoryid'=>$v['id']))}">新建直播课时</a> |
+                                <a href="javascript:;" onclick="admin.upTreeCategory({$v['id']})">修改</a> | <a href="javascript:;" onclick="admin.rmTreeCategory({$v['id']},{$v['videoid']});">删除</a>
+                            </td>
+                        </tr>
+                        <volist name='listdata' id='l'>
+                            <if condition="$l['categoryid'] eq $v2['id']">
+                                <tr class="san{$v.id}1 san{$v2.id}2 hide">
+                                    <td style="text-align: right;padding-right: 16px;">ㅏ {$l.subject}</td>
+                                    <td >{$l.id}</td>
+                                    <td >{$l.uname}</td>
+                                    <td >{$l.teacherToken}</td>
+                                    <td >{$l.assistantToken}</td>
+                                    <td >{$l.studentClientToken}</td>
+                                    <td >{$l.maxAttendees}</td>
+                                    <td >{$l.startDate}</td>
+                                    <td >{$l.invalidDate}</td>
+                                    <td >{$l.webJoin}</td>
+                                    <td >{$l.clientJoin}</td>
+                                    <td >{$l.is_active}</td>
+                                    <td >{$l.DOACTION}</td>
+                                </tr>
+                            </if>
+                        </volist>
+                    </volist>
+                    <else />
+                    <volist name='listdata' id='l'>
+                        <if condition="$l['categoryid'] eq $v['id']">
+                            <tr class="san{$v.id}1 hide">
+                                <td style="text-align: right;padding-right: 16px;">ㅏ {$l.subject}</td>
+                                <td >{$l.id}</td>
+                                <td >{$l.uname}</td>
+                                <td >{$l.teacherToken}</td>
+                                <td >{$l.assistantToken}</td>
+                                <td >{$l.studentClientToken}</td>
+                                <td >{$l.maxAttendees}</td>
+                                <td >{$l.startDate}</td>
+                                <td >{$l.invalidDate}</td>
+                                <td >{$l.webJoin}</td>
+                                <td >{$l.clientJoin}</td>
+                                <td >{$l.is_active}</td>
+                                <td >{$l.DOACTION}</td>
+                            </tr>
+                        </if>
+                    </volist>
+                </if>
+            </volist>
+            </tbody>
+        </table>
+
+    </div>
+    <!-- END LIST -->
+
+</div>
+
+<script type="text/javascript">
+    layui.use('layer');
+
+
+    function addCurriculum(){
+        var html = '<div class="layui-form-item"  style="margin-top: 15px;">'
+            +'<label class="layui-form-label">选择节点：</label>'
+            +'<div class="layui-input-inline">'
+            +'<select name="modules" id="categoryid" style="display:block;" class="layui-input">'
+            +'<option value="">选择要加入的节点</option>'
+            <volist name="category" id="vo">
+            +'<option value="{$vo.id}">{$vo.title}</option>'
+            </volist>
+            +"</select>"
+            +'</div>'
+            +'</div>'
+
+            +'<div class="layui-form-item">'
+            +'<label class="layui-form-label">专业ID：</label>'
+            +'<div class="layui-input-inline">'
+            +'<input type="text" name="courseid" id="courseid"  placeholder="请输入克隆专业的ID" autocomplete="off" class="layui-input">'
+            +'</div>'
+            +'</div>'
+            +'<div class="layui-form-item">'
+            +'<div class="layui-input-block" style="margin-left:0">'
+            +'<button type="button" class="layui-btn" id="sub" >提交</button>'
+            +'</div>'
+            +' </div>';
+
+
+
+
+
+        layer.open({
+            type: 1
+            ,area: '340px;'
+            ,id: 'layerDemo' //防止重复弹出
+            ,content: html
+            // ,btn: '关闭'
+            ,btnAlign: 'c' //按钮居中
+            ,shade: 0 //不显示遮罩
+            ,yes: function(){
+                layer.closeAll();
+            }
+        });
+        $(".layui-layer .layui-layer-title").html(" ");
+        $("#sub").click(function(){
+            var categoryid = $("#categoryid").val();
+            var courseid = $("#courseid").val();
+            $.post(U('live/AdminLive/addCourse'), { categoryid : categoryid, courseid : courseid },
+                function(data){
+                    if(data.msg == 1){
+                        $(".layui-layer").hide();
+                        alert("克隆课程成功！");
+
+                    }else{
+                        alert("克隆课程失败！");
+                    }
+                },"json");
+        });
+    };
+
+
+
+
+
+    function changestate(id,ceng){
+        if($('#fa'+id).hasClass('fa'))
+        {
+            $('.fa'+id+ceng).html('- 收起直播子节点');
+            $('.san'+id+ceng).removeClass('hide');
+            $('.fa'+id+ceng).removeClass('fa');
+        }else{
+            $('.fa'+id+ceng).html('+ 展开直播子节点');
+            $('.san'+id+ceng).addClass('hide');
+            $('.fa'+id+ceng).addClass('fa');
+
+        }
+    }
+
+
+
+    /**
+     * 收起与展开效果
+     * @param integer cid 分类ID
+     * @return boolean false
+     */
+    admin.foldCategory = function(cid)
+    {
+        var offImg = THEME_URL + '/admin/image/off.png';
+        var onImg = THEME_URL + '/admin/image/on.png';
+        $('#sub_'+cid).toggle();
+        $img = $('#img_'+cid);
+        if($img.attr('src') == offImg) {
+            $img.attr('src', onImg);
+        } else {
+            $img.attr('src', offImg);
+        }
+        return false;
+    };
+    /**
+     * 移动分类位置
+     * @param integer cid 分类ID
+     * @param string type 移动类型
+     * @param string stable 所操作的数据表
+     * @return boolean false
+     */
+    admin.moveTreeCategory = function(cid, type, stable)
+    {
+        // 验证数据正确性
+        if(typeof cid === "undefined" || typeof type === "undefined" || typeof stable === "undefined") {
+            return false;
+        }
+        // 提交数据，修改排序位置
+        $.post(U('admin/Public/moveTreeCategory'), {cid:cid, type:type, stable:stable}, function(msg) {
+            if(msg.status == 1) {
+                ui.success(msg.data);
+                var $category = $('#' + stable + '_' + cid);
+                if (type === 'up') {
+                    var size = $category.prev().size();
+                    if (size > 0) {
+                        var otherId = $($category.prevAll('li[id^="' + stable + '_"]')[0]).attr('id');
+                        otherId = otherId.split('_').pop();
+                        $target = $('#' + stable + '_' + otherId);
+                        $target.before($category);
+                        $('#sub_' + cid).length > 0 && $target.before($('#sub_' + cid));
+                    }
+                } else if (type === 'down') {
+                    var size = $category.next().size();
+                    if (size > 0) {
+                        var otherId = $($category.nextAll('li[id^="' + stable + '_"]')[0]).attr('id');
+                        otherId = otherId.split('_').pop();
+                        $target = $('#' + stable + '_' + otherId);
+                        if ($('#sub_' + otherId).length > 0) {
+                            $target = $('#sub_' + otherId);
+                        }
+                        $('#sub_' + cid).length > 0 && $target.after($('#sub_' + cid));
+                        $target.after($category);
+                    }
+                }
+            } else {
+                ui.error(msg.data);
+            }
+        }, 'json');
+        return false;
+    };
+    //启用禁用
+    admin.isEnable = function(cid,type)
+    {
+        if(typeof cid === "undefined" ) {
+            return false;
+        }
+        if(type == 0){
+            var isEnable = '禁用';
+        }else{
+            var isEnable = '启用';
+        }
+        // 启用禁用分类操作
+        if(confirm("是否"+isEnable+"该标题？")) {
+            $.post(U('admin/Public/isEnable'),
+                {cid:cid,type:type}, function(msg) {
+                    if(msg.status == 1) {
+                        ui.success(msg.data);
+                        location.href = location.href;
+                        return false;
+                    } else {
+                        ui.error(msg.data);
+                        return false;
+                    }
+                }, 'json');
+        }
+        return false;
+    }
+
+
+
+    /**
+     * 添加子分类
+     * @parma integer cid 分类ID
+     * @param string stable 所操作的数据表
+     * @parma integer limit 字数限制
+     * @param integer type 分类所属 云课堂特有
+     * @return boolean false
+     */
+    admin.addTreeCategory = function(cid,live_id)
+    {
+
+        if(typeof cid === "undefined") {
+            return false;
+        }
+        admin.foldCategory(cid);
+        ui.box.load(U('admin/Public/addTreeLiveCategory')+'&cid='+cid+"&live_id="+live_id, "添加标题");
+        return false;
+    };
+
+
+    /**
+     * 编辑分类
+     * @param integer cid 分类ID
+     * @param integer type 分类所属 云课堂特有
+     * @return boolean false
+     */
+    admin.upTreeCategory = function(cid)
+    {
+        if(typeof cid === "undefined" ) {
+            return false;
+        }
+        ui.box.load(U('admin/Public/upTreeLiveCategory')+'&cid='+cid, "编辑标题");
+        return false;
+    };
+    /**
+     * 删除分类
+     * @param integer cid 分类ID
+     * @return boolean false
+     */
+    admin.rmTreeCategory = function(cid)
+    {
+        if(typeof cid === "undefined") {
+            return false;
+        }
+        // 删除操作
+        if(confirm("是否删除该标题？")) {
+            $.post(U('admin/Public/rmTreeLiveCategory'),
+                {cid:cid}, function(msg) {
+                    if(msg.status == 1) {
+                        ui.success(msg.data);
+                        location.href = location.href;
+                        return false;
+                    } else {
+                        ui.error(msg.data);
+                        return false;
+                    }
+                }, 'json');
+        }
+        return false;
+    };
+</script>
+
+<script type="text/javascript">
+    /**
+     * 初始化对象
+     */
+    //表格样式
+    $(document).ready(function(){
+        admin.bindTrOn();});
+</script>
+
+
+
+<div id="topcontrol" title="返回顶部" style="position: fixed; bottom: 30px; right: 20px; opacity: 0; cursor: pointer;">
+    <a href="#top" class="top_stick">&nbsp;</a>
+</div>
+
+</body>
+</html>

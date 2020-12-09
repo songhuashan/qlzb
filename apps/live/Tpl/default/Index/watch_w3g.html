@@ -1,0 +1,315 @@
+<style media="screen">
+    .bgc {
+        background: none!important;
+        margin-right: -15px;
+        font-size: 16px;
+    }
+    a:hover{text-decoration: none!important;}
+    .course-class{
+        display: none;
+        background: #3e3e3e;
+    }
+    .course-class a{
+        background: #3e3e3e;
+        width: 100%!important;
+        height: auto;
+    }
+    .modular
+    {
+        width: 25px;
+        height: 25px;
+        margin: 15px 0 0 0;
+        background: url(__THEMEW3G__/icon/icon.png);
+        background-position: 163px 124px;
+    }
+    .fill-in{
+        width: 25px;
+        height: 25px;
+        margin: 0px 15px 0 2%;
+        background-position: 114px 124px;
+        line-height: normal;
+    }
+    header{padding: 0 5%!important;width: 100%!important;}
+    .clear{clear: both;}
+    body{width: 100%!important;max-width: none!important;overflow-x: hidden!important;height: auto!important;padding-bottom:60px!important;}
+    [data-dpr="2"] header .a_box{width: 178px;margin-top: 27px;}
+    [data-dpr="2"]  .nav_list{height: 100px;}
+    [data-dpr="2"]  .nav_list ul li .icon{height: 55px;font-size: 42px;}
+    [data-dpr="2"] .users{width: 60px;height: 60px;margin-top: 24px;}
+    [data-dpr="2"]  .window-panle dl dt img{width: 80px;height: 80px;margin: 60px 30px 30px 30px;}
+    [data-dpr="2"] .window-panle dl dd{margin-top: 80px;}
+    [data-dpr="2"] .window-panle dl a{font-size: 36px;}
+    [data-dpr="2"] .sign-out a{font-size: 30px;border-top: 2px solid #3e3e3e}
+    [data-dpr="2"] .sign-out{margin-top: 100px;}
+    [data-dpr="2"] .window-panle ul li a{font-size: 32px;line-height: 80px;border: 2px solid #3e3e3e;}
+    [data-dpr="2"] .users span{line-height: 60px;top: 90px;width: 200px;}
+    [data-dpr="2"] #status{background-size: 120px 120px;}
+    [data-dpr="2"] #status em{font-size: 20px!important;}
+    [data-dpr="2"] .center-text{font-size: 24px;line-height: 40px;}
+    [data-dpr="2"] .users span a{font-size: 26px;line-height: 80px;}
+    [data-dpr="2"] header{height: 112px;}
+    [data-dpr="2"]  .modular{width: 50px;height: 50px;margin: 55px 0 0 26px;transform:scale(2)}
+    [data-dpr="2"]  .logos img{width: 100%;margin-top: 20px;}
+    [data-dpr="2"]  .users img{width: 60px;height: 60px;}
+    [data-dpr="2"] .fill-in{transform:scale(2);margin: 20px 30px 0 0;}
+    [data-dpr="2"] .logos{margin-left: 24%;}
+    [data-dpr="3"] .users{width: 90px;height: 90px;margin-top: 48px;}
+    [data-dpr="3"]  .window-panle dl dt img{width: 120px;height: 120px;margin: 90px 60px 60px 60px;}
+    [data-dpr="3"] .window-panle dl dd{margin-top: 108px;}
+    [data-dpr="3"] .window-panle dl a{font-size: 52px;}
+    [data-dpr="3"] .sign-out a{font-size: 44px;border-top: 3px solid #3e3e3e}
+    [data-dpr="3"] .window-panle ul li a{font-size: 48px;line-height: 110px;border: 3px solid #3e3e3e;}
+    [data-dpr="3"] header{height: 180px;}
+    [data-dpr="3"]  .modular{width: 50px;height: 50px;margin: 106px 0 0 26px;transform:scale(3.2)}
+    [data-dpr="3"]  .logos img{width: 100%;margin-top: 34px;}
+    [data-dpr="3"]  .users img{width: 90px;height: 90px;}
+    [data-dpr="3"] .fill-in{transform:scale(3);margin: 47px 66px 0 0;}
+    [data-dpr="3"] .logos{margin-left: 27%;}
+    [data-dpr="3"] .bgc{font-size: 30px;}
+    [data-dpr="3"] .sign-out{margin-top: 140px;}
+    [data-dpr="3"] .users span{line-height: 90px;top: 132px;width: 300px;}
+    [data-dpr="3"] .users span a{font-size: 39px;line-height: 120px;}
+    [data-dpr="3"] #status{background-size: 180px 180px;height: 330px;width: auto;}
+    [data-dpr="3"] #status em{font-size: 30px!important;}
+    [data-dpr="3"] .center-text{font-size: 36px;line-height: 60px;}
+    [data-dpr="3"] .tabs{height: 50px;}
+    [data-dpr="3"] .doc-tab{height: 50px;}
+</style>
+<html>
+<!DOCTYPE HTML><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$seo['_title']}</title>
+    <meta content="{$seo['_keywords']}" name="keywords">
+    <meta content="{$seo['_description']}" name="description">
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no,email=no" name="format-detection" />
+    <link href="__THEMENEW__/css/public2.0.css" rel="stylesheet">
+    <link href="__THEMENEW__/css/public_header_footer_media.css" rel="stylesheet">
+    <link href="__THEMEW3G__/css/style_add.css" rel="stylesheet">
+    <link href="__THEMEW3G__/css/style.css" rel="stylesheet">
+    <script src="__THEMEW3G__/js/jquery.js"></script>
+    <script src="__THEME__/js/index_new/public_header_footer_media.js"></script>
+    <script src="__THEMEW3G__/js/TouchSlide.1.0.js"></script>
+    <script src="__THEMEW3G__/js/jquery.SuperSlide.2.1.js"></script>
+    <script src="__THEME__/js/cyjs/title_common.js"></script>
+    <script src="__THEME__/js/cyjs/cyjs_common.js"></script>
+    <script src="__THEME__/js/cyjs/offlights.js"></script>
+    <script type="text/javascript" src="https://view.csslcloud.net/js/_fix_.js"></script>
+    <!-- <script src="__THEMEW3G__/js/flexible_css.debug.js"></script>
+    <script src="__THEMEW3G__/js/flexible.debug.js"></script>
+    <script src="__THEMEW3G__/js/makegrid.debug.js"></script> -->
+    <script>
+        //全局变量
+        var SITE_URL  = '<php> echo SITE_URL;</php>';
+        var UPLOAD_URL= '<php> echo UPLOAD_URL;</php>';
+        var THEME_URL = '__THEME__';
+        var APPNAME   = '<php> echo APP_NAME;</php>';
+        var MID		  = parseInt('<php> echo $mid;</php>');
+        var UID		  = '<php> echo $uid;</php>';
+        var initNums  =  '<php> echo $initNums;</php>';
+        var SYS_VERSION = '<php> echo $site["sys_version"];</php>';
+        var _ROOT_    = '__ROOT__';
+        // Js语言变量
+        var LANG = new Array();
+        //注册登录模板
+        var REG_LOGIN="{:U('public/Passport/regLogin')}";
+        //邮箱验证地址
+        var CLICK_EMIL="{:U('public/Passport/clickEmail')}";
+        //异步注册地址
+        var REG_ADDRESS="{:U('public/Passport/ajaxReg')}";
+        //异步登录
+        var LOGIN_ADDRESS="{:U('public/Passport/ajaxLogin')}";
+        //退出登录
+        var LOGINOUT_ADDRESS="{:U('public/Passport/logout')}";
+    </script>
+</head>
+
+<body>
+
+<!--preloader-->
+<div id="preloader">
+    <div id="status">
+        <p class="center-text">
+            加载内容...
+            <em>加载取决于您的连接速度!</em>
+        </p>
+    </div>
+</div>
+<!--header-->
+
+<!--<iframe src="__THEME__/_header_w3g.html" style="width:100%;z-index:1000000"></iframe>-->
+<link rel="stylesheet" href="__THEME__/../_static_new/icon/iconfont.css">
+<!-- <link rel="stylesheet" href="__THEME__/../_static_new/icon/iconfont.js"> -->
+<script>
+    if(navigator.userAgent.match(/(iPhone|Android|ios)/i)) {
+        $(window).load(function () {
+            $('.modular,.logos,.window-box').show();
+            $('.users').attr('style','display:block');
+        });
+    }
+    $(window).ready(function(){
+        $(".dic-box:last").css("border-bottom","none");
+    });
+    /**
+     * 退出成功
+     */
+    function logout(){
+        $.ajax({
+            type: "POST",
+            async:false,
+            url:LOGINOUT_ADDRESS,
+            dataType:"json",
+            success:function(data){
+                alert("退出成功！");
+                location.reload();
+            }
+        });
+    }
+</script>
+<style type="text/css">
+
+</style>
+<if condition="$_SESSION['mid'] eq ''">
+    <include file="__THEME__/reg_login" />
+</if>
+<div class="win hide"></div>
+<div class="shadow-panle"></div>
+<div class="window-panle" id="window-panle">
+    <dl>
+        <if condition="$_SESSION['mid']">
+            <dt><img src="{:getUserFace($user['uid'],'b')}" width="40" height="40"></dt>
+            <dd><a href="{:U('classroom/UserShow/index',array('uid'=>$_SESSION['mid']))}">{:getUserName($user['uid'])}</a></dd>
+            <else/>
+            <dt><img src="__THEME__/images/head_img.png"></dt>
+            <dd><a href="{:U('public/Passport/login_g')}">登录</a></dd>
+            <dd><p>或</p></dd>
+            <dd><a href="{:U('public/Passport/reg')}">注册</a></dd>
+        </if>
+    </dl>
+    <ul>
+        <volist name="site_top_nav" id="vo" key="k">
+            <li <php>if(APP_NAME == lcfirst( $vo['app_name'] ) || ( APP_NAME == 'classroom' && MODULE_NAME == ucfirst( $vo['app_name'] ) ) ){echo "class='active'";}</php>>
+            <if condition="$vo['app_name'] neq 'Vip'">
+                <a href="{$vo['url']}" target="{$vo['target']}"<if condition="($vo.app_name eq 'Video') or ($vo.app_name eq 'more')"> onclick="show_list(this)"</if>>{$vo['navi_name']}
+                <if condition="($vo.app_name eq 'Video') or ($vo.app_name eq 'more')"> <span class="bgc icon icon-xiala2" style=""></span></if>
+                </a>
+            </if>
+            <if condition="$vo.child neq ''">
+                <span class="course-class" <if condition="($vo.app_name eq 'Video') or ($vo.app_name eq 'more')">id="hide_list"</if>>
+                <volist name="vo.child" id="child" key="k">
+                    <if condition="($child.app_name neq 'more') and ($child['app_name'] neq 'Album')">
+                        <a href="{$child['url']}" target="{$child['target']}">{$child['navi_name']}</a>
+                    </if>
+                </volist>
+                </span>
+            </if>
+            </li>
+        </volist>
+    </ul>
+    <if condition="$_SESSION['mid']">
+        <div class="sign-out">
+            <a href="javascript:;" onclick="logout()">退出登录</a>
+        </div>
+    </if>
+</div>
+
+<div class="overall_situation_box_alls">
+
+    <div class="shadow-panle"></div>
+
+    <!-- <header>
+        <div class="modular"></div>
+        <a class="logos" href="/" title="{$site['site_keyword']}在线教育系统">
+            <img src="{$site.logo_head_w3g}">
+        </a>
+        <div class="users">
+            <if condition="$_SESSION['mid']">
+                <img src="{:getUserFace($_SESSION['mid'],'b')}" width="30" height="30">
+                <span>
+                    <a href="{:U('classroom/User/index')}">个人中心</a>
+                    <a href="javascript:;" onclick="logout()">退出</a>
+                </span>
+                <else/>
+                <img src="__THEME__/image/noavatar/big.jpg">
+                <span>
+                    <a href="{:U('public/Passport/login_g')}">登录</a>
+                    <if condition="$this_mhm_id neq ''">
+                        <a href="{:U('public/Passport/reg',array('this_mhm_id'=> $this_mhm_id))}">注册</a>
+                        <else/>
+                        <a href="{:U('public/Passport/reg')}">注册</a>
+                    </if>
+                </span>
+            </if>
+        </div>
+        <a href="{:U('classroom/Index/search')}" class="fill-in"></a>
+    </header> -->
+    <header>
+     <a href="javascript:" class="a_box"><img src="{$site.logo_head_w3g}" alt="logo"></a>
+     <div class="users">
+         <if condition="$_SESSION['mid']">
+             <img src="{:getUserFace($user['uid'],'b')}" width="30" height="30">
+             <span>
+                 <i class="icon icon-shang1"></i>
+                 <a href="{:U('classroom/User/index')}">个人中心</a>
+                 <a href="javascript:;" onclick="logout()">退出</a>
+             </span>
+             <else/>
+             <img src="__THEME__/image/noavatar/big.jpg">
+             <span>
+                 <i class="icon icon-shang1"></i>
+                 <a href="{:U('public/Passport/login_g')}">登录</a>
+                 <if condition="$this_mhm_id neq ''">
+                     <a href="{:U('public/Passport/reg',array('this_mhm_id'=> $this_mhm_id))}">注册</a>
+                     <else/>
+                     <a href="{:U('public/Passport/reg')}">注册</a>
+                 </if>
+             </span>
+         </if>
+     </div>
+     <a href="{:U('classroom/Index/search')}" class="fill-in"><i class="icon icon-search"></i></a>
+    </header>
+    <div class="clear"></div>
+    <script type="text/javascript">
+        if(navigator.userAgent.match(/(iPhone|Android|ios)/i)) {
+            $(window).load(function () {
+                $('.modular,.logos,.window-box').show();
+            });
+        }
+
+        $(".modular").on("click",function(){
+            $(".win").show();
+            $(".window-box").animate({marginLeft:"0"});
+            var dis = $(".win").css('display');
+            if(dis == 'block'){
+                $("body").css("overflow-y","hidden");
+            }
+        });
+
+        $(".win").on("click",function(){
+            $(".window-box").animate({marginLeft:'-70%'});
+            $(".win").hide();
+            var dis = $(".win").css('display');
+            if(dis == 'none'){
+                $("body").css("overflow-y","visible");
+            }
+        });
+        function show_list(obj){
+            if ($(obj).siblings('.course-class').css("display")=="none") {
+                $(obj).siblings('.course-class').show();
+                // $(obj).parent('li').siblings().children('.course-class').hide();
+            }
+            else {
+                $(obj).siblings('.course-class').hide();
+                // $(obj).parent('li').siblings().children('.course-class').show();
+            }
+
+        };
+    </script>
+
+<!--container-->
+<iframe src="{$url}" width="100%"  height="100%" frameborder="0" scrolling="yes"></iframe>
+<!--footer-->
+
+<include file="__THEME__/public_footer_w3g"/>

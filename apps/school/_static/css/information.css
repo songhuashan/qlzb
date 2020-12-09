@@ -1,0 +1,35 @@
+@charset "utf-8";
+.new-list {background: #fff;margin-top: 30px;}
+.new-list li{position:relative;overflow:hidden;padding:30px 15px 30px 280px;height:150px;border-bottom:dashed 1px #e9e6e6;color:#666;line-height:20px;}
+.new-list .pic{position:absolute;margin-left:-265px;width:250px;height:150px;}
+.new-list h3{padding:10px 0 15px;font-size:18px;}
+.new-list p{overflow:hidden;height:44px;font-size:14px;line-height: 22px}
+.new-list .info{position:absolute;bottom:30px;overflow:hidden;width: 75%;height:20px;color:#999;}
+.new-list .info dd span{margin-right:10px;}
+.new-list .info .fr{float: right;}
+.new-list .info .fl{float: left;}
+.classmain_con{overflow: hidden;}
+.content{width: 100%;background: #f0f0f2}
+.main{overflow: hidden;width: 1200px;margin: 0 auto;padding-top: 30px;}
+.new-list h3 a{color: #333;}
+.page{margin:30px auto;text-align:center;font-size:14px;float: left;width: 100%;}
+.pagebox{display:inline-block;margin-top: 30px;}
+.pagebox a{margin: 0 2px;float:left;display:inline-block;border-radius: 2px;padding: 0 12px;border:solid 1px #ddd;background-color:#f7f7f7;color:#888;text-align:center;line-height:30px;}
+.pagebox span{float:left;display:inline-block;width:40px;height:40px;color:#333;text-align:center;line-height:40px;}
+.pagediv{display:inline-block;margin:0 5px;height:40px;color:#333;text-align:center;line-height:40px;}
+.pagediv input{display:inline-block;padding:0 5px;width:38px;height:30px;border:solid 1px #d8d8d8;line-height:30px;}
+.pagebox a.end,.pagebox a.home,.pagebox a.next,.pagebox a.prev{padding:0 10px;width:auto;}
+.pagebox a.goto{float:none;padding:0 10px;width:auto;height:30px;border-radius:3px;vertical-align:middle;line-height:30px;}
+.pagebox .pagediv span{float:none;width:auto;}
+.pagebox a.cursor,.pagebox a:hover{border:solid 1px #00BED4;background-color:#00BED4;color:#fff;}
+.pagebox .current{background: #00BED4;color: #fff;}
+.search-box{background: #fff;}
+.search-box ul{overflow: hidden;}
+.search-box li{padding-left: 10px;margin-right: 10px;float: left;line-height: 50px;}
+.search-box li>a{display: inline-block;padding: 0px 15px;color: #888;border-radius: 4px;height: 30px;line-height: 30px;margin-top: 10px;}
+.search-box li a:hover{color: #00BED4 }
+.search-box .selected>a:hover{color: #fff;background: #00BED4;}
+.search-box .selected>a{background: #00BED4;color: #fff;margin-left: 10px;}
+.search-box{position: relative;}
+.search-box{background: #fff;}
+.search-box ul{border-bottom: 1px dashed #dcdcdc;}

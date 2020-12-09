@@ -1,0 +1,425 @@
+<include file="__THEME__/public_header_w3g" />
+
+<link href="__THEMEW3G__/css/style_3g.css" rel="stylesheet">
+<link href="__THEMENEW__/icon/iconfont.css" rel="stylesheet">
+<style>
+    .content-place {  font-size: 14px;  color: #6d6d6d;  height: 50px;  line-height: 50px;  background: #fff;  margin-top: 2px;     margin-left: 17px; }
+    li a{  color: #999;  outline: medium none;  text-decoration: none;  }
+    .content-place li {  float: left;  position: relative;  }
+    .class_order_tit {  line-height: 40px; height: 40px;font-size: 16px;  color: #000;     margin-left: 17px; }
+    .body a{display: inline-block}
+</style>
+
+<div class="body">
+    <div class="wrap">
+        <!-- <div class="content-place">
+            <ul>
+                <li><a href="/">首页</a>
+                    <if condition="($pay_video_type eq 'zy_video') or ($pay_video_type eq 'zy_live')">
+                        <span>&gt;</span>
+                        <a href="{:U('classroom/Video/index')}">全部课程</a>
+                        <volist name="cate_info" id="cate">
+                            <span>&gt;</span>
+                            <a href="{:U('classroom/Video/index',array('cateId'=>$cate['cate_id']))}">{$cate['cate_title']}</a>
+                        </volist>
+                        <span>&gt;</span>{$video_title}
+                        <elseif condition="$pay_video_type eq 'zy_album'"/>
+                        <span>&gt;</span>
+                        <a href="{:U('classroom/Video/index')}">全部班级</a>
+                        <volist name="cate_info" id="cate">
+                            <span>&gt;</span>
+                            <a href="{:U('classroom/Video/index',array('cateId'=>$cate['cate_id']))}">{$cate['cate_title']}</a>
+                        </volist>
+                        <span>&gt;</span>{$video_title}
+                        <elseif condition="$pay_video_type eq 'zy_teacher'"/>
+                        <span>&gt;</span><a href="{:U('classroom/LineClass/index')}">线下课</a>
+                        <span>&gt;</span>{$course_name}
+                    </if>
+                </li>
+            </ul>
+        </div> -->
+
+        <div class="min-height-wrap">
+            <div class="class_order_tit">核对订单信息</div>
+            <!--商品信息-->
+            <dl class="df_course-info">
+                <dt><h3>商品信息</h3></dt>
+                <dd>
+                    <if condition="$pay_video_type eq 'zy_video'">
+                        <a href="{:U('classroom/Video/view',['id'=>$id])}">
+                        <elseif condition="$pay_video_type eq 'zy_live'" />
+                        <a href="{:U('live/Index/view',['id'=>$id])}">
+                        <elseif condition="$pay_video_type eq 'zy_album'" />
+                        <a href="{:U('classroom/Album/view',['id'=>$id])}">
+                        <elseif condition="$pay_video_type eq 'zy_teacher'" />
+                        <a href="{:U('classroom/Album/view',['id'=>$id])}">
+                    </if>
+                    <span>
+                        <img src="{:getCover($cover,220,130)}" width="120" height="70" alt="{$video_title}">
+                    </span>
+                        <h3>
+                            {$video_title}
+                            <p>¥{$moner_data['price']}</p>
+                        </h3>
+                    </a>
+                </dd>
+            </dl>
+
+            <!--支付方式-->
+            <dl class="df_pay-style">
+                <dt><h3>支付方式</h3></dt>
+                <if condition="in_array('alipay',$payConfig['pay'])">
+                    <dd value="alipay" class="paytype"><a class="icon icon-zhifubao1"></a><span class="name">支付宝</span><i class="icon icon-xuanze"></i></dd>
+                </if>
+                <if condition="in_array('wxpay',$payConfig['pay'])">
+                    <dd value="wxpay" class="paytype"><a class="icon icon-weixinzhifu1"></a><span class="name">微信支付</span><i style="border: 1px solid rgb(237, 237, 237);"></i></dd>
+                </if>
+                <if condition="in_array('unionpay',$payConfig['pay'])">
+                    <!--<span val="unionpay">银联支付</span>-->
+                </if>
+               <!--  <if condition="in_array('lcnpay',$payConfig['pay'])">
+                    <dd value="lcnpay" class="paytype"><span>余额支付(￥{$account_balance})</span><i></i></dd>
+                </if> -->
+            </dl>
+
+            <!--优惠券-->
+            <if condition="(($pay_video_type eq 'zy_video') or ($pay_video_type eq 'zy_live') or ($pay_video_type eq 'zy_album')) and ($pay_video_type neq 'zy_teacher')">
+            <dl class="df_pay-coupon">
+                <a href="{:U('classroom/PayVideo/coupon',['id'=>$id])}">
+                    <dt><h3>满减优惠</h3></dt>
+                    <dd>
+                    <p>
+                    <!-- <if condition="$videoCoupon or $discount or $courseCard">有<else/>无</if> -->
+                    选择优惠方式<i class="icon icon-youjiantou"></i>
+                    </p>
+                    </dd>
+                </a>
+            </dl>
+            </if>
+
+            <!--实付金额-->
+            <dl class="df_pay-price">
+                <dd><h3>实付金额</h3><p id="pay_money">￥{$moner_data['price']}</p></dt>
+                <if condition="($pay_video_type eq 'zy_video') or ($pay_video_type eq 'zy_live')">
+                    <dd><h3>优惠折扣</h3><p id="cod_money1"><if condition="$minus_price">-¥{$moner_data['price']-$minus_price}<else/>0.0</if></p></dd>
+                </if>
+            </dl>
+
+            <!--购买条款-->
+            <div class="df_pay-protocol">
+                <p><i class="icon icon-xuanze" attr="1"></i>我已阅读并同意<a href="javascript:;">《{$site['site_keyword']}购买条款》</a></p>
+            </div>
+            <!--提交订单-->
+            <div class="df_pay-buy">
+                <h3>合计：<strong id="pay_money2">￥{$minus_price|default=$moner_data['price']}</strong></h3>
+                <a href="javascript:;" onclick="buyOperat(this,{$id},'video');" type="submit">立即支付</a>
+            </div>
+            <form action="{:U('classroom/PayVideo/payLibrary')}" method="POST" id="pay_video_form">
+                <input type="hidden" value="{$id}" name="vid" />
+                <input type="hidden" value="1" name="discount_type" />
+                <input type="hidden" value="{$_GET['cid']}" name="coupon_id" id="coupon_id" />
+                <input type="hidden" value="{$pay_video_mount_school}" name="pay_video_mount_school" id="pay_video_mount_school" />
+                <input type="hidden" value="{$_SESSION['mid']}" name="mid" />
+                <if condition="$pay_video_type eq 'zy_video'">
+                    <input type="hidden" value="zy_video" name="check_type" />
+                    <input type="hidden" value="课程：{$video_title}" name="title" />
+                    <elseif condition="$pay_video_type eq 'zy_album'"/>
+                    <input type="hidden" value="zy_album" name="check_type" />
+                    <input type="hidden" value="班级：{$video_title}" name="title" />
+                    <elseif condition="$pay_video_type eq 'zy_live'"/>
+                    <input type="hidden" value="zy_live" name="check_type" />
+                    <input type="hidden" value="直播课程：{$video_title}" name="title" />
+                    <elseif condition="$pay_video_type eq 'zy_teacher'"/>
+                    <input type="hidden" value="zy_teacher" name="check_type" />
+                    <input type="hidden" value="线下课程：{$video_title}" name="title" />
+                </if>
+                <input type="hidden" id="pay_money_val" value="{$minus_price|default=$moner_data['price']}" name="money" />
+                <input type="hidden" value="<if condition='$is_wx'>wxpay<else/>alipay</if>" name="pay" />
+                <input type="hidden" value="{$_GET['vst']}" name="vst" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<if condition="$is_wx eq null">
+    <style>
+        #_ts_box_h5{width:290px;height:180px;text-align: center;color: #535353;border-radius: 5px;position: fixed;background: #fff;-webkit-box-shadow: 0 2px 5px #dddddd;-moz-box-shadow: 0 2px 5px #dddddd;-khtml-box-shadow: 0 2px 5px #dddddd;-ms-box-shadow: 0 0 15px #888888;box-shadow: 0 0 15px #888888;z-index: 997;left: 5%;top: 35%;margin: 0 auto;background: #fff;}
+        ._hide_box_h5{z-index:996;filter:alpha(opacity=50);background:#666;opacity: 0.5;-moz-opacity: 0.5;left:0;top:0;height:99%;width:100%;position:fixed;}
+        #_ts_box_h5 ._box_hd{padding: 20px 0px;color: black;font-size: 16px;border-bottom: 1px solid rgba(0, 0, 0, 0.16);}
+        #_layer-content{padding: 15px 0px;color: rgba(255, 35, 0, 0.69);font-size: 16px;border-bottom: 1px solid rgba(0, 0, 0, 0.1);}
+        ._layer-wt{padding: 15px 0px;color: #908d8d;font-size: 16px;}
+    </style>
+    <div class="_hide_box_h5" style="display: none;"></div>
+    <div id="_ts_box_h5" style="display: none;">
+        <div class="_box_hd" >请确认微信支付是否完成</div>
+        <div id="_layer-content">已完成支付</div>
+        <div class="_layer-wt"><a href="{:U('classroom/PayVideo/index',['vst'=>$_GET['vst']])}">支付遇到问题，联系客服</a></div>
+    </div>
+</if>
+
+<script src="__THEMEW3G__/js/style_3g.js"></script>
+<script>
+    '<if condition="$is_wx eq null">'
+    $(function(){
+        var wpay = "{$_GET['wpay']}";
+        var ppn = "{$_GET['ppn']}";
+        if(wpay != ''){
+            $('._hide_box_h5,#_ts_box_h5').show();
+            $('#_layer-content').click(function(){
+                $('._hide_box_h5,#_ts_box_h5').hide();
+                s = setInterval(function(){
+                    $.ajax({
+                        url: "{:U('classroom/PayVideo/getPayStatus')}",
+                        data:{pay_pass_num:ppn},
+                        type:'post',
+                        success: function(res){
+                            try{
+                                res = JSON.parse(res);
+                                if(res.status == 1){
+                                    clearInterval(s);
+                                    alert('购买成功');
+                                    setTimeout(function(){
+                                        window.location.href = res.data;
+                                    },2000);
+                                }
+                            }catch(e){
+                                return;
+                            }
+                        }
+                    });
+                },1800);
+            });
+        }
+    });
+    '</if>'
+
+    $(function(){
+        var id = '{$coupon.id}';
+        var price = '{$moner_data.price}';
+        $.ajax({
+            type:"POST",
+            url:"{:U('classroom/PayVideo/getCouponInfo')}",
+            data:{id:id},
+            dataType:"json",
+            success:function(data){
+                if(data){
+                    buyvCoupon(data.coupon_id,data.cuid,data.type,price);
+                }else{
+                    return false;
+                }
+            }
+        });
+
+        //支付方式选择
+        $('.paytype').children('i').click(function(){
+           var pay = $(this).parent().attr('value');
+           $('input:hidden[name="pay"]').val(pay);
+        });
+
+        $(".hide_box").fadeToggle();
+        $(".shang_box").fadeToggle();
+
+    });
+
+    var uid = "{$uid}";
+    function buyvCoupon(cid,coupon_id,discount_type) {
+        if(uid<=0){
+            $(".buyOperating").hide();
+            $(".mask").hide();
+            alert("请先登录");
+            return false;
+        }
+        if(!cid || !coupon_id || !discount_type){
+            alert('参数错误');
+            return false;
+        }
+        var price = $('#pay_money_val').val();
+        if(price<=0){
+            alert('该课程不需要您购买');
+            return false;
+        }
+        $('#coupon_id').val(coupon_id);
+        $.post(U("classroom/PayVideo/checkCoupon"),{cid:cid,coupon_id:coupon_id,discount_type:discount_type,price:price},function(e){
+            if(e.status == 1){
+                $('#cod_money1').text("-￥"+e.data.minus_price);
+                $('#cod_money2').text("￥"+e.data.minus_price);
+                //$('#pay_money').text("￥"+e.data.after_price);
+                $('#pay_money2').text("￥"+e.data.after_price);
+                $('#pay_money_val').val(e.data.after_price);
+                alert(e.info);
+                $('.removeUse').show();
+            }else{
+                alert(e.info);
+            }
+        },'json');
+    }
+
+    //取消使用
+    function removeUse(sid){
+        var code = $("input[name='card']").val();
+        $.ajax({
+            type:"POST",
+            url:"{:U('classroom/PayVideo/cancelExchangeCard')}",
+            data:{code:code,mhm_id:sid},
+            dataType:"json",
+            success:function(data){
+                if(data.status == 1){
+                    alert(data.info);
+                    setTimeout('window.location.reload()', 500);
+                }else{
+                    alert(data.info);
+                    return false;
+                }
+            }
+        });
+    }
+
+    /**
+     * 删除字符串str的首尾空格
+     * @name trim
+     * @grammar UM.utils.trim(str) => String
+     */
+  var  trim  =function (str) {
+        return str.replace(/(^[ \t\n\r]+)|([ \t\n\r]+$)/g, '');
+    }
+
+
+    //购买操作
+    var buyOperat = function(sbt,vid,type){
+        if(uid<=0){
+            $(".buyOperating").hide();
+            $(".mask").hide();
+            alert("请先登录");
+            return false;
+        }
+        if(!vid || !type){
+            alert('参数错误');
+            return false;
+        }
+        var checkbox = document.getElementById('check_xy');//
+        /*if(!checkbox.checked){
+            alert("购买必须同意《{$site['site_keyword']}购买条款》");
+            return false;
+        }*/
+        var form  = $('#pay_video_form');
+        var pay   = $('input:hidden[name="pay"]').val();
+        var money = $('input:hidden[name="money"]').val();
+        if(pay!='alipay'&&pay!='unionpay'&&pay!='wxpay'&&pay!='lcnpay'){
+            alert('支付方式错误');
+            return false;
+        }
+        if(money <= 0){
+            alert('该课程不需要您购买');
+            return false;
+        }
+
+        $(sbt).attr('style','background:rgba(102, 102, 102, 0.65)').removeAttr('onclick');
+
+        setTimeout(function(){
+            $.post(U("classroom/PayVideo/checkPayOperat"),form.serialize(),function(data){
+                if(data.status == 1){
+                    $(sbt).attr("onclick","buyOperat(this,'{$id}','video')").removeAttr('style');
+
+                    if(pay == 'wxpay'){
+                        $.ajax({
+                            url: "{:U('classroom/PayVideo/payLibrary')}",
+                            data:form.serialize(),
+                            async:false,
+                            type:'post',
+                            success: function(data){
+                                if(typeof data != 'object'){
+                                    var data = eval('('+data+')');
+                                }
+                                if(data.status == 1){
+                                    var pay_pass_num = data.data.pay_pass_num;
+                                    '<if condition="$is_wx">'
+                                        WeixinJSBridge.invoke(
+                                                'getBrandWCPayRequest',JSON.parse(data.data.html),
+                                            function(res){
+                                                if(res.err_msg == "get_brand_wcpay_request:ok" ){
+                                                    s = setInterval(function(){
+                                                        $.ajax({
+                                                            url: "{:U('classroom/PayVideo/getPayStatus')}",
+                                                            data:{pay_pass_num:pay_pass_num},
+                                                            type:'post',
+                                                            success: function(res){
+                                                                try{
+                                                                    res = JSON.parse(res);
+                                                                    if(res.status == 1){
+                                                                        clearInterval(s);
+                                                                        alert('购买成功');
+                                                                        setTimeout(function(){
+                                                                            window.location.href = res.data;
+                                                                        },1500);
+                                                                    }
+                                                                }catch(e){
+                                                                    return;
+                                                                }
+                                                            }
+                                                        });
+                                                    },1800);
+                                                }
+                                            }
+                                        );
+                                    '<else/>'
+                                        var a = document.createElement('a');
+                                        a.href = data.data.html;
+                                        a.click();
+                                        return false;
+                                    '</if>'
+                                }else{
+                                    alert(data.data);
+                                    setTimeout(function(){
+                                        window.location.href = data.data;
+                                    },1500);
+                                }
+                            },
+                            error: function(){
+                                return false
+                            }
+
+                        });
+                    } else if(pay == 'lcnpay'){
+                        $.post(U("classroom/PayVideo/payLibrary"),$('#pay_video_form').serialize(),function(res){
+                            res = JSON.parse(res);
+
+                            if(res.status == 1){
+                                alert(res.info);
+                                setTimeout(function(){
+                                    window.location.href = res.data;
+                                },2000);
+                            }else{
+                                alert(res.info);
+                                return false
+                            }
+                        });
+                    } else {
+                        $(".buyOperating").hide();
+                        $(".mask").hide();
+                        $("#charge").attr('id', '');
+                        setTimeout("", 3000);
+                        form.submit();
+                    }
+                } else if(data.status == 9){
+                    alert(data.info);
+                    window.location.reload();
+                }else {
+                    var time = 15;
+                    var _codesetInterval = setInterval(function(){
+                        if(time <= 0){
+                            $(sbt).attr("onclick","buyOperat(this,'{$id}','video')").removeAttr('style');
+                            clearInterval(_codesetInterval);
+                        }else{
+                            $(sbt).attr('style','background:rgba(102, 102, 102, 0.65)').removeAttr('onclick');
+                            time--;
+                        }
+                    }, 1000);
+                    alert(data.info);
+                    return false;
+                }
+            },'json');
+        },1000);
+    }
+</script>
+
+<include file="__THEME__/public_footer_w3g" />

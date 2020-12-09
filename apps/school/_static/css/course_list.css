@@ -1,0 +1,58 @@
+@charset "utf-8";
+.class_left{width:100%;padding-bottom: 30px;}
+.class_left .card-main{margin-top:30px;float: left;}
+.class_left .content-card{float:left;width:100%;}
+.content{width: 100%;background: #f0f0f2;}
+.main{width: 1200px;margin: 0 auto;}
+.clear{clear: both;}
+body{background: #f0f0f2;}
+/*.sub-course{display: none;}*/
+.search-box{background: #fff;}
+.search-box ul{overflow: hidden;}
+.search-box li{padding-left: 10px;margin-right: 10px;float: left;line-height: 50px;}
+.search-box li>a{display: inline-block;padding: 0px 15px;color: #888;border-radius: 4px;height: 30px;line-height: 30px;margin-top: 10px;}
+.search-box li a:hover{color: #00BED4 }
+.search-box .selected>a:hover{color: #fff;background: #00BED4;}
+.search-box .selected>a{background: #00BED4;color: #fff;margin-left: 10px;}
+.search-box{position: relative;}
+.search-box{background: #fff;}
+.search-box ul{border-bottom: 1px dashed #dcdcdc;}
+.sub-course{border-top: 1px dashed #dcdcdc;}
+
+
+.bg{background: #fff;}
+.head_box{border-bottom: 1px solid #e5e5e5;}
+.head_box ul{margin-left: 20px;}
+.head_box ul li{display: inline-block;margin-right: 20px;height: 50px;line-height: 50px;}
+.head_box ul li a{color: #333;}
+.active{border-bottom: 1px solid #00BED4;}
+.active a{color: #00BED4!important;}
+.head_box ul li:hover a{color:#00BED4; }
+.head_box ul li:hover{border-bottom: 1px solid #00BED4;}
+.choice_course{margin-top: 30px;padding-bottom: 20px;}
+.choice_course ul{margin-left: -30px;}
+.choice_course ul li{float: left;width: 25%}
+.choice_course ul li .div_box{overflow: hidden;margin: 0 0 30px 30px;border:1px solid #F0F1EC;border-radius:4px;transition:box-shadow .2s;background: #fff;}
+.choice_course ul li .div_box:hover{box-shadow:2px 4px 10px rgba(58,69,88,.3)}
+.choice_course ul li .div_box:hover a>img{transform:scale(1.05,1.05)}
+.choice_course ul li .div_box a{overflow:hidden;width: 100%;display: block;position: relative;}
+.choice_course li a>img{height:192px;transition:0.2s;width: 100%;}
+.choice_course li .title{width:248px;margin-top:-4px;float:left;padding:0 10px;}
+.choice_course li .title h5{width:100%;float:left}
+.choice_course li .title h5 a{font-size:16px;line-height:16px;padding:15px 0 10px 0;color:#333}
+.choice_course li .title b{display:table;font-size:12px;line-height:12px}
+.choice_course li .title b a{color:#888}
+.choice_course li .title span strong{float:left;font-size:18px;color:#ff4000;line-height:58px}
+.choice_course .title span small{float:right;color:#888;line-height:58px}
+.choice_course li a p{position: absolute;left: 0;top: 0;}
+.page{margin:30px auto;text-align:center;font-size:14px;float: left;width: 100%;}
+.pagebox{display:inline-block;margin-top: 30px;}
+.pagebox a{margin: 0 2px;float:left;display:inline-block;border-radius: 2px;padding: 0 12px;border:solid 1px #ddd;background-color:#f7f7f7;color:#888;text-align:center;line-height:30px;}
+.pagebox span{float:left;display:inline-block;width:40px;height:40px;color:#333;text-align:center;line-height:40px;}
+.pagediv{display:inline-block;margin:0 5px;height:40px;color:#333;text-align:center;line-height:40px;}
+.pagediv input{display:inline-block;padding:0 5px;width:38px;height:30px;border:solid 1px #d8d8d8;line-height:30px;}
+.pagebox a.end,.pagebox a.home,.pagebox a.next,.pagebox a.prev{padding:0 10px;width:auto;}
+.pagebox a.goto{float:none;padding:0 10px;width:auto;height:30px;border-radius:3px;vertical-align:middle;line-height:30px;}
+.pagebox .pagediv span{float:none;width:auto;}
+.pagebox a.cursor,.pagebox a:hover{border:solid 1px #00BED4;background-color:#00BED4;color:#fff;}
+.pagebox .current{background: #00BED4;color: #fff;}

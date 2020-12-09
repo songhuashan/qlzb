@@ -1,0 +1,305 @@
+<include file="__THEME__/public_header"/>
+
+<link rel="stylesheet" href="__THEME__/../_static_simple/css/public.css">
+<link rel="stylesheet" href="__THEME__/../_static_simple/css/enterprise.css">
+<link rel="stylesheet" href="__THEME__/../_static_simple/css/banner2.0.css">
+<link rel="stylesheet" href="__THEME__/../_static_simple/css/swiper02.css">
+<link rel="stylesheet" href="__THEME__/../_static_simple/icon/iconfont.css">
+<link rel="stylesheet" href="__THEME__/../_static_simple/css/slick.css">
+
+<script src="__THEME__/../_static_simple/icon/iconfont.js" charset="utf-8"></script>
+<script src="__THEME__/../_static_simple/js/swiper-3.4.2.min.js" charset="utf-8"></script>
+<script src="__THEME__/../_static_simple/js/jquery.SuperSlide.2.1.1.js" charset="utf-8"></script>
+
+<!-- 背景图 -->
+<div class="content">
+    <!--banner start-->
+    <section>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <volist name="ad_list" id="adlt">
+                    <div class="swiper-slide">
+                        <a href="{$adlt['bannerurl']}" title="{$adlt['banner_title']}">
+                            <img src="{:getCover($adlt['banner'],1920,420)}" alt="{$adlt['banner_title']}" >
+                        </a>
+                    </div>
+                </volist>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination swiper-pagination-white"></div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next icon icon-rightarrow"></div>
+            <div class="swiper-button-prev icon icon-leftarrow"></div>
+        </div>
+    </section>
+    <!--banner end-->
+</div>
+
+<volist name="config_index.item" id="item_name">
+    <eq name="item_name" value="bestCourse_three">
+        <!-- 精选推荐 -->
+        <div class="content course">
+        <div class="main">
+        <div class="nav_list">
+            <dl>
+                <dt class="boutique"><a href="javascript:">精品课程</a></dt>
+                <dd class="on"><a href="javascript:">畅销好课</a></dd>
+                <dd><a href="javascript:">热门直播</a></dd>
+                <dd><a href="javascript:">精品推荐</a></dd>
+            </dl>
+            <p><a href="{:U('classroom/Video/index')}">更多<span class="icon icon-youjiantou"></span></a></p>
+        </div>
+        <if condition="$info_data['bestCourse_three'][0]">
+            <php>$course_one = $info_data['bestCourse_three'][0];</php>
+            <div class="content_box" style="display:block">
+                <div class="left_box">
+                    <div class="pub_box">
+                        <a <eq name="course_one.0.type" value="1">href="{:U('classroom/Video/view',array('id'=>$course_one[0]['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$course_one[0]['id']))}"</eq>>
+                            <img src="{:cutImg($course_one[0]['cover'] ,270 , 150 )}" alt="">
+                        </a>
+                        <div class="text">
+                            <p class="name">{$course_one.0.video_title|msubstr=0,12,'utf-8',true}</p>
+                            <p class="school">{$course_one.0.school.title}</p>
+                            <p class="seen"><i class="icon icon-yanjing3"></i><span>{$course_one.0.view_nums}</span><i class="icon icon-pinglun2"></i><span>{$course_one.0.comment_num}</span></p>
+                            <p class="money"><if condition="$course_one[0]['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$course_one[0]['t_price']}</if></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="right_box">
+                    <ul class="right_list">
+                        <volist name="course_one" id="vo" offset="1" length='6'>
+                            <li>
+                                <div class="div_box">
+                                    <a <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vo['id']))}"</eq>>
+                                        <img src="{:cutImg($vo['cover'] ,270 , 150 )}" alt="">
+                                    </a>
+                                    <div class="text">
+                                        <p class="name">{$vo.video_title|msubstr=0,12,'utf-8',true}</p>
+                                        <p class="school">{$vo.school.title}</p>
+                                        <p class="seen"><i class="icon icon-yanjing3"></i><span>{$vo.view_nums}</span><i class="icon icon-pinglun2"></i><span>{$vo.comment_num}</span></p>
+                                        <p class="money"><if condition="$vo['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$vo['t_price']}</if></p>
+                                    </div>
+                                </div>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+            <else/>
+            <p>没有相关数据</p>
+        </if>
+        <if condition="$info_data['bestCourse_three'][1]">
+            <php>$course_two = $info_data['bestCourse_three'][1];</php>
+            <div class="content_box">
+                <div class="left_box">
+                    <div class="pub_box">
+                        <a href="{:U('live/Index/view',array('id'=>$course_two[0]['id']))}">
+                            <img src="{:cutImg($course_two[0]['cover'] ,270 , 150 )}" alt="">
+                        </a>
+                        <div class="text">
+                            <p class="name">{$course_two.0.video_title|msubstr=0,12,'utf-8',true}</p>
+                            <p class="school">{$course_two.0.school.title}</p>
+                            <p class="seen"><i class="icon icon-yanjing3"></i><span>{$course_two.0.view_nums}</span><i class="icon icon-pinglun2"></i><span>{$course_two.0.comment_num}</span></p>
+                            <p class="money"><if condition="$course_two[0]['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$course_two[0]['t_price']}</if></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="right_box">
+                    <ul class="right_list">
+                        <volist name="course_two" id="vo" offset="1" length='6'>
+                            <li>
+                                <div class="div_box">
+                                    <a href="{:U('live/Index/view',array('id'=>$vo['id']))}">
+                                        <img src="{:cutImg($vo['cover'] ,270 , 150 )}" alt="">
+                                    </a>
+                                    <div class="text">
+                                        <p class="name">{:limitNumber($vo['video_title'],12)}</p>
+                                        <p class="school">{$vo.school.title}</p>
+                                        <p class="seen"><i class="icon icon-yanjing3"></i><span>{$vo.view_nums}</span><i class="icon icon-pinglun2"></i><span>{$vo.comment_num}</span></p>
+                                        <p class="money"><if condition="$vo['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$vo['t_price']}</if></p>
+                                    </div>
+                                </div>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+            <else/>
+            <p>没有相关数据</p>
+        </if>
+        <if condition="$info_data['bestCourse_three'][2]">
+            <php>$course_three = $info_data['bestCourse_three'][2];</php>
+            <div class="content_box">
+                <div class="left_box">
+                    <div class="pub_box">
+                        <a <eq name="course_three.0.type" value="1">href="{:U('classroom/Video/view',array('id'=>$course_three[0]['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$course_three[0]['id']))}"</eq>>
+                        <img src="{:cutImg($course_three[0]['cover'] ,270 , 150 )}" alt="">
+                        </a>
+                        <div class="text">
+                            <p class="name">{$course_three.0.video_title|msubstr=0,12,'utf-8',true}</p>
+                            <p class="school">{$course_three.0.school.title}</p>
+                            <p class="seen"><i class="icon icon-yanjing3"></i><span>{$course_three.0.view_nums}</span><i class="icon icon-pinglun2"></i><span>{$course_three.0.comment_num}</span></p>
+                            <p class="money"><if condition="$course_three[0]['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$course_three[0]['t_price']}</if></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="right_box">
+                    <ul class="right_list">
+                        <volist name="course_three" id="vo" offset="1" length='6'>
+                            <li>
+                                <div class="div_box">
+                                    <a <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vo['id']))}"</eq>>
+                                        <img src="{:cutImg($vo['cover'] ,270 , 150 )}" alt="">
+                                    </a>
+                                    <div class="text">
+                                        <p class="name">{$vo.video_title|msubstr=0,12,'utf-8',true}</p>
+                                        <p class="school">{$vo.school.title}</p>
+                                        <p class="seen"><i class="icon icon-yanjing3"></i><span>{$vo.view_nums}</span><i class="icon icon-pinglun2"></i><span>{$vo.comment_num}</span></p>
+                                        <p class="money"><if condition="$vo['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$vo['t_price']}</if></p>
+                                    </div>
+                                </div>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+            <else/>
+            <p>没有相关数据</p>
+        </if>
+        </div>
+        </div>
+    </eq>
+    <eq name="item_name" value="teacher_three">
+        <!--推荐名师  -->
+        <div class="content famous_teacher">
+            <div class="main">
+                <div class="nav_list">
+                    <dl>
+                        <dt class="boutique"><a href="javascript:;">推荐名师</a></dt>
+                    </dl>
+                    <p><a href="{:U('classroom/Teacher/index')}">更多<span class="icon icon-youjiantou"></span></a></p>
+                </div>
+                <div class="famous_list">
+                    <ul>
+                        <volist name="info_data.teacher_three" id="vo" offset="0" length="3">
+                            <li>
+                                <div class="div_box">
+                                    <div class="pub_box">
+                                        <a href="{:U('classroom/Teacher/view',array('id'=>$vo['id']))}">
+                                            <img src="{:getCover($vo['head_id'])}" alt="">
+                                        </a>
+                                        <div class="fl">
+                                            <p class="name">{:msubstr(t($vo['name']),0,10,'utf-8',true)}</p>
+                                            <p class="school">{$vo.graduate_school|default='暂无院校信息'}</p>
+                                        </div>
+                                    </div>
+                                    <p class="text">{:msubstr(t($vo['inro']),0,40,'utf-8',true)}</p>
+                                </div>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </eq>
+    <eq name="item_name" value="group_three">
+        <!-- 热门小组 -->
+        <div class="content hot_group">
+            <div class="main">
+                <div class="nav_list">
+                    <dl>
+                        <dt class="boutique"><a href="javascript:;">热门小组</a></dt>
+                    </dl>
+                    <p><a href="{:U('group/Index/index')}">更多<span class="icon icon-youjiantou"></span></a></p>
+                </div>
+                <div class="hot_list">
+                    <ul>
+                        <volist name="info_data.group_three" id="group">
+
+                            <li>
+                                <div class="div_box">
+                                    <a href="{:U('group/Index/view',array('gid'=>$group['id']))}">
+                                        <img src="{$group.logo}" alt="">
+                                    </a>
+                                    <div class="text" style="min-height: 74px">
+                                        <span>{:msubstr(t($group['name']),0,7,'utf-8',true)}</span>
+                                        <p>{:msubstr(t($group['intro']),0,25,'utf-8',true)}</p>
+                                    </div>
+                                    <if condition="$group['is_join'] eq ''">
+                                        <a class="submit" href="javascript:;" onclick =joingroup("{$group['id']}");>加入小组</a>
+                                        <elseif condition="$group['is_join'] eq 0"/>
+                                        <a class="submit" href="javascript:;">等待审核</a>
+                                        <else/>
+                                        <a class="submit" href="javascript:;">已加入</a>
+                                    </if>
+                                </div>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </eq>
+    <eq name="item_name" value="topic_three">
+        <!--最新资讯  -->
+        <div class="content">
+            <div class="main">
+                <div class="nav_list">
+                    <dl>
+                        <dt class="boutique"><a href="#">最新资讯</a></dt>
+                    </dl>
+                    <p><a href="{:U('classroom/Topic/index')}">更多<span class="icon icon-youjiantou"></span></a></p>
+                </div>
+                <div class="information_list">
+                    <ul>
+                        <volist name="info_data.topic_three" id="vo">
+                            <li>
+                                <div class="div_box">
+                                    <div class="img_p">
+                                        <img src="{:getCover($vo['image'],170,120)}" alt="">
+                                    </div>
+                                    <div class="content">
+                                        <a href="{:U('classroom/Topic/view',array('id'=>$vo['id']))}">
+                                            <span>{:msubstr(t($vo['title']),0,20,'utf-8',true)}</span>
+                                        </a>
+                                        <p>{:msubstr(t($vo['desc']),0,50,'utf-8',true)}</p>
+                                        <span class="time">{:friendlyDate($vo['dateline'])}</span><span class="seen">{$vo.readcount}次浏览</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </eq>
+</volist>
+
+
+<script type="text/javascript">
+    $(".nav_list dl dd").click(function(){
+        var index_box= $(this).index();
+        $(".content_box").eq(index_box-1).show().siblings(".content_box").hide();
+        $(this).addClass("on").siblings("dd").removeClass("on");
+    })
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false,
+        loop : true,
+    });
+
+    // 加入群组
+    function joingroup(gid) {
+        if(MID=='0'){
+            reg_login();
+        }
+        ui.box.load(U('group/Index/joinGroup')+'&gid='+gid,'加入群组');
+    }
+</script>
+<include file="__THEME__/public_footer"/>

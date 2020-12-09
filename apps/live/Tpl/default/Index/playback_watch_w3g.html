@@ -1,0 +1,50 @@
+<script type="text/javascript" src="https://view.csslcloud.net/js/_fix_.js"></script>
+<include file="__THEME__/public_header_w3g" />
+ <!-- 遮罩层 -->
+
+ 
+<iframe id="video" name="video"  src="{$playback_url}" width="100%" allowTransparency="true" height="100%" frameborder="0" scrolling="no" style=" height: 100%; width: 100%;"></iframe>
+
+<script  type="text/javascript">
+	
+	function jump(){
+		window.location.href="{$playback_url}";
+	}
+	var u = navigator.userAgent;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if(isiOS){ // ios机型
+       jump();
+       
+    }
+    function Browser() {
+		var ua = window.navigator.userAgent;
+		var isSafari = ua.indexOf("Safari") != -1 && ua.indexOf("Version") != -1;
+		if (isSafari) {
+			return "Safari";
+		}
+	}
+	if(Browser() == "Safari"){
+		jump();
+	}
+</script>
+<!-- <div  class="semi-circle">
+	<span style="color: #888;">
+                <a style="height: 1.5rem;line-height: 1.5rem;font-size: 26px" href="javascript:history.go(-1)">×</a>
+            </span>
+</div>
+<style type="text/css">
+	.semi-circle{
+  width:2.2rem;
+  height:2.2rem; 
+  background-color:#f6f9fc;
+  border-radius:0 0 2.2rem 0;
+      position: fixed;
+    z-index: 999;
+    
+    text-align: left;
+    top: 0px;
+}
+</style> -->
+<!-- footer -->
+<include file="__THEME__/public_footer_w3g" />

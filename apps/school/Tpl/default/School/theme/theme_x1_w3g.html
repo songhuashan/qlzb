@@ -1,0 +1,209 @@
+<include file="__THEME__/public_header_w3g"/>
+
+<link rel="stylesheet" href="__APP__/css/common_mechanism_w3g.css">
+<link rel="stylesheet" href="__APP__/css/index_w3g.css">
+
+    <div class="min-height-wrap">
+       <!--banner start-->
+       <div class="device">
+           <div class="swiper-container">
+               <div class="swiper-wrapper">
+                   <div class="swiper-slide">
+                       <php>if($ad_list == ''){</php>
+                           <a href="javascript:;"><img src="__THEME__/images/banner4.jpg" /></a>
+                       <php>}else{</php>
+                           <a href="javascript:;"><img src="{:cutImg($ad_list[0]['banner'],640,329)}"/></a>
+                       <php>}</php>
+                   </div>
+               </div>
+           </div>
+           <div class="pagination"></div>
+       </div>
+       <!--banner end-->
+       <php>if(!$theme_items || in_array('topic',$theme_items)){</php>
+       <!-- 公告 -->
+       <div class="notice_box">
+         <div class="notice">
+           <div class="bd">
+             <ul class="infoList">
+                <volist name="topicList" id="topic" offset="0" length="8">
+                    <li><span class="notice"><i class="icon icon-tongzhi"></i>最新资讯 : <i class="icon icon-dian"></i></span>
+                    <span class="text"><a href="{:U('classroom/Topic/view',array('id'=>$topic['id']))}">{:msubstr(t($topic['title']),0,32,'utf-8',true)}</a></span><p>{:getDateDiffer($topic['dateline'])}</p></li>
+                </volist>
+             </ul>
+           </div>
+         </div>
+       </div>
+       <php>}</php>
+       <!-- 精选课程 -->
+       <section>
+         <div class="inform">
+            <div class="title_box">
+                <h3>精选课程</h3>
+                <if condition="$count['cate'] gt 4">
+                      <a target="_blank" href="{:U('school/School/course',array('id'=>$mhm_id))}" class="more_a">更多<i class="icon icon-youjiantou"></i></a>
+                </if>
+            </div>
+            <ul class="live-list">
+                <if condition="$cate">
+                <volist name="cate" id="val" offset="0" length='4'>
+                  <li>
+                      <if condition="$val['mount_iand']">
+                          <a href="{:U('classroom/video/view_mount',array('id'=>$val['id'],'mid'=>$mhm_id.''.$mount_url_str))}">
+                      <else/>
+                          <a href="{:U('classroom/Video/view',array('id'=>$val['id']))}">
+                      </if>
+                          <strong><img src="{:getCover($val['cover'],270,192)}" alt="" /></strong>
+                          <span>
+                              <h4>{:msubstr(t($val['video_title']),0,10,'utf-8',true)}</h4><b>
+                              <i style="color: #56b02a;">
+                                  <php>if($val['is_charge'] == 1  || $val['mzprice']['t_price'] == 0 ){</php>
+                                  免费
+                                  <php>}else{</php>
+                                  ￥{$val['mzprice']['t_price']}
+                                  <php>}</php>
+                              </i>
+                              <i class="icon icon-dian"></i></b><em>{$val.video_order_count|default="0"}人在学</em>
+                          </span>
+                      </a>
+                  </li>
+                </volist>
+                <else/>
+                    <li class="no-data">暂无课程。。</li>
+                </if>
+            </ul>
+          </div>
+       </section>
+       <hr>
+       <php>if(!$theme_items || in_array('live',$theme_items)){</php>
+       <!-- 直播课程 -->
+       <section>
+          <div class="title_box">
+              <h3>直播课程</h3>
+              <if condition="$count['live_cate'] gt 4">
+                  <a href="{:U('school/School/live',array('id'=>$mhm_id))}" class="more_a">更多<i class="icon icon-youjiantou"></i></a>
+              </if>
+          </div>
+          <ul class="live-list">
+              <if condition="$live_cate">
+              <volist name="live_cate" id="val" offset="0" length='4'>
+              <li>
+                  <if condition="$val['mount_iand']">
+                      <a href="{:U('live/Index/view_mount',array('id'=>$val['id'],'mid'=>$mhm_id.''.$mount_url_str))}">
+                  <else/>
+                      <a href="{:U('live/Index/view',array('id'=>$val['id']))}">
+                  </if>
+                  <strong><img src="{:getCover($val['cover'],270,192)}" alt="" /></strong>
+                  <span><h4>{:msubstr(t($val['video_title']),0,10,'utf-8',true)}</h4>
+                      <b>
+                          <php>if($val['is_charge'] == 1  || $val['mzprice']['t_price'] == 0 ){</php>
+                          免费
+                          <php>}else{</php>
+                          ￥{$val['mzprice']['t_price']}
+                          <php>}</php>
+                          <i class="icon icon-dian"></i>
+                      </b><em>{$val.video_order_count|default="0"}人在学</em></span>
+                  <p><img src="__APP__/images/live.png" /></p>
+                  </a>
+              </li>
+              </volist>
+              <else/>
+                  <li class="no-data">暂无直播。。</li>
+              </if>
+          </ul>
+       </section>
+       <hr>
+        <!-- 热门班级 -->
+        <!--<php>}</php><php>if(!$theme_items || in_array('album',$theme_items)){</php>
+       <section>
+          <div class="title_box">
+              <h3>热门班级</h3>
+              <if condition="$count['album'] gt 4">
+                  <a href="{:U('school/School/album',array('id'=>$mhm_id))}" class="more_a">更多<i class="icon icon-youjiantou"></i></a>
+              </if>
+          </div>
+          <div class="hot_class">
+            <ul>
+                <if condition="$album">
+                <volist name="album" id="val" offset="0" length='4'>
+                    <li>
+                        <a href="javascript:">
+                            <img src="{:getCover($val['cover'],270,192)}" alt="">
+                            <p>{:msubstr(t($val['album_title']),0,10,'utf-8',true)}</p>
+                            <span>共{$val.video_count}课</span>
+                        </a>
+                    </li>
+                </volist>
+                <else/>
+                    <li class="no-data">暂无班级。。</li>
+                </if>
+            </ul>
+          </div>
+       </section>
+       <hr>
+       <php>}</php>-->
+       <php>if(!$theme_items || in_array('teacher',$theme_items)){</php>
+       <!-- 入驻讲师 -->
+       <section>
+          <div class="title_box">
+              <h3>入驻讲师</h3>
+              <if condition="$count['teacher'] gt 4">
+                  <a href="{:U('school/School/teacher_index',array('id'=>$mhm_id))}" class="more_a">更多<i class="icon icon-youjiantou"></i></a>
+              </if>
+          </div>
+          <div class="teacher_list">
+             <ul>
+                 <if condition="$teacher">
+                 <volist name="teacher" id="tea" key="k" offset="0" length='4'>
+                     <li>
+                         <div class="div_box">
+                             <a href="{:U('classroom/Teacher/view',array('id'=>$tea['id']))}"><img src="{:getCover($tea['head_id'],120,120)}"></a>
+                             <p class="name">{$tea.name}</p>
+                             <p class="shcool">{:msubstr(t($tea['inro']),0,10,'utf-8',true)}</p>
+                         </div>
+                     </li>
+                 </volist>
+                 <else/>
+                     <li class="no-data">暂无讲师。。</li>
+                 </if>
+             </ul>
+          </div>
+       </section>
+       <hr>
+       <php>}</php>
+       <php>if(!$theme_items || in_array('topic',$theme_items)){</php>
+       <!-- 热门资讯 -->
+       <section>
+          <div class="title_box">
+          <h3>最新资讯</h3><if condition="$count['topicList'] gt 1"><a href="{:U('classroom/Topic/index',array('id'=>$mhm_id))}" class="more_a">更多<i class="icon icon-youjiantou"></i></a></if>
+          </div>
+          <div class="information_list">
+              <ul>
+                  <if condition="$topicList">
+                  <volist name="topicList" id="topic" offset="0" length="4">
+                        <li>
+                            <a href="{:U('classroom/Topic/view',array('id'=>$topic['id']))}" class="div_box">
+                                <div class="img_p">
+                                    <img src="{:getCover($topic['image'],170,120)}" alt="">
+                                </div>
+                                <div class="content">
+                                    <div><span class="title_box">{:msubstr(t($topic['title']),0,20,'utf-8',true)}</span></div>
+                                    <p>{:msubstr(t($topic['text']),0,48,'utf-8',true)}</p>
+                                    <span class="time">{:getDateDiffer($topic['dateline'])}</span><span class="seen">{$topic.readcount|default='0'}次浏览</span>
+                                </div>
+                            </a>
+                        </li>
+                  </volist>
+                  <else/>
+                      <li class="no-data">暂无资讯。。</li>
+                  </if>
+              </ul>
+          </div>
+       </section>
+       <php>}</php>
+    </div>
+
+  <script type="text/javascript">
+     $(".notice").slide({mainCell:".bd ul",autoPlay:true,effect:"leftMarquee",vis:1,interTime:20});
+  </script>
+<include file="__THEME__/public_footer_w3g"/>

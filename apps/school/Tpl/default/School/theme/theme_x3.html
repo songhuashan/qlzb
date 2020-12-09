@@ -1,0 +1,333 @@
+<include file="../public/school_theme_header" />
+    <!-- 精选推荐 -->
+    <div class="content-box course">
+      <div class="main">
+        <div class="nav_list">
+          <dl>
+            <dt class="boutique"><a href="javascript:">精品课程</a></dt>
+            <dd class="on"><a href="javascript:">畅销好课</a></dd>
+            <php>if(!$theme_items || in_array('live',$theme_items)){</php><dd data-type="live"><a href="javascript:">热门直播</a></dd><php>}</php>
+            <dd><a href="javascript:">精品推荐</a></dd>
+          </dl>
+          <p>
+          <a id="exchange_href" target="_blank" href="{:U('school/School/course',array('id'=>$mhm_id))}">更多<span class="icon icon-youjiantou"></span></a>
+          </p>
+        </div>
+        <div class="content_box" style="display:block">
+          <div class="left_box">
+            <volist name="cate" id="val" offset="0" length='1'>
+            <div class="pub_box">
+              <if condition="$val['mount_iand']">
+                  <a href="{:U('classroom/video/view_mount',array('id'=>$val['id'],'mid'=>$mhm_id.''.$mount_url_str))}">
+              <else/>
+                  <a href="{:U('classroom/Video/view',array('id'=>$val['id']))}">
+              </if>
+              <img src="{:getCover($val['cover'],270,192)}" alt="">
+            </a>
+            <div class="text">
+              <p class="name">{:msubstr(t($val['video_title']),0,14,'utf-8',true)}</p>
+              <p class="school">{:msubstr(t($val['mhm_title']),0,14,'utf-8',true)}</p>
+               <p class="seen"><i class="icon icon-yanjing3"></i><span>{$val.video_order_count|default="0"}</span><i class="icon icon-pinglun2"></i><span>{$val.video_comment_count|default="0"}</span></p>
+              <p class="money">
+                <php>if($val['is_charge'] == 1  || $val['mzprice']['t_price'] == 0 ){</php>
+                免费
+                <php>}else{</php>
+                ￥{$val['mzprice']['t_price']}
+                <php>}</php>
+              </p>
+            </div>
+            </div>
+            </volist>
+          </div>
+          <div class="right_box">
+             <ul class="right_list">
+              <volist name="cate" id="val" offset="1" length='6'>
+               <li>
+                 <div class="div_box">
+                  <if condition="$val['mount_iand']">
+                      <a target="_blank" href="{:U('classroom/video/view_mount',array('id'=>$val['id'],'mid'=>$mhm_id.''.$mount_url_str))}">
+                  <else/>
+                      <a target="_blank" href="{:U('classroom/Video/view',array('id'=>$val['id']))}">
+                  </if>
+                     <img src="{:getCover($val['cover'],270,192)}" alt="">
+                   </a>
+                   <div class="text">
+                     <p class="name">{:msubstr(t($val['video_title']),0,14,'utf-8',true)}</p>
+                     <p class="school">{:msubstr(t($val['mhm_title']),0,14,'utf-8',true)}</p>
+                     <p class="seen"><i class="icon icon-yanjing3"></i><span>{$val.video_order_count|default="0"}</span><i class="icon icon-pinglun2"></i><span>{$val.video_comment_count|default="0"}</span></p>
+                     <p class="money">
+                     <php>if($val['is_charge'] == 1  || $val['mzprice']['t_price'] == 0 ){</php>
+                      免费
+                      <php>}else{</php>
+                      ￥{$val['mzprice']['t_price']}
+                      <php>}</php>
+                      </p>
+                   </div>
+                 </div>
+               </li>
+               </volist>
+             </ul>
+          </div>
+        </div>
+        <php>if(!$theme_items || in_array('live',$theme_items)){</php>
+        <div class="content_box">
+          <div class="left_box">
+            <volist name="live_cate" id="val" offset="0" length='1'>
+            <div class="pub_box">
+              <if condition="$val['mount_iand']">
+                  <a target="_blank" href="{:U('live/Index/view_mount',array('id'=>$val['id'],'mid'=>$mhm_id.''.$mount_url_str))}">
+              <else/>
+                  <a target="_blank" href="{:U('live/Index/view',array('id'=>$val['id']))}">
+              </if>
+              <img src="{:getCover($val['cover'],270,192)}" alt="">
+            </a>
+            <div class="text">
+              <p class="name">{:msubstr(t($val['video_title']),0,14,'utf-8',true)}</p>
+              <p class="school">{:msubstr(t($val['mhm_title']),0,14,'utf-8',true)}</p>
+              <p class="seen"><i class="icon icon-yanjing3"></i><span>{$val.video_order_count|default="0"}</span><i class="icon icon-pinglun2"></i><span>{$val.video_comment_count|default="0"}</span></p>
+              <p class="money">
+               <php>if($val['is_charge'] == 1  || $val['mzprice']['t_price'] == 0 ){</php>
+                免费
+                <php>}else{</php>
+                ￥{$val['mzprice']['t_price']}
+                <php>}</php>
+                </p>
+            </div>
+            </div>
+            </volist>
+            </div>
+          <div class="right_box">
+            <ul class="right_list">
+             <volist name="live_cate" id="val" offset="1" length='6'>
+               <li>
+                 <div class="div_box">
+                   <if condition="$val['mount_iand']">
+                        <a target="_blank" href="{:U('live/Index/view_mount',array('id'=>$val['id'],'mid'=>$mhm_id.''.$mount_url_str))}">
+                    <else/>
+                        <a target="_blank" href="{:U('live/Index/view',array('id'=>$val['id']))}">
+                  </if>
+                    <img src="{:getCover($val['cover'],270,192)}" alt="">
+                   </a>
+                   <div class="text">
+                     <p class="name">{:msubstr(t($val['video_title']),0,14,'utf-8',true)}</p>
+                      <p class="school">{:msubstr(t($val['mhm_title']),0,14,'utf-8',true)}</p>
+                      <p class="seen"><i class="icon icon-yanjing3"></i><span>{$val.video_order_count|default="0"}</span><i class="icon icon-pinglun2"></i><span>{$val.video_comment_count|default="0"}</span></p>
+                     <p class="money">
+                     <php>if($val['is_charge'] == 1  || $val['mzprice']['t_price'] == 0 ){</php>
+                      免费
+                      <php>}else{</php>
+                      ￥{$val['mzprice']['t_price']}
+                      <php>}</php>
+                      </p>
+                   </div>
+                 </div>
+               </li>
+               </volist>
+             </ul>
+          </div>
+        </div>
+        <php>}</php>
+        <div class="content_box">
+          <div class="left_box">
+            <volist name="best_data" id="val" offset="0" length='1'>
+            <div class="pub_box">
+                  <if condition="$val['mount_iand']">
+                      <if condition="$val['type'] eq 2">
+                          <a target="_blank" href="{:U('live/Index/view_mount',array('id'=>$val['id'],'mid'=>$mhm_id.''.$mount_url_str))}">
+                              <else/>
+                              <a target="_blank" href="{:U('classroom/video/view_mount',array('id'=>$val['id'],'mid'=>$mhm_id.''.$mount_url_str))}">
+                      </if>
+                      <else/>
+                      <if condition="$val['type'] eq 2">
+                          <a target="_blank" href="{:U('live/Index/view',array('id'=>$val['id']))}">
+                              <else/>
+                              <a target="_blank" href="{:U('classroom/Video/view',array('id'=>$val['id']))}">
+                      </if>
+                  </if>
+                    <img src="{:getCover($val['cover'],270,192)}" alt="">
+                   </a>
+            <div class="text">
+              <p class="name">{:msubstr(t($val['video_title']),0,14,'utf-8',true)}</p>
+              <p class="school">{:msubstr(t($val['mhm_title']),0,14,'utf-8',true)}</p>
+              <p class="seen"><i class="icon icon-yanjing3"></i><span>{$val.video_order_count|default="0"}</span><i class="icon icon-pinglun2"></i><span>{$val.video_comment_count|default="0"}</span></p>
+              <p class="money">
+               <php>if($val['is_charge'] == 1  || $val['mzprice']['t_price'] == 0 ){</php>
+                免费
+                <php>}else{</php>
+                ￥{$val['mzprice']['t_price']}
+                <php>}</php>
+                </p>
+            </div>
+            </div>
+            </volist>
+            </div>
+          <div class="right_box">
+             <ul class="right_list">
+              <volist name="best_data" id="val" offset="1" length='6'>
+               <li>
+                 <div class="div_box">
+                   <if condition="$val['mount_iand']">
+                      <if condition="$val['type'] eq 2">
+                          <a target="_blank" href="{:U('live/Index/view_mount',array('id'=>$val['id'],'mid'=>$mhm_id.''.$mount_url_str))}">
+                              <else/>
+                              <a target="_blank" href="{:U('classroom/video/view_mount',array('id'=>$val['id'],'mid'=>$mhm_id.''.$mount_url_str))}">
+                      </if>
+                      <else/>
+                      <if condition="$val['type'] eq 2">
+                          <a target="_blank" href="{:U('live/Index/view',array('id'=>$val['id']))}">
+                              <else/>
+                              <a target="_blank" href="{:U('classroom/Video/view',array('id'=>$val['id']))}">
+                      </if>
+                  </if>
+                    <img src="{:getCover($val['cover'],270,192)}" alt="">
+                   </a>
+                   <div class="text">
+                     <p class="name">{:msubstr(t($val['video_title']),0,14,'utf-8',true)}</p>
+                      <p class="school">{:msubstr(t($val['mhm_title']),0,14,'utf-8',true)}</p>
+                      <p class="seen"><i class="icon icon-yanjing3"></i><span>{$val.video_order_count|default="0"}</span><i class="icon icon-pinglun2"></i><span>{$val.video_comment_count|default="0"}</span></p>
+                     <p class="money">
+                     <php>if($val['is_charge'] == 1  || $val['mzprice']['t_price'] == 0 ){</php>
+                      免费
+                      <php>}else{</php>
+                      ￥{$val['mzprice']['t_price']}
+                      <php>}</php>
+                      </p>
+                   </div>
+                 </div>
+               </li>
+               </volist>
+             </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <php>if(!$theme_items || in_array('teacher',$theme_items)){</php>
+    <!--推荐名师  -->
+    <div class="content famous_teacher">
+      <div class="main">
+        <div class="nav_list">
+          <dl>
+            <dt class="boutique"><a href="javascript:;">推荐名师</a></dt>
+          </dl>
+          <if condition="$count['teacher'] gt 3">
+              <p>
+                  <a target="_blank" href="{:U('school/School/teacher_index',array('id'=>$mhm_id))}">更多<span class="icon icon-youjiantou"></span></a>
+              </p>
+          </if>
+        </div>
+        <div class="famous_list">
+          <ul>
+            <volist name="teacher" id="tea" key="k" offset="0" length='3'>
+            <li>
+              <div class="div_box">
+                <div class="pub_box">
+                  <a target="_blank" href="{:U('classroom/Teacher/view',array('id'=>$tea['id']))}"><img src="{:getCover($tea['head_id'],100,100)}"></a>
+                  <div class="fl">
+                    <p class="name">{$tea.name}</p>
+                    <p class="school">{$tea.graduate_school}</p>
+                  </div>
+                </div>
+              <p class="text">{:msubstr(t($tea['inro']),0,95,'utf-8',true)}</p>
+              </div>
+            </li>
+            </volist>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <php>}</php>
+    <php>if(!$theme_items || in_array('album',$theme_items)){</php>
+    <!-- 热门班级 -->
+    <div class="content-box">
+      <div class="main">
+        <div class="nav_list">
+          <dl>
+            <dt class="boutique"><a href="javascript:;">热门班级</a></dt>
+          </dl>
+          <p><a target="_blank" href="{:U('school/School/album',array('id'=>$mhm_id))}">更多<span class="icon icon-youjiantou"></span></a></p>
+        </div>
+        <div class="hot_class">
+          <ul class="clearfix">
+            <volist name="album" id="val" offset="0" length='3'>
+            <li>
+              <div class="div_box">
+                <b><img src="{:getCover($val['cover'],270,192)}" alt=""/></b>
+                <p>{:msubstr(t($val['album_title']),0,10,'utf-8',true)}</p>
+                <div class="text">
+                  <div class="details">
+                    <p>
+                    <span>{:msubstr(t($val['album_title']),0,10,'utf-8',true)}</span>
+                      <strong>
+                      <if condition="$val['price']">
+                          <strong>￥{$val.price}</strong>
+                          <else/>
+                          <strong style="color: #56b02a;">免费</strong>
+                      </if>
+                      </strong>
+                    </p>
+                    <span class="num">共{$val.video_count}门课程</span><span>收藏:{$val.collect_count}次</span><span>购买:{$val.order_count}次</span>
+                  </div>
+                  <a target="_blank" href="{:U('classroom/Album/view',array('id'=>$val['id']))}">查看详情</a>
+                </div>
+              </div>
+            </li>
+            </volist>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <php>}</php>
+    <php>if(!$theme_items || in_array('topic',$theme_items)){</php>
+    <!--最新资讯  -->
+<div class="content">
+  <div class="main">
+    <div class="nav_list">
+      <dl>
+        <dt class="boutique"><a href="javascript:;">最新资讯</a></dt>
+      </dl>
+      <p><a target="_blank" href="{:U('school/School/news',array('id'=>$mhm_id))}">更多<span class="icon icon-youjiantou"></span></a></p>
+    </div>
+    <div class="information_list">
+      <ul>
+        <volist name="topicList" id="topic" offset="0" length="3">
+        <li>
+          <div class="div_box">
+            <div class="img_p">
+              <img src="{:getCover($topic['image'],170,120)}" alt="{:t($topic['title'])}">
+            </div>
+            <div class="content">
+                <a target="_blank" href="{:U('classroom/Topic/view',array('id'=>$topic['id']))}">{:msubstr(t($topic['title']),0,20,'utf-8',true)}</a>
+                <p>{:msubstr(t($topic['text']),0,35,'utf-8',true)}</p>
+                <span class="time">{:getDateDiffer($topic['dateline'])}</span><span class="seen">{$topic.readcount|default='0'}次浏览</span>
+            </div>
+          </div>
+        </li>
+        </volist>
+      </ul>
+      <div class="img_box">
+        <ul>
+          <volist name="topicList" id="topic" offset="3" length="4">
+          <li>
+            <div class="div_box">
+              <a target="_blank" href="{:U('classroom/Topic/view',array('id'=>$topic['id']))}"><img src="{:getCover($topic['image'],270,192)}" alt="{:t($topic['title'])}"></a>
+            </div>
+          </li>
+          </volist>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<php>}</php>
+
+<script>
+    $(".nav_list dl dd").click(function(){
+        var type = $(this).data("type");
+        if(type == 'live'){
+            $("#exchange_href").attr("href","{:U('school/School/live',array('id'=>$mhm_id))}");
+        }else{
+            $("#exchange_href").attr("href","{:U('school/School/course',array('id'=>$mhm_id))}");
+        }
+    });
+</script>
+<include file="__THEME__/public_footer" />

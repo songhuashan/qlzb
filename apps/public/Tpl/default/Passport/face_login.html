@@ -1,0 +1,28 @@
+<include file="__THEME__/_header" />
+<style>
+    .content{background: #fff;}
+    .logincontent{margin: 50px 0;}
+</style>
+<meta http-equiv="X-UA-Compatible" content="IE=7, IE=9">
+<div class="header">
+    <div class="loginhead">
+        <div class="wrap" style="margin-top:0px;">
+            <php>if($register_type == 'open'):</php>
+            <php>endif;</php>
+            <div class="fr" style="margin-top: 10px;font-size: 14px;color:#fff;">没有账号？<a href="{:U('public/Passport/reg')}" style="color: #fff;margin-left: 15px;padding-left: 15px;border-left: solid 1px #a0a0a0;">注册</a></div>
+            <div class="logo"><a href="/" title="{$site['site_keyword']}在线教育系统"><img style="margin: 4px 0px;" src="{$site.logo_head}" width="150" /></a></div>
+        </div>
+    </div>
+</div>
+<!--header end-->
+
+<div class="content">
+    <div class="wrap">
+    	<div class="logincontent">
+        {:W("Webcam",['status'=>-1])}
+        </div>
+    </div>
+</div>
+<!--itembox end-->
+
+<include file="__THEME__/public_footer" />

@@ -1,0 +1,14 @@
+<php>if($listData){</php>
+<volist name="listData" id="vo">
+	<li>
+		<a href="{:U('classroom/Teacher/view',array('id'=>$vo['id']))}" class="name">
+			<img src="{:cutImg($vo['head_id'],70,70)}" alt="{$vo.name}">
+			<div class="tit">
+				<h3>{$vo.name}</h3>
+				<span>{$vo.school}</span>
+			</div>
+			<div class="dis">{:limitNumber($vo['inro'],35)}</div>
+		</a>
+	</li>
+</volist>
+<php>}</php>

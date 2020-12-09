@@ -1,0 +1,36 @@
+<include file="__THEME__/admin_header" />
+<include file="__THEME__/swfupload" />
+<include file="__THEME__/editor" />
+<div id="container" class="so_main">
+    <div class="tit_tab">
+                <ul>
+                    <li><a href="{$t.url}index.php?app=exams&mod=achievement&act=daoru" >导入</a></li>
+                    <li><a href="javascript:void(0);" class="btn_a" onclick="admin.addTreeCategory(0);"><span>添加考期</span></a></li>
+                </ul>
+            </div>
+
+    <form method="POST" action="{:U('exams/Achievement/subchengjidr')}" id="detail_form" name="detail_form" enctype="multipart/form-data" onsubmit="return j_validateCallback(this,checkForm,post_callback)">
+        
+        <div class="form2" style="width: 50%;margin: 60px auto;">
+            
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red"> * </font>成绩导入</dt>
+                <dd>
+                    {:W('Upload',array('uploadType'=>'file','inputname'=>'file_ids','attachIds'=>'', 'limit'=>1))}
+  
+                </dd>
+                <p>导入模板,<a target="_blank" href="/excel/achievement.xls">点击下载</a></p>
+            </dl>
+            <div class="page_btm">
+                <input type="submit" class="btn_b" value="保存" id="form_submit">
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+
+    
+</script>
+
+<include file="__THEME__/admin_footer" />

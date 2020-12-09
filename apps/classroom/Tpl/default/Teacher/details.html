@@ -1,0 +1,33 @@
+<!--header-->
+<include file="__THEME__/public_header" />
+<!--header end-->
+
+<!--top-->
+<include file="./top" />
+<!--top end-->
+
+<!--content-->
+<div class="content adjust">
+	<div class="wrap">
+    <!--left-->
+    <include file="./left" />
+    <!--left end-->
+
+        <div class="teacher-content">
+            <div class="teacher-info ">
+                <div class="teacher-base-info">
+                    <div class="new-title">基本信息</div>
+                    <div class="info">{$data.name}&nbsp;&nbsp;&nbsp;&nbsp;{$data.sex}&nbsp;&nbsp;&nbsp;&nbsp;{$data.teacher_age}年教龄&nbsp;&nbsp;&nbsp;&nbsp;{$data.graduate_school}</div>
+                </div>
+                <div class="teacher-intro">
+                    <div class="new-title">老师介绍</div>
+                    <div class="info">{$data.inro}</div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--footer-->
+<include file="__THEME__/public_footer" />

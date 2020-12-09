@@ -1,0 +1,78 @@
+<include file="__THEME__/admin_header" />
+<style>
+#sortable tr td .checkbox{
+    vertical-align: middle;
+}
+</style>
+<script src="https://apps.bdimg.com/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="__APP__/js/jquery-ui.min.js"></script>
+<div id="container" class="so_main">
+    <!-- <div class="page_tit">首页配置</div> -->
+    <div class="tit_tab">
+      <ul>
+          <li><a href="javascript:" class="on">首页配置</a></li></ul>
+    </div>
+    <div class="list">
+
+      <form action="{:U('admin/Config/saveConfigData')}" method='POST'>
+        <input type="hidden" class="s-txt" value="admin_Config" name="systemdata_list">
+        <input type="hidden" class="s-txt" value="index_item" name="systemdata_key">
+        <input type="hidden" class="s-txt" value="首页配置" name="pageTitle">
+        <div class="form2">
+            <dl class="lineD">
+                <dt>首页模板：</dt>
+                <dd>
+                    <volist name="themes" id="theme">
+                        <label><input type="radio" name="tpl" value="{$key}" <eq name="config.tpl" value="$key">checked="checked"</eq>/>{$theme.title}</label>
+                    </volist>
+                </dd>
+            </dl>
+            <!-- 遍历模板-->
+            <volist name="themes" id="theme">
+            <dl class="lineD sort J_check dl_{$key}" <neq name="config.tpl"  value="$key">style="display:none;"</neq>>
+                <dt>首页模块定义：</dt>
+                <dd>
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0" id='sortable' >
+                    <volist name="config.sort" id="item">
+                    <php>if(!array_key_exists($item,$theme['items'])){continue;}</php>
+                        <tr>
+                        <td>
+                            <input type="checkbox" <php>if(in_array($item,$config['item'])){</php>checked="checked"<php>}</php> class="checkbox" name="item[]" value="{$item}" />
+                            <input type="hidden" name="sort[]" value="{$item}" />
+                            <span>{$theme['items'][$item]}</span>
+                        </td>
+                        </tr>
+                    </volist>
+                    </table>
+                </dd>
+            </dl>
+            </volist>
+        </div>
+        <div class="page_btm">
+          <input class="btn_b" value="{:L('PUBLIC_SAVE')}" type="submit" />
+        </div>
+      </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+    var tpl = '';
+    $("input:radio[name='tpl']").click(function(){
+        tpl = $(this).val();
+        $(".J_check").hide();
+        $(".dl_"+tpl).show();
+        drag();
+    });
+    function drag(){
+        $(".J_check:visible").first().find('#sortable').sortable({
+            cursor: "move",
+            items: "tr", //只是tr可以拖动
+            opacity: 0.6, //拖动时，透明度为0.6
+            revert: true, //释放时，增加动画
+        }).disableSelection();
+    }
+    drag();
+});
+</script>
+<include file="__THEME__/admin_footer" />

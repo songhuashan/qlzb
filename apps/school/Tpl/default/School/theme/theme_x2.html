@@ -1,0 +1,214 @@
+<include file="../public/school_theme_header" />
+    <php>if(!$theme_items || in_array('live',$theme_items)){</php>
+    <!-- 最近直播 -->
+    <div class="content-box">
+      <div class="main">
+        <p class="title_p">最近直播</p>
+        <div class="slideTxtBox">
+          <a class="prev icon icon-zuojiantou"></a>
+           <div class="bd">
+            <ul>
+              <volist name="live_cate" id="val">
+              <li>
+                <div class="max_box">
+                  <div class="pic">
+                    <if condition="$val['mount_iand']">
+                        <a target="_blank" href="{:U('live/Index/view_mount',array('id'=>$val['id'],'mid'=>$mhm_id.''.$mount_url_str))}">
+                        <else/>
+                        <a target="_blank" href="{:U('live/Index/view',array('id'=>$val['id']))}">
+                    </if>
+                    <img src="{:getCover($val['cover'],250,160)}" />
+                    </a>
+                  </div>
+                  <div class="title">
+                      <h5><a target="_blank"href="#">{:msubstr(t($val['video_title']),0,14,'utf-8',true)}</a><span class="soon">即将直播</span></h5>
+                      <p>  <a href="javascript:;">学员 : {$val.video_order_count|default="0"}人</a>
+                      <span>
+                      <php>if($val['is_charge'] == 1  || $val['t_price'] == 0 ){</php>
+                        免费
+                        <php>}else{</php>
+                        ￥{$val['t_price']}
+                        <php>}</php></span></p>
+                  </div>
+                </div>
+                <div class="hd">
+                  <div class="div_box">
+                    <em class="icon icon-yuan1"></em>
+                    <p>
+                      <span class="teacher">讲师:{$val.teacher_name}</span>
+                      <span class="time">{:date('m',$val['ctime'])}月{:date('d',$val['ctime'])}日</span>
+                    </p>
+                  </div>
+                </div>
+              </li>
+              </volist>
+              </ul>
+
+              <!-- 前/后按钮 -->
+              <span class="arrow">
+                  <a class="next icon icon-youjiantou"></a>
+              </span>
+           </div>
+            <!--查看更多-->
+            <div class="all_buy">
+                <a target="_blank" href="{:U('school/School/live',array('id'=>$mhm_id))}" class="look_all">更多</a>
+            </div>
+          </div>
+          </div>
+          <div class="clear"></div>
+        </div>
+        <php>}</php>
+        <!--精品课程  -->
+        <div class="content-box">
+          <div class="main">
+            <p class="title_p">精品课程</p>
+            <div class="boutique">
+              <ul>
+                <volist name="cate" id="val" offset="0" length='8'>
+                <li>
+                  <div class="div_box">
+                    <if condition="$val['mount_iand']">
+                        <a target="_blank" href="{:U('classroom/video/view_mount',array('id'=>$val['id'],'mid'=>$mhm_id.''.$mount_url_str))}">
+                    <else/>
+                        <a target="_blank" href="{:U('classroom/Video/view',array('id'=>$val['id']))}">
+                    </if>
+                    <img src="{:getCover($val['cover'],250,160)}" alt="">
+                    </a>
+                    <div class="pub_box">
+                      <p>{:msubstr(t($val['video_title']),0,14,'utf-8',true)}</p>
+                      <div class="content">
+                      <span>
+                        <i class="icon icon-yanjing3"></i>
+                        <span class="num">{$val.video_order_count|default="0"}</span>
+                      </span>
+                      <span>
+                        <i class="icon icon-pinglun2"></i>
+                        <span class="num">{$val.video_comment_count|default="0"}</span>
+                      </span>
+                      <span class="money">
+                      <php>if($val['is_charge'] == 1  || $val['mzprice']['t_price'] == 0 ){</php>
+                      免费
+                      <php>}else{</php>
+                      ￥{$val['mzprice']['t_price']}
+                      <php>}</php>
+                      </span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                </volist>
+              </ul>
+              <if condition="$count['cate'] egt 8">
+                  <div class="all_buy">
+                      <a target="_blank" href="{:U('school/School/course',array('id'=>$mhm_id))}" class="look_all">更多</a>
+                  </div>
+              </if>
+            </div>
+          </div>
+        </div>
+        <!--背景图片
+        <div class="content-box bg_box">
+          <div class="opcity_bg">
+          <div class="main">
+            <div class="text">
+              <p class="title">不知道放什么，那就可以放点广告语呗</p>
+              <p class="box_p">发挥想象，写你所想</p>
+            </div>
+          </div>
+        </div>
+        </div>-->
+        <php>if(!$theme_items || in_array('teacher',$theme_items)){</php>
+        <div class="content-box marg_btm">
+          <div class="main">
+            <p class="title_p">推荐讲师</p>
+             <div class="teacher_recommend">
+                <ul>
+                  <volist name="teacher" id="tea" key="k" offset="0" length='4'>
+                  <li>
+                    <div class="div_box">
+                      <a target="_blank" href="{:U('classroom/Teacher/view',array('id'=>$tea['id']))}"><img src="{:getCover($tea['head_id'],120,120)}"></a>
+                      <p class="name">{$tea.name}</p>
+                      <p class="school">{$tea.graduate_school}</p>
+                      <div class="text">
+                        {:msubstr(t($tea['inro']),0,65,'utf-8',true)}
+                      </div>
+                    </div>
+                  </li>
+                  </volist>
+                </ul>
+                <if condition="$count['teacher'] egt 4">
+                    <div class="all_buy">
+                        <a target="_blank" href="{:U('school/School/teacher_index',array('id'=>$mhm_id))}" class="look_all">更多</a>
+                    </div>
+                </if>
+             </div>
+          </div>
+        </div>
+        <php>}</php>
+        <php>if(!$theme_items || in_array('album',$theme_items)){</php>
+        <!-- 热门班级 -->
+        <div class="content-box">
+          <div class="main">
+            <p class="title_p">热门班级</p>
+            <div class="hot_class">
+              <ul class="clearfix">
+                <volist name="album" id="val" offset="0" length='3'>
+                <li>
+                  <div class="div_box">
+                    <b><img src="{:getCover($val['cover'],270,192)}" alt=""/></b>
+                    <p>{:msubstr(t($val['album_title']),0,10,'utf-8',true)}</p>
+                    <div class="text">
+                      <div class="details">
+                        <p><span>{:msubstr(t($val['album_title']),0,10,'utf-8',true)}</span>
+                          <strong>
+                          <if condition="$val['price']">
+                              <strong>￥{$val.price}</strong>
+                              <else/>
+                              <strong style="color: #56b02a;">免费</strong>
+                          </if>
+                          </strong>
+                        </p>
+                        <span class="num">共{$val.video_count}门课程</span><span>收藏:{$val.collect_count}次</span><span>购买:{$val.order_count}次</span>
+                      </div>
+                      <a target="_blank" href="{:U('classroom/Album/view',array('id'=>$val['id']))}">查看详情</a>
+                    </div>
+                  </div>
+                </li>
+                </volist>
+              </ul>
+            </div>
+            <if condition="$count['album'] egt 3">
+                <div class="all_buy">
+                    <a target="_blank" href="{:U('school/School/album',array('id'=>$mhm_id))}" class="look_all">更多</a>
+                </div>
+            </if>
+          </div>
+        </div>
+        <php>}</php>
+        <php>if(!$theme_items || in_array('topic',$theme_items)){</php>
+        <!--热门资讯-->
+        <div class="content-box">
+          <div class="main">
+            <div class="title_p">
+              <p>热门资讯 </p>
+              <span></span>
+            </div>
+            <div class="text_list">
+              <ul>
+                <volist name="topicList" id="topic">
+                <li><a target="_blank" href="{:U('classroom/Topic/view',array('id'=>$topic['id']))}">
+                    <span class="time">[{:date('m',$topic['dateline'])}-{:date('d',$topic['dateline'])}]</span>
+                    <span class="text">{:msubstr(t($topic['title']),0,20,'utf-8',true)}</span></a></li>
+                </volist>
+              </ul>
+            </div>
+            <!--查看更多-->
+            <if condition="$count['topicList'] egt 1">
+              <div class="all_buy">
+                  <a target="_blank" href="{:U('school/School/news',array('id'=>$mhm_id))}"  class="look_all">查看更多</a>
+              </div>
+            </if>
+          </div>
+        </div>
+        <php>}</php>
+<include file="__THEME__/public_footer" />

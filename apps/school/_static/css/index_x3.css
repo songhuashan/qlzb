@@ -1,0 +1,83 @@
+@charset "utf-8";
+.nav_list{overflow: hidden;}
+.nav_list dl{margin: 70px 0 40px 0;float: left;}
+.nav_list p{float: right;margin-top: 70px;margin-right: 18px;}
+.nav_list p a{color: #888;font-size: 14px;}
+.nav_list p a .icon-youjiantou{display: inline-block;margin-right: 10px;margin-left: 5px;}
+.nav_list dl dd{float: left;margin-right: 30px;height: 30px;line-height: 27px;}
+.nav_list dl dd:hover{border-bottom: 2px solid #00BED4}
+.nav_list dl dd:hover a{color: #00BED4;}
+.nav_list dl dd a{font-size: 16px;color: #888;}
+.nav_list dl dt{float: left;margin-right: 30px;}
+.nav_list dl dt a{font-size: 20px;color: #333;}
+.nav_list dl .on{border-bottom: 2px solid #00BED4;}
+.nav_list dl .on a{color: #00BED4;}
+.course{overflow: hidden;}
+.content_box{display: none;}
+.content_box::after{content: "";width: 1px;height: 1px;display: block;clear: both;}
+.course .left_box{width:300px;float: left;margin-top: 10px;height: 540px;}
+.course .left_box .pub_box{width: 270px;padding: 10px 10px 0 10px;height: 520px;margin: 0 auto;}
+.course .left_box .pub_box:hover{width: 280px;background: #fff;height: 530px;box-shadow: 0 0 10px 0 rgba(107,113,131,0.2)}
+.course .left_box .pub_box:hover a{height: 440px;}
+.course .left_box a{display: block;width: 100%;height: 432px;}
+.course .left_box a img{width: 100%;height:100%;}
+.text .name{font-size: 14px;margin: 10px 0;}
+.text .school,.text .seen{font-size: 12px;color: #888;margin-bottom: 10px;}
+.text .seen{float: left;}
+.text .money{float: right;color: #ff4000;}
+.text i{display: inline-block;width: 20px;height: 20px;}
+.text .icon-pinglun2{margin-left: 30px;}
+.course .right_box{float: right;width: 900px;}
+.course .right_box ul{width: 100%;padding-top: 10px;height: 550px;}
+.course .right_box ul li{width: 300px;float: left;height: 270px;}
+.course .right_box ul li:nth-child(3n){margin-right: 0px;}
+.course .right_box ul li .div_box{width: 270px;height: 240px;padding: 10px 10px 0 10px;;display: block;margin: 0 auto;}
+.course .right_box ul li:hover .div_box{background: #fff;height: 260px;width: 280px;margin-bottom: -20px;}
+.course .right_box ul li:hover{box-shadow: 0 0 10px 0 rgba(107,113,131,0.2)}
+.course .right_box ul li .div_box:hover .money{margin-bottom: -10px;}
+.course .right_box ul li .div_box:hover img{height: 168px;}
+.course .right_box ul li .div_box img{width:100%;height: 161px;}
+.famous_list ul{width: 100%;;margin-top: 50px;}
+.famous_list ul::after{content: "";width: 1px;height: 1px;clear: both;display: block;}
+.famous_list ul li{width: 33.33333%;float: left;}
+.famous_list ul li .div_box{display: block;margin: 0 30px 30px 0;border: 1px solid #dcdcdc;height: 160px;}
+.famous_list ul li .div_box:hover{border: 1px solid #00BED4}
+.famous_list li .div_box a{display: block;float: left;}
+.famous_list li .div_box .fl{float: left;margin-left: 133px;width: 100%;}
+.famous_list li .div_box .fl .school{font-size: 14px;color: #888;margin-bottom: 10px;}
+.famous_list li .div_box .fl .name{font-size: 16px;margin: 10px 0;}
+.famous_list li .div_box a img{width: 100px;height: 100px;border-radius: 50%;position: absolute;left: 20px;top: -50px;}
+.famous_list li .div_box .pub_box{position: relative;}
+.famous_list li .div_box .text{margin: 10px;font-size: 14px;color: #888;}
+.famous_list li .div_box .pub_box::after{content: "";width: 1px;height: 1px;clear: both;display: block;}
+.hot_class ul{margin-left: -30px;}
+.hot_class ul li{float: left;width: 33.333333%;}
+.hot_class ul li .div_box{overflow: hidden;margin: 10px 0 30px 30px;background: #fff;transition: .2s;border-radius: 4px;position: relative;}
+.hot_class ul li .div_box:hover{box-shadow:2px 4px 10px rgba(58,69,88,.3);overflow: hidden;}
+.hot_class ul li .div_box:hover .text{bottom: 0;}
+.hot_class ul li .div_box b img{width: 100%;height: 204px;border-radius: 4px;}
+.hot_class ul li .div_box>p{height: 60px;width: 100%;line-height: 60px;text-indent: 15px;font-size:20px; }
+.hot_class ul li .div_box .text{height: 160px;width: 100%;position: absolute;left: 0;bottom: -160px;transition: bottom 0.2s;overflow: hidden;}
+.hot_class ul li .div_box .details{height: 100px;background: rgba(255,2555,255,.8)}
+.hot_class .div_box .details p span{display: block;float: left;font-size: 20px;margin-left: 15px;}
+.hot_class .div_box .details p strong{float: right;font-size: 18px;color:#ff4000;margin-right: 15px;}
+.hot_class .div_box .details p{overflow: hidden;padding: 20px 0 12px 0}
+.hot_class .div_box .details>span{display: inline-block;width: 80px;border-right: 1px solid #656565;font-size: 14px;color: #656565;text-align: center;}
+.hot_class .div_box .details .num{margin-left: 10px;}
+.hot_class .div_box a{display: block;width: 100%;height: 60px;text-align: center;line-height: 60px;color: #00BED4;font-size: 20px;background: #fff;}
+.information_list ul{width: 50%;overflow: hidden;float: left;}
+.information_list .img_box img{width: 270px;height: 190px;}
+.information_list ul li{margin-bottom: 20px;}
+.information_list ul li .div_box{margin: 0 30px 30px 0;display: block;overflow: hidden;}
+.information_list li .div_box .img_p{float: left;width: 170px;height: 120px;}
+.information_list li .div_box .img_p img{width: 100%;height: 100%;}
+.information_list li .div_box .content{float: left;width: 66%;padding-left: 20px;min-width: 0px;}
+.information_list li .div_box .content a{font-size: 17px;color: #333;}
+.information_list li .div_box .content a:hover{color: #00bdd6;}
+.information_list li .div_box .content .say{display: inline-block;margin-left: 10px;}
+.information_list li .div_box .content p{font-size: 15px;color: #888;margin: 15px 0 22px 0;}
+.information_list li .div_box .content .time{font-size: 13px;color: #888;display: inline-block;width: max-content;border-right: 1px solid #dcdcdc;margin-right: 20px;}
+.information_list li .div_box .content .seen{font-size: 13px;color: #888;}
+.img_box ul{margin-left: -30px;}
+.img_box ul li{width: 50%;float: left;}
+.img_box ul li .div_box{margin: 0 0 10px 30px;}

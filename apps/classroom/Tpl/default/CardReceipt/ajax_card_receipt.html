@@ -1,0 +1,70 @@
+<volist name="card_list.data" id="clt" >
+    <if condition="$card_type eq 1">
+        <li <if condition="$clt['is_receive']">style="background:url(__APP__/images/bg_none.png) 0 0 no-repeat;background-size:100% 160px;-webkit-background-size:100% 160px;-moz-background-size:100% 160px;-o-background-size:100% 160px;-ms-background-size:100% 160px;"</if>>
+        <div class="left_box">
+            <p class="first_p"><span class="fracture">￥ </span><span class="num">{$clt['price']}</span><span class="coupon">优惠券</span></p>
+            <p class="second_p">满<span>{$clt['maxprice']}</span>元可用 <span>{$clt['exp_date']}</span>天内有效</p>
+            <p class="three_p">限<span>{$clt['school_title']}</span>机构内所有课程可用</p>
+            <p class="four_p">{$clt['ctime']} - {$clt['end_time']}</p>
+        </div>
+        <if condition="$clt['is_receive']">
+            <a href="javascript:" <if condition="$clt['is_receive']">style="padding-top: 45px"</if> >已<br>领<br>取</a>
+            <else/>
+            <a href="javascript:" class="btn_use" data-coupon-code="{$clt['coupon_id']}">立<br>即<br>领<br>取</a>
+        </if>
+        </li>
+        <elseif condition="$card_type eq 2"/>
+        <li <if condition="$clt['is_receive']">style="background:url(__APP__/images/bg_none.png) 0 0 no-repeat;background-size:100% 160px;-webkit-background-size:100% 160px;-moz-background-size:100% 160px;-o-background-size:100% 160px;-ms-background-size:100% 160px;"</if>>
+        <div class="left_box">
+            <p class="first_p"><span class="num">{$clt['discount']}</span><span class="fracture">折</span><span class="coupon">打折券</span></p>
+            <p class="second_p"><span>{$clt['exp_date']}</span>天内有效</p>
+            <p class="three_p">限<span>{$clt['school_title']}</span>机构内所有课程可用</p>
+            <p class="four_p">{$clt['ctime']} - {$clt['end_time']}</p>
+        </div>
+        <if condition="$clt['is_receive']">
+            <a href="javascript:" <if condition="$clt['is_receive']">style="padding-top: 45px"</if> >已<br>领<br>取</a>
+            <else/>
+            <a href="javascript:" class="btn_use" data-coupon-code="{$clt['coupon_id']}">立<br>即<br>领<br>取</a>
+        </if>
+        </li>
+        <elseif condition="$card_type eq 3"/>
+        <li <if condition="$clt['is_receive']">style="background:url(__APP__/images/bg_none.png) 0 0 no-repeat;background-size:100% 160px;-webkit-background-size:100% 160px;-moz-background-size:100% 160px;-o-background-size:100% 160px;-ms-background-size:100% 160px;"</if>>
+        <div class="left_box">
+            <p class="first_p"><span class="num">{$clt['vip_date']}</span><span class="fracture">天</span><span class="coupon">会员券</span></p>
+            <p class="second_p">{$clt['vip_grade_list']['title']} <span>{$clt['exp_date']}</span>天内有效</p>
+            <p class="four_p">{$clt['ctime']} - {$clt['end_time']}</p>
+        </div>
+        <if condition="$clt['is_receive']">
+            <a href="javascript:" <if condition="$clt['is_receive']">style="padding-top: 45px"</if> >已<br>领<br>取</a>
+            <else/>
+            <a href="javascript:" class="btn_use" data-coupon-code="{$clt['coupon_id']}">立<br>即<br>领<br>取</a>
+        </if>
+        </li>
+        <elseif condition="$card_type eq 4"/>
+        <li <if condition="$clt['is_receive']">style="background:url(__APP__/images/bg_none.png) 0 0 no-repeat;background-size:100% 160px;-webkit-background-size:100% 160px;-moz-background-size:100% 160px;-o-background-size:100% 160px;-ms-background-size:100% 160px;"</if>>
+        <div class="left_box">
+            <p class="first_p"><span class="num">{$clt['recharge_price']}</span><span class="fracture">元</span><span class="coupon">余额券</span></p>
+            <p class="second_p"><span>{$clt['exp_date']}</span>天内有效</p>
+            <p class="four_p">{$clt['ctime']} - {$clt['end_time']}</p>
+        </div>
+        <if condition="$clt['is_receive']">
+            <a href="javascript:" <if condition="$clt['is_receive']">style="padding-top: 45px"</if> >已<br>领<br>取</a>
+            <else/>
+            <a href="javascript:" class="btn_use" data-coupon-code="{$clt['coupon_id']}">立<br>即<br>领<br>取</a>
+        </if>
+        </li>
+        <elseif condition="$card_type eq 5"/>
+        <li <if condition="$clt['is_receive']">style="background:url(__APP__/images/bg_none.png) 0 0 no-repeat;background-size:100% 160px;-webkit-background-size:100% 160px;-moz-background-size:100% 160px;-o-background-size:100% 160px;-ms-background-size:100% 160px;"</if>>
+        <div class="left_box">
+            <p class="first_p"><span class="num"></span><span class="fracture">{$clt['video_title']}</span><span class="coupon">课程券</span></p>
+            <p class="second_p">仅限指定<span><if condition="$clt.video_type eq 1">课程<elseif condition="$clt.video_type eq 2"/>直播<elseif condition="$clt.video_type eq 3"/>班级</if></span>使用</p>
+            <p class="four_p">{$clt['ctime']} - {$clt['end_time']}</p>
+        </div>
+        <if condition="$clt['is_receive']">
+            <a href="javascript:" <if condition="$clt['is_receive']">style="padding-top: 45px"</if> >已<br>领<br>取</a>
+            <else/>
+            <a href="javascript:" class="btn_use" data-coupon-code="{$clt['coupon_id']}">立<br>即<br>领<br>取</a>
+        </if>
+        </li>
+    </if>
+</volist>

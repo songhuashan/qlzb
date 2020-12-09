@@ -1,0 +1,66 @@
+<!--header-->
+<include file="__THEME__/public_header" />
+<!--header end-->
+<style media="screen">
+.main{width: 1200px;margin: 0 auto;}
+.clearfix:after{clear:both;overflow:hidden;}
+.clearfix:before,.clearfix:after {
+    content:"";
+    display:table;
+}
+.clearfix {
+    zoom:1; /* for ie6 & ie7 */
+}
+body{background: #f2f2f2;}
+.course-all-tab{padding-bottom:50px;}
+.course-all-tab dl{background-color:#fff;float:left;width:1172px;padding:14px;margin-top:30px;border-radius:4px}
+.course-all-tab dd{float:left;width:460px;margin-left:26px}
+.course-all-tab dd:first-child{width:330px;height:200px;overflow:hidden;margin-left:0}
+.course-all-tab dd img{width:100%;min-height:200px}
+.course-all-tab dd h5{font-size:18px;line-height:22px}
+.course-all-tab dd h5 a{color:#333}
+.course-all-tab dd b{display:block;font-size:24px;line-height:44px;color:#fe575f}
+.course-all-tab dd small{display:block;font-size:14px;line-height:28px;color:#656565}
+.course-all-tab dd p{font-size:14px;line-height:20px;color:#888;margin-top:20px}
+.las-uvlo{width:260px!important;padding-top:55px;text-align:center}
+.las-uvlo a{display:inline-block;width:140px;line-height:32px;border-radius:4px;border:1px solid #00BED4;color:#00BED4;font-size:14px;text-align:center;margin-bottom:28px}
+.las-uvlo a:hover{color:#fff;background-color:#00BED4}
+</style>
+
+<!--top-->
+<include file="./top" />
+<!--top end-->
+<div class="main">
+	<php>if($list['data']){</php>
+	    <div class="screen-outer course-all-tab">
+	    	<volist name='list.data' id="l">
+			<dl>
+			    <dd>
+			        <a href="{:U('classroom/LineClass/view',array('id'=>$l['course_id']))}">
+			            <img src="{:getCover($l['cover'],330,200)}" style="max-height: 200px;" data-bd-imgshare-binded="1">
+			        </a>
+			    </dd>
+			    <dd>
+			        <h5><a href="{:U('classroom/LineClass/view',array('id'=>$l['course_id']))}">{:msubstr(t($l['course_name']),0,20,'utf-8',true)}</a></h5>
+			        <b><if condition="$l['price']  eq 0 OR $l['is_charge'] eq 1"><span style = "color : #56b02a;"> 免费</span><else/><span>￥ {$l['price']}</span></if></b>
+			        <small>开课时间：{:date('Y-m-d',$l['listingtime'])}～{:date('Y-m-d',$l['uctime'])}</small>
+			        <small>上课地点：{$l['teach_areas'] | default='无限制'}</small>
+			    </dd>
+			    <dd class="las-uvlo">
+			        <a href="javascript:ui.sendmessage({$teacher_uid}, 0)">在线咨询</a>
+			        <a href="{:U('classroom/LineClass/view',array('id'=>$l['course_id']))}">查看详情</a>
+			    </dd>
+			</dl>
+			</volist>
+			<div class="page">
+				<div class="pagebox">{$list.html}</div>
+			</div>
+		</div>
+	<php>}else{</php>
+        <div class="no-data">
+            <img src="__THEME__/images/no-data.png" alt="">
+        </div>
+	<php>}</php>
+</div>
+<!--footer-->
+<include file="__THEME__/public_footer" />

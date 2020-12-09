@@ -1,0 +1,30 @@
+<include file="__THEME__/public_header" />
+<!--header end-->
+<style type="text/css">
+    .center_left{
+        border-radius: 4px;
+        overflow:hidden;
+        float: left;
+    }
+    .center_right{
+        float: right;
+    }
+    .center_right_tit div .on{
+        color:#00BED4;
+    }
+</style>
+<div class="content cbg" >
+    <div class="wrap">
+        <include file="../User/public/_left_setting" />
+        <div class="center_right">
+            <div class="center_right_tit">
+                <h5>人脸识别<php>if($status == 1 || $status == 2){</php>(你已成功绑定,可以继续扫脸体验功能)<php>}else{</php>(扫脸绑定信息,即可使用该功能)<php>}</php></h5>
+            </div>
+            <div class="center_right_con">
+                {:W("Webcam",['status'=>$status,'redirect_url'=>urldecode($_GET['redirect_url']),'verified_module'=>$_GET['verified_module']])}
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="__THEME__/public_footer" />

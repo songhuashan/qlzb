@@ -1,0 +1,27 @@
+<include file="__THEME__/_header" />
+<style>
+    .content{background: #fff;}
+    .logincontent{margin-bottom: 50px;}
+    .message{text-align: center;font-size: 18px;color: #313336;}
+</style>
+<meta http-equiv="X-UA-Compatible" content="IE=7, IE=9">
+<div class="header">
+    <div class="loginhead">
+        <div class="wrap" style="margin-top:0px;">
+            <div class="logo"><a href="/" title="{$site['site_keyword']}在线教育系统"><img style="margin: 4px 0px;" src="{$site.logo_head}" width="150" /></a></div>
+        </div>
+    </div>
+</div>
+<!--header end-->
+
+<div class="content">
+    <div class="wrap">
+        <h3 class="message">本次操作需要扫脸验证</h3>
+    	<div class="logincontent">
+        {:W("Webcam",['status'=>1,'redirect_url'=>urldecode($_GET['redirect_url']),'verified_module'=>$_GET['verified_module']])}
+        </div>
+    </div>
+</div>
+<!--itembox end-->
+
+<include file="__THEME__/public_footer" />

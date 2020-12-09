@@ -1,0 +1,22 @@
+.content{width: 100%;background: #f0f0f2;height: 100%;}
+.main{width: 1200px;margin: 0 auto;}
+.receipt .receipt_font{font-size: 32px;color: #333;margin: 36px 0 24px 0;float: left;}
+.receipt .receipt_mine{font-size: 16px;color: #333;float: right;margin: 70px 0 0 0;}
+.receipt .receipt_box{width: 100%;overflow: hidden;background: #fff;margin-bottom: 30px;}
+.receipt .receipt_box a{color: #333;width: 80px;text-align: center;float: left;height: 40px;line-height: 40px;color: #333;font-size: 14px;}
+.receipt .receipt_box .on a{border-color: #00BED4;background-color: #fff;color: #00BED4;border-bottom: 2px solid #00BED4;}
+.receipt .receipt_pub_box{overflow: hidden;}
+.receipt .receipt_pub_box ul{overflow: hidden;margin-left: -30px;}
+.receipt .receipt_pub_box li{width: 33.3333333%;float: left;}
+.receipt .receipt_pub_box li .div_box{margin: 0 0 30px 30px;height: 160px;}
+.receipt .receipt_pub_box li .left_box{border-radius: 10px;width: 298px;float: left;}
+.receipt .receipt_pub_box li .left_box .num{font-size: 36px;font-weight: bold;font-family: "微软雅黑";}
+.receipt .receipt_pub_box li .left_box .fracture{font-size: 16px;display: inline-block;}
+.receipt .receipt_pub_box li .left_box .coupon{font-size: 12px;color: #fff;border-radius: 4px;display: inline-block;padding: 0 2px;margin-left: 6px;}
+.receipt .receipt_pub_box li .left_box p{margin-left: 20px;}
+.receipt .receipt_pub_box li .left_box .first_p{margin-bottom: 8px;padding-top: 10px;}
+.receipt .receipt_pub_box li .left_box .second_p{font-size: 12px;color: #656565;margin-bottom: 16px;}
+.receipt .receipt_pub_box li .left_box .three_p{font-size: 12px;color: #656565;margin-bottom: 16px;}
+.receipt .receipt_pub_box li .left_box .four_p{font-size: 12px;color: #888;}
+.receipt .receipt_pub_box li .left_box .three_p span,.receipt .receipt_pub_box li .left_box .second_p span{font-size: 12px;color: #f77a7a;}
+.receipt .receipt_pub_box a{height: 132px;float: left;color: #fff;display: block;font-size:18px;text-align: center;width: 80px;padding-top: 28px;}

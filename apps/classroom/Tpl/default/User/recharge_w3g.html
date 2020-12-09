@@ -1,0 +1,395 @@
+<style>
+  .pay_dl dd input{
+    width: auto!important;
+  }
+  .pay_dl dd span{
+    left: 3px!important;
+    width: auto!important;
+  }
+  .pay_dl{background: #fff;padding: 0 10px;}
+  .centerbox{padding: 0!important;background: transparent!important;}
+  .pay_dl dd label{}
+  .no_vip{height: 30px;background: #333;color: #fff;line-height: 30px;text-indent: 20px;}
+.no_vip .now_identity{font-size: 14px;}
+.no_vip .now_content{font-size: 14px;}
+.centerbox .teacher_bd{padding-bottom: 20px;background: transparent!important;}
+.marsty_docse{margin-top: 10px!important}
+.marsty_docse label{padding: 0!important}
+.pay_dl .g-join{border-left: 3px solid #00BED4;text-indent: 10px;font-size: 16px;color: #333;margin-top: 10px;}
+.pay_dl .g-vo{position: relative;width: 33%;float: left;text-align: center;}
+.pay_dl .g-vo .g-radio{position: absolute;left: 21px;top:13px;opacity: 0;}
+.g-vo .icon-xuanze{color: #57BC4C;}
+.g-vo .icon-yuan1{color: #888;}
+#vip_type_time p{padding: 0;font-size: 12px;color: #888;display: inline-block;line-height: 60px;}
+#vip_type_time em{font-size: 20px;line-height: 60px;}
+#vip_type_time .g-time{width: 46%;height:62px;border: 1px solid #dcdcdc;float: left;text-align: center;margin-top: 20px;}
+#vip_type_time .g-time:first-child{margin-right: 10px;}
+#vip_type_time .g-time input{opacity: 0;display: none;}
+#vip_type_time .g-time.on{border-color: red;}
+#vip_type_time .g-time.on em{color: red;}
+#vip_time{margin-top: 30px;}
+#vip_time .text{color: #888;font-size: 16px;margin-top:4px;margin-left: 10px;float: left;position: static;line-height: normal;border: 0;}
+#vip_time .vip_count{width: 110px;height: 32px;border: 1px solid #ccc;  border-radius: 4px;float: left;margin-left: 15px;}
+#vip_time .vip_count p{float: left;}
+#vip_time .vip_count .reduce,#vip_time .vip_count .plus{width: 30px;height: 30px;text-align: center;font-size: 20px;cursor: pointer;padding: 0;margin: 0;}
+#vip_time .vip_count .reduce{border-right: 1px solid #ccc;}
+#vip_time .vip_count .plus{border-left: 1px solid #ccc;margin: 0;padding: 0;float: right}
+#vip_time .vip_count .num{width: 48px!important;height: 30px;text-align: center;padding-top: 5px;padding: 0;margin: 0;border: 0;}
+#vip_time .change{position: static;border: 0;line-height: normal;font-size: 14px;color: #888;display: inline-block;margin-left: 10px;margin-top: 12px;}
+#vip_time .vip_count .icon{font-size: 16px;color: #888;line-height: 32px;margin: 0;float: none;}
+.money_box{height: 50px;overflow: hidden;width: 100%;margin-top: 20px;background: #fff;}
+.money_box a{width: 50%;height: 50px;display: block;text-align: center;line-height: 50px;font-size: 18px;float: left;}
+.money_box .g-money{background: #fff;color: #888;}
+.money_box .g-money .red_txt{color: red;font-size: 20px;}
+.money_box .g-true{background: #2b92f9;color: #fff;}
+</style>
+<include file="__THEME__/public_header_w3g"/>
+
+<div class="header2">
+    <a href="{:U('classroom/User/index')}" class="icon-back"></a>
+    <div>会员充值</div>
+</div>
+<div class="body">
+    <div class="centerbox">
+        <!-- <div class="center-type-hd">
+            <a class="choose" href="javascript:;">会员充值</a>
+        </div> -->
+        <form action="{:U('classroom/Pay/rechargeVip')}" method="post">
+            <div class="teacher_bd" style="display: block">
+                <input type="hidden" value="<if condition='$is_wx'>wxpay<else/>alipay</if>" name="pay" />
+                <input type="hidden" value="1" name="type" />
+                <div class="no_vip">
+                  <span class="now_identity">当前身份 : </span><span name="group-list" class="now_content"><?php if($learnc['vip_type']==0):?>
+                  非VIP会员
+                  <?php else: echo $learnc['vip_type_txt'];echo $learnc['vip_expire']>0?date('，过期时间：Y-m-d', $learnc['vip_expire']):'';endif;?></span>
+                </div>
+                <!-- <dl class="pay_dl g-identity">
+                    <dt>您当前身份：</dt>
+                    <dd name="group-list">
+                        <p>
+                            <?php if($learnc['vip_type']==0):?>
+                            非VIP会员
+                            <?php else: echo $learnc['vip_type_txt'];echo $learnc['vip_expire']>0?date('，过期时间：Y-m-d', $learnc['vip_expire']):'';endif;?>
+                        </p>
+                    </dd>
+                </dl> -->
+
+                <dl class="pay_dl">
+                    <dt class="g-join">充会员</dt>
+                    <dd id="vip_type">
+                        <volist name="user_vip" id="vo">
+                            <div class="g-vo on">
+                                <i class="icon icon-yuan1"></i>
+                                <input class="g-radio" type="radio" data-vip-month="{$vo.vip_month}" data-vip-year="{$vo.vip_year}" <php>if($key == 0){</php>checked="checked"<php>}</php> name="user_vip" value="{$vo.id}"/> {$vo.title}
+                            </div>
+                        </volist>
+                    </dd>
+                </dl>
+
+                <dl class="pay_dl marsty_docse">
+                    <dd id="vip_type_time">
+                        <div class="g-time on">
+                            <input type="radio" name="vip_type_time" id="vip_month" readonly data-value="{$user_vip[0]['vip_month']|default=0}" value="month" checked /> <em>¥{$user_vip[0]['vip_month']|default=0}</em><p>/月</p>
+                        </div>
+                        <div class="g-time">
+                            <input type="radio" name="vip_type_time" id="vip_year" readonly data-value="{$user_vip[0]['vip_year']|default=0}"  value="year"  /> <em>¥{$user_vip[0]['vip_year']|default=0}</em><p>/年</p>
+                        </div>
+                    </dd>
+                    <dd id="vip_time">
+                        <span class="text">数量 :</span>
+                        <div class="vip_count">
+                            <p class="reduce"><i class="icon icon-jian"></i></p>
+                            <input type="text" class="head_search upload_input_a myInput1 num" readonly name="vip_time" value="1">
+                            <p class="plus"><i class="icon icon-jia-copy"></i></p>
+                        </div>
+                        <span class="change">月</span>
+                    </dd>
+                </dl>
+
+
+                <!-- <dl class="pay_dl marsty_docse">
+                    <dd id="select_pay">
+                        <label class="selected" val="alipay"><img src="https://t.el3.51eduline.com/addons/theme/stv1/_static/images/Alipay.png"><i></i></label>
+                        <label val="wxpay"><img src="https://t.el3.51eduline.com/addons/theme/stv1/_static/images/weixinpay.png"><i></i></label>
+                        <label val="cardpay">充值卡支付<i></i></label>
+                    </dd>
+                </dl> -->
+                <hr>
+                <dl class="pay_dl marsty_docse">
+                    <dt>支付类型：</dt>
+                    <dd name="group-list">
+                        <if condition="$is_wx eq null">
+                            <if condition="in_array('alipay',$payConfig['pay'])">
+                                <label class="selected" onclick="select_pay(this,1);"><i class="icon icon-zhifubao1"></i><h3 class="name">支付宝</h3><i class="icon icon-xuanze"></i></label>
+                            </if>
+                        </if>
+                        <if condition="in_array('wxpay',$payConfig['pay'])">
+                            <label <if condition="$is_wx"> class="selected"</if> onclick="select_pay(this,3);"><i class="icon icon-weixinzhifu1"></i><h3 class="name">微信支付</h3><i class="yuan"></i></label>
+                        </if>
+                        <if condition="in_array('unionpay',$payConfig['pay'])">
+                            <!--<label onclick="select_pay(this,2);"><img src="__THEME__/images/ylzf.png"></label>-->
+                        </if>
+                    </dd>
+                </dl>
+                <dl class="pay_dl marsty_docse">
+                    <dt class="pay_dt"><label><input id="vip_recharge" type="checkbox" checked name="checkbox">同意<a href="javascropt:;">《{$site['site_keyword']}虚拟货币服务协议》</a></label></dt>
+                </dl>
+
+                <div class="money_box">
+                    <a href="javascript:;" class="g-money">实付<em class="red_txt ft18" id="price_show">¥{$user_vip[0]['vip_month']}</em></a>
+                    <a class="g-true" href="javascript:;" onclick="rechangeVip(this);">确认支付</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<if condition="$is_wx eq null">
+    <style>
+        #_ts_box_h5{width:290px;height:180px;text-align: center;color: #535353;border-radius: 5px;position: fixed;background: #fff;-webkit-box-shadow: 0 2px 5px #dddddd;-moz-box-shadow: 0 2px 5px #dddddd;-khtml-box-shadow: 0 2px 5px #dddddd;-ms-box-shadow: 0 0 15px #888888;box-shadow: 0 0 15px #888888;z-index: 997;left: 5%;top: 35%;margin: 0 auto;background: #fff;}
+        ._hide_box_h5{z-index:996;filter:alpha(opacity=50);background:#666;opacity: 0.5;-moz-opacity: 0.5;left:0;top:0;height:99%;width:100%;position:fixed;}
+        #_ts_box_h5 ._box_hd{padding: 20px 0px;color: black;font-size: 16px;border-bottom: 1px solid rgba(0, 0, 0, 0.16);}
+        #_layer-content{padding: 15px 0px;color: rgba(255, 35, 0, 0.69);font-size: 16px;border-bottom: 1px solid rgba(0, 0, 0, 0.1);}
+        ._layer-wt{padding: 15px 0px;color: #908d8d;font-size: 16px;}
+    </style>
+    <div class="_hide_box_h5" style="display: none;"></div>
+    <div id="_ts_box_h5" style="display: none;">
+        <div class="_box_hd" >请确认微信支付是否完成</div>
+        <div id="_layer-content">已完成支付</div>
+        <div class="_layer-wt"><a href="{:U('classroom/User/recharge')}">支付遇到问题，联系客服</a></div>
+    </div>
+</if>
+<script>
+    '<if condition="$is_wx eq null">'
+    $(function(){
+        var wpay = "{$_GET['wpay']}";
+        var ppn = "{$_GET['ppn']}";
+        if(wpay != ''){
+            $('._hide_box_h5,#_ts_box_h5').show();
+            $('#_layer-content').click(function(){
+                $('._hide_box_h5,#_ts_box_h5').hide();
+                s = setInterval(function(){
+                    $.ajax({
+                        url: "{:U('classroom/Pay/getPayStatus')}",
+                        data:{pay_pass_num:ppn},
+                        type:'post',
+                        success: function(res){
+                            try{
+                                res = JSON.parse(res);
+                                if(res.status == 1){
+                                    clearInterval(s);
+                                    alert('充值成功');
+                                    setTimeout(function(){
+                                        window.location.href = "{:U('classroom/UserShow/index',['uid'=>$uid])}";//res.data
+                                    },2000);
+                                }
+                            }catch(e){
+                                return;
+                            }
+                        }
+                    });
+                },1800);
+            });
+        }
+    });
+    '</if>'
+
+    $(function() {
+        $(".pay_dl .g-vo .g-radio:checked").siblings(".icon").addClass("icon-xuanze").removeClass("icon-yuan1")
+        $(".pay_dl .g-vo .g-radio").click(function(){
+            $(this).siblings(".icon").addClass("icon-xuanze").removeClass("icon-yuan1").parent(".g-vo").siblings(".g-vo").find(".icon").addClass("icon-yuan1").removeClass("icon-xuanze")
+        });
+        $("#vip_type_time .g-time").click(function(){
+            $(this).addClass("on").siblings().removeClass("on");
+            $(this).find("input").attr("checked","checked").parents(".g-time").siblings().find("input").removeAttr("checked");
+        });
+        $("#vip_time .vip_count .icon").click(function(){
+            var num=$("#vip_time .vip_count .num").val();
+            if ($(this).hasClass("icon-jian")){
+                num--;
+                if (num<0) {
+                    num=0;
+                    $("#vip_time .vip_count .num").val(num);
+                }else {
+                    $("#vip_time .vip_count .num").val(num);
+                }
+            } else {
+                num++;
+                    $("#vip_time .vip_count .num").val(num);
+                }
+        });
+        $(".header").hide();
+        $(".choose").click(function(){
+            $(this).addClass("on").siblings().removeClass('on');
+            $('.teacher_bd').stop(true,true).hide().eq($(this).index()).show();
+        });
+
+        $(document).on('click','[name="group-list"] label',function(){
+            $(this).addClass('selected').siblings().removeClass('selected');
+            var pay   = $(this).parents('form').find('input:hidden[name="pay"]').val();
+
+            if(pay == 'cardpay'){
+                $('#oline_pay_div').hide(100);
+                $('#cardpay_div').show(100);
+            }else{
+                $('#oline_pay_div').show(100);
+                $('#cardpay_div').hide(100);
+            }
+        });
+        $('.btn_je_box a.btn_hui_h:eq(1)').click();
+        $('.btn_je_box a.btn_hui_h').click(function(){
+            $(this).parents('form').find('input:hidden[name="money"]').val($(this).attr('val')+$(this).attr('give'));
+            $('#lan_txt_cost').text($(this).attr('val'));
+            $('input#custom_money').val('').blur();
+        });
+        $('input#custom_money').change(function(e) {
+            $('.btn_je_box').children().removeAttr('selected');
+            $(this).parents('form').find('input:hidden[name="money"]').val($(this).val());
+            $('#lan_txt_cost').text($(this).val());
+        });
+        //选择充值VIP类型
+        $('#vip_type input').click(function(){
+            var _this = this;
+            var vip_month = $(_this).attr('data-vip-month');
+            var vip_year  = $(_this).attr('data-vip-year');
+            var vip_time  = $('input[name="vip_time"]').val();
+
+            var html = '<div class="g-time on"><input type="radio" name="vip_type_time" id="vip_month" data-value="'+vip_month+'" value="month" checked/><em>¥ '+vip_month+'</em><p>/月</p></div><div class="g-time"><input type="radio" name="vip_type_time" id="vip_year" data-value="'+vip_year+'"  value="year"  /><em>¥'+vip_year+'</em><p>/年</p></div>';
+            $("#vip_type_time").html(html);
+            var text = $('input[name="vip_type_time"]:checked').attr('data-value')*vip_time;
+            $('#price_show').html("¥"+text);
+        });
+
+        //选择充值时长
+        $(document).on("click","#vip_type_time .g-time",function(){
+            var _this = this;
+            var _val  = $(_this).find("input").attr("data-value");
+            var val   = $(_this).find("input").val();
+            var vip_time  = $('input[name="vip_time"]').val();
+            var text = _val*vip_time;
+            $(_this).addClass("on").siblings().removeClass("on");
+            $(_this).find("input").attr("checked","checked").parents(".g-time").siblings().find("input").removeAttr("checked");
+            if( val == 'year') {
+                $('#vip_time .change').text('年');
+            } else {
+                $('#vip_time .change').text('月');
+            }
+            $('#price_show').html("¥"+text);
+        });
+
+
+
+        //输入月数
+        $('#vip_time .icon').click(function(){
+            var _this = this;
+            var vip_time = parseInt($("#vip_time .vip_count .num").val());
+            var val      = $('input[name="vip_type_time"]:checked').attr('data-value');
+            if(vip_time <= 0 || isNaN(vip_time)){
+                $("#vip_time .vip_count .num").val('');$('#price_show').html("¥"+0);return ;
+            }else{
+                $("#vip_time .vip_count .num").val(vip_time);
+            }
+
+            $('#price_show').html("¥"+vip_time*val);
+        });
+
+    });
+    function select_pay(sbt,val){
+        var form  = $(sbt).parents('form');
+        if(val==1){
+            form.find('input:hidden[name="pay"]').val("alipay");
+        }else if(val==2){
+            form.find('input:hidden[name="pay"]').val("unionpay");
+        }else if(val==3){
+            form.find('input:hidden[name="pay"]').val("wxpay");
+        }else if(val==4){
+            form.find('input:hidden[name="pay"]').val("cardpay");
+        }
+           $(sbt).find(".yuan").addClass("icon icon-xuanze").removeClass("yuan");
+           $(sbt).siblings().find(".icon-xuanze").removeClass("icon icon-xuanze").addClass("yuan");
+    }
+
+    //充值VIP
+    function rechangeVip(sbt){
+        var form  = $(sbt).parents('form');
+        var pay   = form.find('input:hidden[name="pay"]').val();
+        var type  = form.find('input:hidden[name="type"]').val();
+        if( pay != 'alipay' && pay!='unionpay' && pay!='wxpay'){
+            alert('错误的支付方式');
+            return false;
+        }
+        if(type != 0 && type !=1){
+            alert('充值类型错误');
+            return false;
+        }
+
+        if(!$("#vip_recharge").is(':checked')){
+            alert("请同意《{$site['site_keyword']}虚拟货币服务协议》");
+            return false;
+        }
+        var s = 0
+        if(pay == 'wxpay'){
+            $.ajax({
+                url: "{:U('classroom/Pay/rechargeVip')}",
+                data:form.serialize(),
+                async:false,
+                type:'post',
+                success: function(data){
+                    if(typeof data != 'object'){
+                        var data = eval('('+data+')');
+                    }
+                    if(data.status == 1){
+                        var pay_pass_num = data.data.pay_pass_num;
+                        '<if condition="$is_wx">'
+                        WeixinJSBridge.invoke(
+                                'getBrandWCPayRequest',JSON.parse(data.data.html),
+                                function(res){
+                                    if(res.err_msg == "get_brand_wcpay_request:ok" ){
+                                        s = setInterval(function(){
+                                            $.ajax({
+                                                url: "{:U('classroom/Pay/getPayStatus')}",
+                                                data:{pay_pass_num:pay_pass_num},
+                                                type:'post',
+                                                success: function(res){
+                                                    try{
+                                                        res = JSON.parse(res);
+                                                        if(res.status == 1){
+                                                            clearInterval(s);
+                                                            alert('充值成功');
+                                                            setTimeout(function(){
+                                                                window.location.href = "{:U('classroom/UserShow/index',['uid'=>$uid])}";//res.data
+                                                            },1500);
+                                                        }
+                                                    }catch(e){
+                                                        return;
+                                                    }
+                                                }
+                                            });
+                                        },1800);
+                                    }
+                                }
+                        );
+                        '<else/>'
+                        var a = document.createElement('a');
+                        a.href = data.data.html;
+                        a.click();
+                        return false;
+                        '</if>'
+                    }else{
+                        alert(e.data);
+                        setTimeout(function(){
+                            window.location.href = '{:U("classroom/User/recharge")}';
+                        },2000);
+                    }
+                },
+                error: function(){
+                    return false
+                }
+
+            });
+        }else{
+            form.submit();
+        }
+    }
+</script>
+<include file="__THEME__/public_footer_w3g"/>

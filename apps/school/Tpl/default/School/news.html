@@ -1,0 +1,53 @@
+<include file="public/school_theme_header" />
+<link rel="stylesheet" type="text/css" href="__APP__/css/information.css">
+    <div class="content">
+      <div class="main">
+        <div class="class_left">
+           <div class="search-box">
+             <div>
+               <ul>
+                <li <php>if(!$_GET['cate']){</php>class="selected"<php>}</php>><a href="{:U('school/school/news',['id'=>$_GET['id']])}">全部</a></li>
+                 <volist name="topicCate" id="cate">
+                 <li <php>if($_GET['cate'] == $cate['zy_topic_category_id']){</php>class="selected"<php>}</php>><a href="{:U('school/school/news',['cate'=>$cate['zy_topic_category_id'],'id'=>$_GET['id']])}">{$cate.title}</a></li>
+                 </volist>
+               </ul>
+             </div>
+           </div>
+       </div>
+      </div>
+    </div>
+     <!-- 内容 -->
+     <div class="content">
+       <div class="main">
+         <div class="classmain_con">
+          <php>if($topic_data['data']){</php>
+           <ul class="new-list">
+                <volist name="topic_data.data" id="topic">
+                    <li>
+                     <div class="pic">
+                        <a target="_blank" href="{:U('classroom/Topic/view',array('id'=>$topic['id']))}">
+                            <img src="{:cutImg($topic['image'],250,150)}" class="lazyloading">
+                        </a>
+                       </div>
+                       <h3><a target="_blank" href="{:U('classroom/Topic/view',array('id'=>$topic['id']))}">{$topic.title|getShort=###,'25'}</a></h3>
+                       <p>{$topic.desc|getShort=###,'85','...'}</p>
+                      <dl class="info">
+                          <dd class="fr">{$topic.readcount}阅读</dd>
+                          <dd class="fl">{$topic.dateline|friendlyDate}</dd>
+                      </dl>
+                    </li>
+                </volist>
+            </ul>
+           </div>
+           <div class="page">
+             <div class="pagebox">
+                {$topic_data.html}
+            </div>
+           </div>
+           <php>}else{</php>
+           <div class="no-data">暂无相关资讯。。</div>
+           <php>}</php>
+       </div>
+     </div>
+
+<include file="__THEME__/public_footer" />

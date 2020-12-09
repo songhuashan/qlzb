@@ -1,0 +1,80 @@
+<volist name="data['data']" id="vs">
+    <li class="li" >
+        <div class="discusslist">
+            <div class="detailmeg">
+                <div id="qrcode" class="fxp" title="{$vs['share_url']}">
+                    <img style="display: block;" src="/api/pay/wxpay/qrcode.php?data={$vs['share_url']}">
+                </div>
+                <div class="mynote">
+                    <div class="list">
+                        <if condition="$vs['type'] eq 0"><em>分享课程：</em><a href="{:U('classroom/Video/view',array('id'=>$vs['video_id']))}">{$vs.title}</a></if>
+                        <if condition="$vs['type'] eq 1"><em>分享班级：</em><a href="{:U('classroom/Album/view',array('id'=>$vs['video_id']))}">{$vs.title}</a></if>
+                        <if condition="$vs['type'] eq 2"><em>分享直播课程：</em><a href="{:U('live/Index/view',array('id'=>$vs['video_id']))}">{$vs.title}</a></if>
+                    </div>
+                    <div class="fbtime">
+                        <span>分享链接：</span><span>{$vs['share_url']}</span>
+                    </div>
+                    <div class="fbtime">
+                        <span class="time">{$vs.ctime|date="Y/m/d H:i",###}</span><i class="icon icon-gengduo" onclick="edit_box(this)"></i>
+                        <div class="Operation-wd">
+                            <a href="javascript:;"  >
+                                <span class="ed_btn" onclick="mobliedelShare(this,{$vs['id']})">删除</span>
+                                <span class="close_btn" onclick="close($('.Operation-wd').hide())">取消</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</volist>
+
+
+<style>
+
+
+    .comment_list div {
+        margin-bottom: 5px;
+    }
+
+    .comment_list .li {
+        margin-bottom: 30px;
+        font-size: 12px;
+        padding: 0;
+    }
+    .fbtime>span{white-space: normal;word-break: break-all;}
+
+
+    </style>
+
+
+
+
+<!--<div class="page">-->
+    <!--<div class="pagebox">-->
+        <!--{$reviewdata['html']}-->
+        <!--<div class="pagediv">-->
+            <!--<span>共{$reviewdata['totalPages']}页，去第</span>-->
+            <!--<input type="text" id="goto_page">-->
+            <!--<span>页</span>-->
+            <!--<a class="goto" href="javascript:;">确定</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+
+<!--<script>-->
+    <!--$('.goto').click(function () {-->
+        <!--if($('#goto_page').val()){-->
+            <!--if($('#goto_page').val() != 0 ){-->
+                <!--window.location.href = "{:U('classroom/Home/getreviewlist')}&p="+$('#goto_page').val();-->
+            <!--}else{-->
+                <!--return false;-->
+            <!--}-->
+        <!--}else{-->
+            <!--return false;-->
+        <!--}-->
+    <!--});-->
+
+</script>

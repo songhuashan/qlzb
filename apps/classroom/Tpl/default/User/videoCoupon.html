@@ -1,0 +1,141 @@
+<include file="__THEME__/public_header" />
+<!--header end-->
+<style type="text/css">
+    .center_left{
+        border-radius: 4px;
+        overflow:hidden;
+        float: left;
+    }
+    .center_right{
+        float: right;
+    }
+    .center_right_tit div .on{
+        color:#00BED4;
+    }
+    .user-con-title a{
+        width:auto;
+        float: left;
+    }
+    .center_right_con{
+        padding:0 10px;
+    }
+
+    
+    .center_right .center_right_con .hideBox{
+      border: 0px!important;
+      position: static!important;
+      width: 100%;
+      height: 30px;
+      background: #f5f5f5;
+    }
+    .center_right_con .hideBox li{
+      display: inline-block;
+      border: 0px!important;
+      background-color: transparent!important;
+      font-size: 14px;
+      color: #656565;
+      width: 75px!important;
+    }
+    .center_right_con .hideBox li:hover{
+      color: #00BED4;
+    }
+    .center_right_con .active{
+        color:#00BED4 !important;
+    }
+</style>
+<!--centerbox end-->
+<div class="content cbg">
+	<div class="wrap">
+    	<include file="../User/public/_left" />
+        <div class="center_right">
+        	<div class="center_right_tit">
+            	<ul>
+                    <li class="on"><a href="{:U('classroom/User/videoCoupon')}">优惠券</a></li>
+                    <li><a href="{:U('classroom/User/discount')}">打折卡</a></li>
+                    <li><a href="{:U('classroom/User/vipCard')}">会员卡</a></li>
+                    <li><a href="{:U('classroom/User/rechargeCard')}">充值卡</a></li>
+                    <li><a href="{:U('classroom/User/courseCard')}">课程卡</a></li>
+                    <!--<li><a href="{:U('classroom/User/exchangeCard')}">使用卡券</a></li>-->
+                </ul>
+            </div>
+            <div class="center_right_con">
+            	<div class="tr_btn sort-select">
+                    <!-- <a id="showBox" style="margin-top:16px">全部<i class="icon-sj"></i></a> -->
+                    <ul class="hideBox">
+                        <li data-value="0" onclick ="order(this,'0')" class="active">全部({$count.all})<i class="icon-sj"></i></li>
+                        <li data-value="1" onclick ="order(this,'1')">可用({$count.use})<i class="icon-sj"></i></li>
+                        <li data-value="2" onclick ="order(this,'2')">已用({$count.used})<i class="icon-sj"></i></li>
+                        <li data-value="3" onclick ="order(this,'3')">过期({$count.past})<i class="icon-sj"></i></li>
+                    </ul>
+                </div>
+            	<ul class="carlist green">
+                    <if condition="$data">
+                        <volist name="data" id="vo">
+                            <li>
+                                <i class="icon-date"></i>
+                                <div class="txt">
+                                    <h3 <php>if($vo['past'] || $vo['status'] > 0){</php>style="color: #dddddd;"<php>}</php>><em>¥</em>{$vo.price}<span>满{$vo.maxprice}元可用</span></h3>
+                                    <p>卡券编号&nbsp;:&nbsp;{$vo.code}</p>
+                                    <p>仅限&nbsp;<span style="color: red;">{:msubstr(t($vo['school_title']),0,6,'utf-8',true)}</span>&nbsp;下的课程使用</p>
+                                    <p>有效期&nbsp;:&nbsp;{$vo.stime} - {$vo.etime}</p>
+                                </div>
+                                <php>if($vo['past']){</php>
+                                    <a href="javascript:;" style="background-position: -280px -300px;color:#666;">已<br>过<br>期</a>
+                                <php>}else{</php>
+                                    <switch name="vo.status">
+                                        <case value="0"><a href="{:U('classroom/Video/index',array('mhm_id'=>$vo['sid']))}">立<br>即<br>使<br>用</a></case>
+                                        <default/><a href="javascript:;" style="background-position: -280px -300px;">已<br>使<br>用</a>
+                                    </switch>
+                                <php>}</php>
+                            </li>
+                        </volist>
+                        <else/>
+                            <li>暂时没有符合要求的卡券。。</li>
+                    </if>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        // $("#showBox").click(function(){
+        //     if($(".hideBox").css("display")=="none"){
+        //         $(".hideBox").show();
+        //     }else{
+        //         $(".hideBox").hide();
+        //     }
+        // });
+        // $(".hideBox li").click(function(){
+        //     $("#showBox").html($(this).html());
+        //     $(".hideBox").hide();
+        // });
+    });
+    //筛选
+    function order(cate,orderby){
+        $(cate).addClass('active').siblings().removeClass('active');
+        var type = 1;
+        $.ajax({
+            type: "POST",
+            url:"{:U('classroom/User/choiceCard')}",
+            data:{type:type,orderby:orderby},
+            dataType:"json",
+            success:function(data){
+                try{
+                    var data = JSON.param(data);
+                }catch(e){}
+                appendHtml(data);
+            }
+        });
+    }
+    //追加html
+    function appendHtml(data){
+        $(".carlist").html("");
+        if(data.data!=""){
+            $(".carlist").append(data.data);
+        }
+        return true;
+    }
+</script>
+<include file="__THEME__/public_footer" />

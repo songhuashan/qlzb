@@ -1,0 +1,56 @@
+<php> if($pc)  {</php>
+<if condition="$data">
+    <foreach name="data" item="l">
+        <li>
+            <div class="position-rt">
+                <div class="position-rt-float">
+                    <php>if($l['is_activity'] == 0){</php>
+                      <div class="span_box">
+                        <!--<if condition="$l['section_count'] eq 0">
+                            <span class="position-rt-float-a" onclick="doClick('uploadvideo')"><a href="{:U('classroom/User/updateLive','id='.$l['id'])}" class="a1">修改</a></span>
+                        </if>-->
+                        <span class="position-rt-float-a" onclick="doClick('uploadvideo')"><a href="{:U('classroom/User/updateLive','id='.$l['id'])}" class="a1">修改</a></span>
+                        <span class="position-rt-float-a" >审核未通过</span>
+                        <span class="position-rt-float-b" onclick="delvideo(this,{$l.id})">删除</span>
+                      </div>
+                    <php>}else if($l['is_activity'] == 2 || $l['is_activity'] == 3  || $l['is_activity'] == 5  || $l['is_activity'] == 6){</php>
+                        <div class="span_box">
+                        <span class="position-rt-float-a"  style="width: 70px;">审核中</span>
+                        <span class="position-rt-float-b" onclick="delvideo(this,{$l.id})">删除</span>
+                      </div>
+                    <php>}else if($l['is_activity'] == 1){</php>
+                      <div class="span_box">
+                        <span class="position-rt-float-a" onclick="doClick('uploadlive')"><a href="{:U('classroom/User/updateLive',array('id'=>$l['id']))}" class="a1">修改</a></span>
+                        <span class="position-rt-float-b" onclick="delvideo(this,{$l.id})">删除</span>
+                        <php> if($pc) { </php>  <span class="position-rt-float-a" style="margin: 5px;display:none"><a href="{:U('live/Index/live_teacher',array('id'=>$l['id']))}" target="_blank" class="al">开始讲课</a></span>
+                        <php> }</php></php>
+                        <span class="position-rt-float-a" ><a href="{:U('classroom/User/addlive','id='.$l['id'])}" class="a1">课时管理</a></span>
+                      </div>
+                    <php>}</php>
+                </div>
+                <a href="{:U('live/Index/view',array('id'=>$l['id']))}" class="img"><img src="{:getCover($l['cover'] , 222,144)}"> </a> </div>
+            <h2><a href="{:U('live/Index/view',array('id'=>$l['id']))}">{:msubstr($l['video_title'],0,10,'utf-8',true)}</a></h2>
+            <!--<div class="user-imglistbt" style="width: auto;padding: 10px 0;float: right;"><a href="{$l.url}" target="_blank">开始讲课</a></div>-->
+        </li>
+    </foreach>
+    <else/>
+    <li style="border: none;box-shadow: none;margin: 30px 0px 50px 30px;">您还没有直播课程。。</li>
+</if>
+
+<php> } else { </php>
+
+<foreach name="data" item="l">
+    <li>
+        <a href="{:U('live/Index/view',array('id'=>$l['id']))}" class="img"><img src="{:getCover($l['cover'] , 222,144)}"> </a> </div>
+        <div class="position-rt-float">
+            <php>if($l['is_activity'] == 2 || $l['is_activity'] == 3  || $l['is_activity'] == 5  || $l['is_activity'] == 6){</php>
+                <span class="position-rt-float-a">审核中</span>
+            <php>}else{</php>
+            <span  style=" margin-left:15px;"  class="position-rt-float-b" onclick="delvideo(this,{$l.id})">删除</span>
+            <php>}</php>
+        </div>
+        <h2><a href="{:U('classroom/Video/view',array('id'=>$l['id']))}">{:limitNumber($l['video_title'],10)}</a></h2>
+    </li>
+</foreach>
+
+<php>}</php>

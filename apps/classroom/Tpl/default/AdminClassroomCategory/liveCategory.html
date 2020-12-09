@@ -1,0 +1,239 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="https://www.qiluzhibo.com/apps/admin/_static/admin.css" rel="stylesheet" type="text/css">
+    <script>
+        /**
+         * 全局变量
+         */
+        var SITE_URL  = 'https://www.qiluzhibo.com';
+        var THEME_URL = 'https://www.qiluzhibo.com/addons/theme/stv1/_static';
+        var APPNAME   = 'classroom';
+        var UPLOAD_URL ='https://www.qiluzhibo.com/data/upload';
+        var MID		  = '1';
+        var UID		  = '1';
+        // Js语言变量
+        var LANG = new Array();
+    </script>
+    <script type="text/javascript" src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/core.js"></script>
+    <script src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/module.js"></script>
+    <script src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/common.js"></script>
+    <script src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/module.common.js"></script>
+    <script src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/module.weibo.js"></script>
+    <script type="text/javascript" src="https://www.qiluzhibo.com/apps/admin/_static/admin.js?t=11"></script>
+    <script type="text/javascript" src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/ui.core.js"></script>
+    <script type="text/javascript" src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/ui.draggable.js"></script>
+
+    <script type="text/javascript" src="https://www.qiluzhibo.com/apps/classroom/_static/admin.js"></script>
+    <script src="https://www.qiluzhibo.com/apps/classroom/_static/admin/common.js"></script>
+    <script src="https://www.qiluzhibo.com/apps/classroom/_static/mz.js"></script>
+    <script src="https://www.qiluzhibo.com/apps/classroom/_static/wayne.js"></script>
+    <script src="https://www.qiluzhibo.com/data/lang/public_zh-cn.js"></script>
+    <script src="https://www.qiluzhibo.com/data/lang/classroom_zh-cn.js"></script>
+</head>
+<body>
+<style type="text/css">
+    .ico_top, .ico_btm {
+        background: url("https://www.qiluzhibo.com/addons/theme/stv1/_static/admin/image/ico_top_btm.gif") no-repeat scroll 0 0 transparent;
+        height: 14px;
+        width: 12px;
+    }
+    .ico_top, .ico_btm {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .ico_top {
+        background-position: -12px 0;
+    }
+    .ico_btm {
+        background-position: -24px 0;
+    }
+    .ico_top:hover {
+        background-position: 0 0;
+    }
+    .ico_btm:hover {
+        background-position: -35px 0;
+    }
+</style>
+
+<div id="container" class="so_main">
+    <!-- START TAB框 -->
+    <div class="tit_tab">
+        <ul>
+            <li><a href="{:U('classroom/AdminClassroomCategory/index',array('tabHash'=>'index'))}" >（点播、直播、线下课）分类</a></li>
+            <li ><a href="{:U('classroom/AdminClassroomCategory/liveCategory',array('tabHash'=>'liveCategory'))}" class="on">课时标题</a></li>
+            <li><a href="{:U('classroom/AdminClassroomCategory/packageCategory',array('tabHash'=>'packageCategory'))}">班级分类</a></li>
+            <li><a href="{:U('classroom/AdminClassroomCategory/libraryCategory',array('tabHash'=>'libraryCategory'))}">文库分类</a></li>
+            <li><a href="{:U('classroom/AdminClassroomCategory/teacherCategory',array('tabHash'=>'teacherCategory'))}">讲师分类</a></li>
+            <li><a href="{:U('classroom/AdminClassroomCategory/schoolCategory',array('tabHash'=>'schoolCategory'))}">机构分类</a></li>
+        </ul>
+    </div>
+    <!-- END TAB框 -->
+    <!-- START TOOLBAR -->
+    <div class="Toolbar_inbox">
+        <a href="javascript:void(0);" class="btn_a" onclick="admin.addTreeCategory(0, 'live_category', '0', '');"><span>添加</span></a>
+    </div>
+    <!-- END TOOLBAR -->
+
+
+    <!-- START LIST -->
+    <div class="list">
+        <ul class="sort">
+            <li class="title">
+                <div class="line-l c1">标题名称</div>
+                <div class="line-l c2">操作</div>
+            </li>
+        </ul>
+        <php>if(empty($list)):</php>
+        <span class="textC" style="line-height:26px;display:block">{:L('PUBLIC_NO_RELATE_DATA')}!</span>
+        <php>else:</php>
+        {:showTreeCategory2($list, 'zy_live_category', 0, 0, 0, 0, 1, 0, 0)}
+        <php>endif;</php>
+    </div>
+    <!-- END LIST -->
+
+</div>
+
+<script type="text/javascript">
+    /**
+     * 收起与展开效果
+     * @param integer cid 分类ID
+     * @return boolean false
+     */
+    admin.foldCategory = function(cid)
+    {
+        var offImg = THEME_URL + '/admin/image/off.png';
+        var onImg = THEME_URL + '/admin/image/on.png';
+        $('#sub_'+cid).toggle();
+        $img = $('#img_'+cid);
+        if($img.attr('src') == offImg) {
+            $img.attr('src', onImg);
+        } else {
+            $img.attr('src', offImg);
+        }
+        return false;
+    };
+    /**
+     * 移动分类位置
+     * @param integer cid 分类ID
+     * @param string type 移动类型
+     * @param string stable 所操作的数据表
+     * @return boolean false
+     */
+    admin.moveTreeCategory = function(cid, type, stable)
+    {
+        // 验证数据正确性
+        if(typeof cid === "undefined" || typeof type === "undefined" || typeof stable === "undefined") {
+            return false;
+        }
+        // 提交数据，修改排序位置
+        $.post(U('admin/Public/moveTreeCategory'), {cid:cid, type:type, stable:stable}, function(msg) {
+            if(msg.status == 1) {
+                ui.success(msg.data);
+                var $category = $('#' + stable + '_' + cid);
+                if (type === 'up') {
+                    var size = $category.prev().size();
+                    if (size > 0) {
+                        var otherId = $($category.prevAll('li[id^="' + stable + '_"]')[0]).attr('id');
+                        otherId = otherId.split('_').pop();
+                        $target = $('#' + stable + '_' + otherId);
+                        $target.before($category);
+                        $('#sub_' + cid).length > 0 && $target.before($('#sub_' + cid));
+                    }
+                } else if (type === 'down') {
+                    var size = $category.next().size();
+                    if (size > 0) {
+                        var otherId = $($category.nextAll('li[id^="' + stable + '_"]')[0]).attr('id');
+                        otherId = otherId.split('_').pop();
+                        $target = $('#' + stable + '_' + otherId);
+                        if ($('#sub_' + otherId).length > 0) {
+                            $target = $('#sub_' + otherId);
+                        }
+                        $('#sub_' + cid).length > 0 && $target.after($('#sub_' + cid));
+                        $target.after($category);
+                    }
+                }
+            } else {
+                ui.error(msg.data);
+            }
+        }, 'json');
+        return false;
+    };
+    /**
+     * 添加子分类
+     * @parma integer cid 分类ID
+     * @param string stable 所操作的数据表
+     * @parma integer limit 字数限制
+     * @param integer type 分类所属 云课堂特有
+     * @return boolean false
+     */
+    admin.addTreeCategory = function(cid)
+    {
+
+        if(typeof cid === "undefined") {
+            return false;
+        }
+        admin.foldCategory(cid);
+        ui.box.load(U('admin/Public/addTreeLiveCategory')+'&cid='+cid, "添加标题");
+        return false;
+    };
+    /**
+     * 编辑分类
+     * @param integer cid 分类ID
+     * @param integer type 分类所属 云课堂特有
+     * @return boolean false
+     */
+    admin.upTreeCategory = function(cid)
+    {
+        if(typeof cid === "undefined" ) {
+            return false;
+        }
+        ui.box.load(U('admin/Public/upTreeLiveCategory')+'&cid='+cid, "编辑标题");
+        return false;
+    };
+    /**
+     * 删除分类
+     * @param integer cid 分类ID
+     * @return boolean false
+     */
+    admin.rmTreeCategory = function(cid)
+    {
+        if(typeof cid === "undefined") {
+            return false;
+        }
+        // 删除操作
+        if(confirm("是否删除该标题？")) {
+            $.post(U('admin/Public/rmTreeLiveCategory'),
+                {cid:cid}, function(msg) {
+                    if(msg.status == 1) {
+                        ui.success(msg.data);
+                        location.href = location.href;
+                        return false;
+                    } else {
+                        ui.error(msg.data);
+                        return false;
+                    }
+                }, 'json');
+        }
+        return false;
+    };
+</script>
+
+<script type="text/javascript">
+    /**
+     * 初始化对象
+     */
+    //表格样式
+    $(document).ready(function(){
+        admin.bindTrOn();});
+</script>
+
+
+
+<div id="topcontrol" title="返回顶部" style="position: fixed; bottom: 30px; right: 20px; opacity: 0; cursor: pointer;">
+    <a href="#top" class="top_stick">&nbsp;</a>
+</div>
+</body>
+</html>

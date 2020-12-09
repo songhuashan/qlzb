@@ -1,0 +1,215 @@
+<include file="__THEME__/admin_header" />
+<include file="__THEME__/swfupload" />
+<include file="__THEME__/editor" />
+<div id="container" class="so_main">
+
+
+    <form method="POST" action="{:U('exams/Achievement/subchengji')}" id="detail_form" name="detail_form" onsubmit="return j_validateCallback(this,checkForm,post_callback)">
+        
+        <div class="form2">
+            
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red"> * </font>地区：</dt>
+                <dd>
+                    <input name="area" id="form_name" type="text" value="{$info['area']}" class="s-txt">
+                </dd>
+            </dl>
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red"> * </font>考生姓名：</dt>
+                <dd>
+                    <input name="name" id="form_name" type="text" value="{$info['name']}" class="s-txt">
+                </dd>
+            </dl>
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red"> * </font>手机号：</dt>
+                <dd>
+                    <input name="mobile" id="form_name" type="text" value="{$info['mobile']}" class="s-txt">
+                </dd>
+            </dl>
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red"> * </font>身份证号：</dt>
+                <dd>
+                    <input name="idcard" id="form_name" type="text" value="{$info['idcard']}" class="s-txt">
+                </dd>
+            </dl>
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red"> * </font>报考项目：</dt>
+                <dd>
+                    <input name="bkxm" id="form_name" type="text" value="{$info['bkxm']}" class="s-txt">
+                </dd>
+            </dl>
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red">  </font>级别：</dt>
+                <dd>
+                    <input name="level" id="form_name" type="text" value="{$info['level']}" class="s-txt">
+                </dd>
+            </dl>
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red">  </font>班型</dt>
+                <dd>
+                    <input name="class" id="form_name" type="text" value="{$info['class']}" class="s-txt">
+                </dd>
+            </dl>
+
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red">  </font>应缴：</dt>
+                <dd>
+                    <input name="yingjiao" id="form_name" type="text" value="{$info['yingjiao']}" class="s-txt">
+                </dd>
+            </dl>
+
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red">  </font>实缴：</dt>
+                <dd>
+                    <input name="shijiao" id="form_name" type="text" value="{$info['shijiao']}" class="s-txt">
+                </dd>
+            </dl>
+
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red">  </font>日期：</dt>
+                <dd>
+                    <input name="date" id="form_idcard" type="date" value="{$info['date']}" class="s-txt" placeholder="">
+                </dd>
+            </dl>
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red">  </font>学历：</dt>
+                <dd>
+                    <input name="xueli" id="form_idcard" type="text" value="{$info['xueli']}" class="s-txt" placeholder="">
+                </dd>
+            </dl>
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red">  </font>论文：</dt>
+                <dd>
+                    <input name="lunwen" id="form_idcard" type="text" value="{$info['lunwen']}" class="s-txt" placeholder="">
+                </dd>
+            </dl>
+
+
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red">  </font>准考证：</dt>
+                <dd>
+                    <input name="zkz" id="form_idcard" type="text" value="{$info['zkz']}" class="s-txt" placeholder="">
+                </dd>
+            </dl>
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red">  </font>考试网址：</dt>
+                <dd>
+                    <input name="kswz" id="form_idcard" type="text" value="{$info['kswz']}" class="s-txt" placeholder="">
+                </dd>
+            </dl>
+
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red"> * </font>成绩：</dt>
+                <dd>
+                    <input name="chengji" id="form_idcard" type="text" value="{$info['chengji']}" class="s-txt" placeholder="">
+                </dd>
+            </dl>
+
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red">  </font>通知成绩：</dt>
+                <dd>
+                    <input name="zkz" id="form_idcard" type="text" value="{$info['zkz']}" class="s-txt" placeholder="">
+                </dd>
+            </dl>
+            <dl class="lineD" id="dl_video_title">
+                <dt><font color="red"> * </font>是否通过：</dt>
+                <dd>
+                    <select name="status" id="">
+                        <option value="通过" <if condition="$info['zkz'] eq 通过">selected</if>>通过</option>
+                        <option value="未通过" <if condition="$info['zkz'] eq 未通过">selected</if>>未通过</option>
+                    </select>
+                </dd>
+            </dl>
+
+     
+            
+            <input type="hidden" name="id"  value="{$info['id']}" />
+            <input name="kaoqi" type="hidden" id="kaoqi" value="{$kaoqi}">
+            <div class="page_btm">
+                <input type="submit" class="btn_b" value="保存" id="form_submit">
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    function j_validateCallback(form,call,callback) {
+        var $form = $(form);
+        if(typeof call != 'undefined' && call instanceof Function){
+            $i = call($form);
+            if(!$i){
+                return false;
+            }
+        }
+        var _submitFn = function(){
+            $.ajax({
+                type: form.method || 'POST',
+                url:$form.attr("action"),
+                data:$form.serializeArray(),
+                dataType:"json",
+                cache: false,
+                success: function(xMLHttpRequest, textStatus, errorThrown){
+                    if(typeof callback != 'undefined' && callback instanceof Function){
+                        callback($form,xMLHttpRequest);
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    ui.error("未知错误!");
+                }
+            });
+        }
+        _submitFn();
+        return false;
+    }
+
+    function checkForm(form){
+        var area = form.find('input[name="area"]').val();
+        var name = form.find('input[name="name"]').val();
+        var incard = form.find('input[name="incard"]').val();
+        var mobile = form.find('input[name="mobile"]').val();
+        var bkxm = form.find('input[name="bkxm"]').val();
+        var chengji = form.find('input[name="chengji"]').val();
+        
+        if(''==area){
+            ui.error("地区不能为空");
+            return false;
+        }
+        if(''==name){
+            ui.error("考生姓名不能为空");
+            return false;
+        }
+        if(''==mobile){
+            ui.error("手机号不能为空");
+            return false;
+        }
+        if(''==incard){
+            ui.error("考生姓名不能为空");
+            return false;
+        }
+
+
+        if(''==bkxm){
+            ui.error("报考项目不能为空");
+            return false;
+        }
+        if(''==chengji){
+            ui.error("成绩不能为空");
+            return false;
+        }
+        
+        return true;
+    }
+    function post_callback(_form,data){
+        if(data.status != undefined){
+            if(data.status == '0'){
+                ui.error(data.info);
+            } else {
+                ui.success(data.info);
+                window.location.href = "{:U('exams/Achievement/editchengji')}"+'&type='+$('#sstype').val();
+            }
+        }
+    }
+    
+</script>
+
+<include file="__THEME__/admin_footer" />

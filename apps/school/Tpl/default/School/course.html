@@ -1,0 +1,101 @@
+<include file="public/school_theme_header" />
+  <link rel="stylesheet" href="__APP__/css/course_list.css">
+    <php>
+        $params = $_GET;
+        unset($params['app'],$params['mod'],$params['act']);
+    </php>
+     <div class="content">
+       <div class="main">
+         <div class="class_left">
+            <div class="search-box">
+            <php>
+                function parseCate($catelist,$params){
+                    foreach($catelist as $k=>$v){
+                        $selected = (!isset($catelist[$_GET['cate']])||count(array_intersect(array_keys($catelist),array_column($v,'zy_currency_category_id'))) > 0) ? '':'class="selected"';
+                        $url = U('school/School/'.$_GET['act'],array_merge($params,['cate'=>$k]));
+                        echo '<div><ul><li '.$selected.'><a href="'.$url.'">全部</a></li>';
+                        foreach($v as $l){
+                            $selected = ($_GET['cate'] == $l['zy_currency_category_id'] || isset($catelist[$l['zy_currency_category_id']])) ? 'class="selected"':'';
+                            $url = U('school/School/'.$_GET['act'],array_merge($params,['cate'=>$l['zy_currency_category_id']]));
+                            echo '<li '.$selected.'><a href="'.$url.'">'.$l["title"].'</a></li>';
+                        }
+                        echo '</ul></div>';
+                    }
+                }
+                parseCate($catelist,$params);
+            </php>
+            </div>
+        </div>
+       </div>
+     </div>
+     <!-- 排序 -->
+     <div class="content">
+       <div class="main bg">
+         <div class="head_box">
+           <ul>
+             <li <eq name="Think.get.order" value="default">class="active"</eq>>
+               <a href="{:U('school/School/'.$_GET['act'],array_merge($params,['order'=>'default']))}">综合排序</a>
+             </li>
+             <li <eq name="Think.get.order" value="new">class="active"</eq>>
+               <a href="{:U('school/School/'.$_GET['act'],array_merge($params,['order'=>'new']))}">最新</a>
+             </li>
+             <li <eq name="Think.get.order" value="score">class="active"</eq>>
+               <a href="{:U('school/School/'.$_GET['act'],array_merge($params,['order'=>'score']))}">评分</a>
+             </li>
+             <li <eq name="Think.get.order" value="price">class="active"</eq>>
+               <a href="{:U('school/School/'.$_GET['act'],array_merge($params,['order'=>'price']))}">价格</a>
+             </li>
+           </ul>
+         </div>
+         <div class="choice_course">
+            <php>if($listData['data']){</php>
+             <ul class="clearfix">
+                <volist name="listData.data" id="val">
+               <li>
+                 <div class="div_box">
+                 <if condition="$val['type'] eq 1">
+                      <if condition="$val['mount_iand']">
+                          <a target="_blank" href="{:U('classroom/Video/view_mount',array('id'=>$val['id'],'mid'=>$mhm_id.''.$mount_url_str))}">
+                      <else/>
+                          <a target="_blank" href="{:U('classroom/Video/view',array('id'=>$val['id']))}">
+                      </if>
+                  <else/>
+                      <if condition="$val['mount_iand']">
+                          <a target="_blank" href="{:U('live/Index/view_mount',array('id'=>$val['id'],'mid'=>$mhm_id.''.$mount_url_str))}">
+                      <else/>
+                          <a target="_blank" href="{:U('live/Index/view',array('id'=>$val['id']))}">
+                      </if>
+                  </if>
+                  <img src="{:getCover($val['cover'],270,192)}" alt="">
+                </a>
+                 <div class="title">
+                   <h5><a href="javascript:">{:limitNumber($val['video_title'],10)}</a></h5>
+                   <b><a href="javascript:">{:msubstr(t($val['mhm_title']),0,15,'utf-8',true)}</a></b>
+                   <span>
+                       <strong>
+                       <php>if($val['is_charge'] == 1  || $val['mzprice']['t_price'] == 0 ){</php>
+                        免费
+                        <php>}else{</php>
+                        ￥{$val['mzprice']['t_price']}
+                        <php>}</php>
+                       </strong>
+                       <small>{$val.video_order_count|default="0"}人购买</small>
+                    </span>
+                 </div>
+               </div>
+               </li>
+               </volist>
+             </ul>
+             <div class="page">
+               <div class="pagebox">
+                  {$listData.html}
+              </div>
+             </div>
+            <php>}else{</php>
+            <div class="no-data">暂无相关课程。。</div>
+            <php>}</php>
+         </div>
+       </div>
+     </div>
+    <!-- footer -->
+<include file="__THEME__/public_footer" />

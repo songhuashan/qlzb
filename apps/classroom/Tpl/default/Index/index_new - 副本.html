@@ -1,0 +1,390 @@
+<include file="__THEME__/public_header" />
+
+<link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/icon/iconfont.css">
+<link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/css/public2.0.css">
+<link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/css/slick.css">
+<link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/css/swiper_02.min.css">
+<link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/css/idangerous.swiper.css">
+<link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/css/banner2.0.css">
+<link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/css/style2.0.css">
+<link rel="stylesheet" type="text/css" href="__THEME__/../layui/css/layui.css">
+<script src="__THEME__/../_static_new/js/jquery-1.8.3.min.js"></script>
+<script src="__THEME__/../_static_new/js/swiper.min.js"></script>
+<script src="__THEME__/../_static_new/js/jquery.SuperSlide.2.1.1.js"></script>
+<script src="__THEME__/../_static_new/js/countUp.min.js"></script>
+<script src="__THEME__/../_static_new/js/idangerous.swiper.min.js"></script>
+<script src="__THEME__/../_static_new/js/index_2.0.js"></script>
+<script src="__THEME__/../_static_new/js/slick.js"></script>
+<script src="__THEME__/../layui/layui.js" charset="utf-8"></script>
+<style>
+    .header_sider_ulbox{ display: block!important; }
+    .full-course ul{height:420px;background-color: rgba(0,0,0,0.5);}
+</style>
+<script>
+    layui.use('layer', function(){ //独立版的layer无需执行这一句
+     layer.open({
+        type: 1
+        ,title: false //不显示标题栏
+        ,closeBtn: false
+        ,area: '500px;'
+        ,shade: 0.8
+        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+        ,btn: [ '知道了']
+        ,btnAlign: 'c'
+        ,moveType: 1 //拖拽模式，0或者1
+        
+        ,content: '<div style="padding: 40px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;"><div style="text-align:center; font-size:20px">通知：</div><br>2020年健康管理师考试准考证打印时间已出，考生可于10月16-24日登陆中国卫生人才网（www.21wecan.com）在“考生入口”栏，点击“准考证打印”。<br>于疫情原因各地区严格控制考场数量和人数的情况，录取人数有变动。如学员当期没有查询到信息可延期到下期继续报考，由于16日-24日老师需要查询准备所有学员报考通知，未报考成功如有疑问请于本月24日之后联系您的负责老师进行详细咨询。<br>2020年全国学历自学考试于10月17、18日举行。已网报考试科目学员登录报考网站自行打印准考证。按考试要求准备好考试所需物品及防疫物品准时参加考试。有问题可联系各自教务老师。祝大家考试顺利。<br>2009期国内营养师/心理咨询师成绩查询时间为10.15-10.20，登录考试网址点击考试记录即可查询成绩。<br><br><div style="text-align:center; font-size:20px">关于观看直播流程，请参考网站栏目中“使用说明”！</div></div>'
+        ,success: function(layero){
+          
+   
+        }
+      });
+
+
+});
+    $(function(){
+//示范一个公告层
+
+        $(".direction a").on("click",function(){
+            $("#search_cate").val($(this).attr("attr"));
+            var search_cate = $("search_cate").val();
+        });
+        $('#btn_search_site').click(function(){
+            var search_cate = $('#search_cate').val();
+            var search_combo_input = $('#search_combo_input').val();
+            if(search_combo_input != ''){
+                if(search_cate == 'video'){
+                    window.open("{:U('classroom/Video/index')}"+"?search="+search_combo_input);
+                }else if(search_cate == 'school'){
+                    window.open("{:U('school/Index/index')}"+"?search="+search_combo_input);
+                }else if(search_cate == 'teacher'){
+                    window.open("{:U('classroom/Teacher/index')}"+"?search="+search_combo_input);
+                }
+            }
+        });
+        $('.search_hot a').click(function(){
+            var cateId = $(this).attr('attr');
+            var search_cate = $('#search_cate').val();
+            if(search_cate == 'video'){
+                window.open("{:U('classroom/Video/index')}"+"?search="+cateId);
+            }else if(search_cate == 'school'){
+                window.open("{:U('school/Index/index')}"+"&search="+cateId);
+            }else if(search_cate == 'teacher'){
+                window.open("{:U('classroom/Teacher/index')}"+"?search="+cateId);
+            }
+        });
+    })
+</script>
+
+        <!--banner start-->
+        <section>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <volist name="ad_list" id="adlt">
+                        <div class="swiper-slide">
+                            <a href="{$adlt['bannerurl']}" title="{$adlt['banner_title']}">
+                                <img src="{:getCover($adlt['banner'],1920,420)}" alt="{$adlt['banner_title']}" >
+                            </a>
+                        </div>
+                    </volist>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination swiper-pagination-white"></div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next icon icon-rightarrow"></div>
+                <div class="swiper-button-prev icon icon-leftarrow"></div>
+            </div>
+        </section>
+        <!--banner end-->
+
+    <!-- 首页模块 -->
+    <volist name="config_index.item" id="item_name">
+        <eq name="item_name" value="billboard">
+            <!--APP下载、创建小组、入驻机构-->
+            <div class="body01" style="margin:0 auto">
+                <ul class="my-server">
+                    <li>
+                        <a href="{$site['download_url']}">
+                            <i class="icon icon-app"></i>
+                            <span>
+                                <h3>APP下载</h3>
+                                <small>海量课程随身携带</small>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a <if condition="$_SESSION['mid'] eq ''">
+                            href="javascript:;" onClick="login_box();"
+                            <else/> href="{:U('classroom/User/setInfo')}" target="_blank"
+                        </if> >
+                            <i class="icon icon-laoshi"></i>
+                            <span>
+                                <h3>认证讲师</h3>
+                                <small>寻找更多志同道合的人</small>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="border-none">
+
+                        <a <if condition="$_SESSION['mid'] eq ''">
+                            href="javascript:;" onClick="login_box();"
+                            <else/>
+                            href="{:U('school/User/setInfo')}" target="_blank"
+                        </if> >
+                            <i class="icon icon-jigou1"></i>
+                                <span>
+                                    <h3>入驻机构</h3>
+                                    <small>打造专属的在线课堂</small>
+                                </span>
+                        </a>
+                    </li>
+                </ul>
+
+              
+            </div>
+        </eq>
+
+        <eq name="item_name" value="live">
+            <!--直播预告 start-->
+            <div class="body01 Trailer">
+                <h1>直播预告</h1>
+                <div class="slideTxtBox">
+                    <a class="prev icon icon-zuojiantou"></a>
+                    <div class="bd">
+                        <volist name="live_list" id="le" offset="0" length='4'>
+                            <ul>
+                                <volist name="le" id="vo" offset="0" length='4'>
+                                    <li>
+                                        <div class="pic">
+                                            <a href="{:U('live/Index/view',array('id'=>$vo['id']))}">
+                                                <img src="{:cutImg($vo['cover'] ,250 , 140 )}" />
+                                            </a>
+                                        </div>
+                                        <div class="title">
+                                            <h5><a href="{:U('live/Index/view',array('id'=>$vo['id']))}">{:limitNumber($vo['video_title'],12)}</a></h5>
+                                            <b><i><a href="{$vo['school']['domain']}">{:limitNumber($vo['school']['title'],16)}</a></i></b>
+                                            <span>
+                                            <!-- <strong><if condition="$vo['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$vo['t_price']}</if></strong> -->
+                                            <small><php>if($marketConf['order_switch'] == 1) {</php>{$vo['video_order_count_mark']}<php>}else{</php>{$vo['video_order_count']}<php>}</php>人在学</small></span>
+                                        </div>
+                                    </li>
+                                </volist>
+                            </ul>
+                        </volist>
+                    </div>
+                    <!-- 前/后按钮 -->
+                    <span class="arrow">
+                        <a class="next icon icon-youjiantou"></a>
+                    </span>
+                    <div class="hd">
+                        <ul>
+                            <volist name="live_ctime" id="time" offset="0" length='4'>
+                                <li><em class="icon icon-yuandian"></em><p>{:date('m',$time)}月{:date('d',$time)}日</p></li>
+                            </volist>
+                           
+                        </ul>
+                    </div>
+                </div>
+                <!--查看更多-->
+                <div class="all-buy">
+                    <a href="{:U('classroom/Video/index', array('vtype'=>2))}"  class="look-all">查看更多</a>
+                </div>
+            </div>
+        </eq>
+
+        <eq name="item_name" value="bestCourse">
+        <!--热门资讯 start-->
+        
+        <img src="__THEME__/../_static_new/image/fuwu.jpg" style="width: 100%">
+           
+        <!--热门资讯 end-->
+        </eq>
+
+        <eq name="item_name" value="newCourse">
+        <!--最新课程 start-->
+        <div class="body01">
+            <h1>最新课程</h1>
+            <div class="body01-content">
+                <ul>
+                    <volist name="video" id="vo" offset="0" length='8'>
+                        <li>
+                            <a <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vo['id']))}"</eq>>
+                                <img src="{:cutImg($vo['cover'] ,270 , 150 )}" alt="" />
+                            </a>
+                            <div class="title">
+                                <h5><a <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vo['id']))}"</eq>>{$vo.video_title|msubstr=0,12,'utf-8',true}</a></h5>
+                                <b><i><a href="{$vo['school']['domain']}">{:limitNumber($vo['school']['title'],16)}</a></i></b>
+                                <span>
+                               
+                                <small><php>if($marketConf['order_switch'] == 1) {</php>{$vo['video_order_count_mark']}<php>}else{</php>{$vo['video_order_count']}<php>}</php>人购买</small></span>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <!--查看更多-->
+            <div class="all-buy">
+                <a href="{:U('classroom/Video/index',array('orderBy'=>'new'))}"  class="look-all">查看更多</a>
+            </div>
+        </div>
+        <!--最新课程 end-->
+        </eq>
+
+        <eq name="item_name" value="counts">
+        <!--分享 start-->
+        <div class="body01" style="width:100%;background: #F5F8FA;height: 350px;overflow: hidden">
+            <h1>让知识更好的分享</h1>
+            <div class="share-date">
+                <ul>
+                    <li class="co1 jumbo">
+                        <php>if($count['course_count'] > 10000){</php>
+                            <strong>10000</strong><em>+</em>
+                        <php>}else {</php>
+                            <strong>{$count.course_count}</strong>
+                        <php>}</php>
+                        <small>/个</small><p>在线课程</p>
+                    </li>
+                    <li class="co2 jumbo">
+                        <php>if($count['school_count'] > 10000){</php>
+                            <strong>10000</strong><em>+</em>
+                        <php>}else {</php>
+                            <strong>{$count.school_count}</strong>
+                        <php>}</php>
+                        <small>/个</small><p>入驻机构</p>
+                    </li>
+                    <li class="co3 jumbo">
+                        <php>if($count['teacher_count'] > 10000){</php>
+                            <strong>10000</strong><em>+</em>
+                        <php>}else {</php>
+                            <strong>{$count.teacher_count}</strong>
+                        <php>}</php>
+                        <small>/个</small><p>入驻老师</p>
+                    </li>
+                    <li class="co4 jumbo">
+                        <php>if($count['user'] > 10000){</php>
+                            <strong>10000</strong><em>+</em>
+                        <php>}else {</php>
+                            <strong>{$count.user_count}</strong>
+                        <php>}</php>
+                        <small>/个</small><p>平台用户</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--分享 end-->
+        </eq>
+
+        <eq name="item_name" value="teacher">
+        <!--讲师团队 start-->
+        <div class="body01">
+            <h1>讲师团队</h1>
+            <div class="teacher-team">
+                <ul>
+                    <volist name="teacher" id="tea">
+                        <li>
+                            <a href="{:U('classroom/Teacher/view',array('id'=>$tea['id']))}">
+                            <span>
+                                <img src="{:getCover($tea['head_id'])}">
+                            </span>
+                                <h5>{:msubstr(t($tea['name']),0,10,'utf-8',true)}</h5>
+                                <small>{$tea.graduate_school|default='暂无院校信息'}</small>
+                                <p>{:msubstr(t($tea['inro']),0,40,'utf-8',true)}</p>
+                            </a>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <!--查看更多-->
+            <div class="all-buy">
+                <a href="{:U('classroom/Teacher/index')}" class="look-all">查看更多</a>
+            </div>
+        </div>
+        <!--讲师团队 end-->
+        </eq>
+
+        <eq name="item_name" value="school">
+        <!--入驻机构 strat-->
+        <div class="body01">
+            <h1>入驻机构</h1>
+            <div class="settled-shcool">
+                <ul>
+                    <volist name="school" id="mhm">
+                        <li>
+                            <a href="{$mhm.domain}">
+                                <img src="{:getCover($mhm['logo'],140,140)}">
+                                <p>{:msubstr(t($mhm['title']),0,10,'utf-8',true)}</p>
+                            </a>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <!--查看更多-->
+            <div class="all-buy">
+                <a href="{:U('school/Index/index')}" class="look-all">查看更多</a>
+            </div>
+        </div>
+        <!--入驻机构 end-->
+        </eq>
+
+        <eq name="item_name" value="group">
+        <!--推荐小组 strat-->
+        <div class="body01">
+            <h1>推荐小组</h1>
+            <div class="group-news">
+                <ul>
+                    <volist name="group" id="group">
+                        <li>
+                            <a href="{:U('group/Index/view',array('gid'=>$group['id']))}">
+                            <span>
+                                <img src="{$group.logo}">
+                            </span>
+                                <div class="group-content">
+                                    <h4>{:msubstr(t($group['name']),0,7,'utf-8',true)}</h4>
+                                    <p>{:msubstr(t($group['intro']),0,40,'utf-8',true)}</p>
+                                    <h5><small>{$group.membercount}个成员</small><i>●</i><small>{$group.threadcount}条帖子</small></h5>
+                                </div>
+                            </a>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <!--查看更多-->
+            <div class="all-buy">
+                <a href="{:U('group/Index/index')}" class="look-all">查看更多</a>
+            </div>
+        </div>
+        <!--推荐小组 end-->
+        </eq>
+
+        <eq name="item_name" value="hotTopic">
+        <!--精选课程 start-->
+        <div class="body01">
+            <h1>精选课程</h1>
+            <div class="body01-content">
+                <ul>
+                    <volist name="bestVideo" id="vo" offset="0" length='8'>
+                    <li>
+                        <a <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vo['id']))}"</eq>>
+                            <img src="{:cutImg($vo['cover'] ,270 , 150 )}" alt="" />
+                        </a>
+                        <div class="title">
+                            <h5><a <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vo['id']))}"</eq>>{$vo.video_title|msubstr=0,12,'utf-8',true}</a></h5>
+                            <b><i><a href="{$vo['school']['domain']}">{:limitNumber($vo['school']['title'],16)}</a></i></b>
+                            <span>
+                            
+                            <small><php>if($marketConf['order_switch'] == 1) {</php>{$vo['video_order_count_mark']}<php>}else{</php>{$vo['video_order_count']}<php>}</php>人购买</small></span>
+                        </div>
+                    </li>
+                    </volist>
+                </ul>
+            </div>
+            <!--查看更多-->
+            <div class="all-buy">
+                <a href="{:U('classroom/Video/index',array('best'=>1))}"  class="look-all">查看更多</a>
+            </div>
+        </div>
+        <!--精选课程 end-->
+        
+        </eq>
+    </volist>
+    <include file="__THEME__/public_footer" />

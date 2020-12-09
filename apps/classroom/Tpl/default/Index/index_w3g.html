@@ -1,0 +1,521 @@
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>起陆教育</title>
+    <link rel="stylesheet" type="text/css" href="__THEME__/../layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="__THEME__/mobile/zb.css">
+    <link rel="stylesheet" type="text/css" href="__THEME__/css/index_new/index_media.css">
+    <script src="__THEMENEW__/js/jquery1.42.min.js" type="text/javascript"></script>
+    <script src="__THEME__/mobile/js/rem.js"></script>
+    <script src="__THEME__/../layui/layui.js" charset="utf-8"></script>
+</head>
+<style>
+    .an2{
+        position: absolute;
+        top: 38px;
+        z-index: 20;
+        right: -5px;
+        background-color: #fbfbfb;
+        padding:3px 0px 3px 8px;
+        width: 35px;
+        float: right;
+        display: flex;
+        height: 47px;
+        margin-right: 8px;
+        margin-top: 3px;
+    }
+    #login_ ul li{
+        padding-top: 3px;
+    }
+    .sign-out{
+        position: absolute;
+        width: 70px;
+        right: 7px;
+        top: 40px;
+        background-color: #fbfbfb;
+        z-index: 1;
+        display: none;
+        height: 60px;
+    }
+
+    .sign-out a{
+        display: block;
+        padding: 5px 7px;
+    }
+
+</style>
+<script>
+    layui.use('layer', function(){ //独立版的layer无需执行这一句
+        layer.open({
+            type: 1
+            // ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+            ,id: 'layerDemo'//防止重复弹出
+            // ,content: '<div style="padding: 40px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;"><div style="text-align:center; font-size:20px">通知：</div><br><br>关于2009期国内营养师/心理咨询师岗位能力培训考试收取资料通知：请参加2009期国内营养师/心理咨询师岗位能力培训考试的考生于9月2日前联系自己的教务老师提交报考资料。<br><br><div style="text-align:center; font-size:20px">关于观看直播流程，请参考网站栏目中“使用说明”！</div></div>'
+
+            ,content: '<div style="padding: 40px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;"><div style="text-align:center; font-size:20px">通知：</div><br>为了提高学员的操作技能，营养师、心理咨询师、健康管理师技能课在12月和1月会陆续推出，各位学员准时参加，课程时间及内容详情见网站课程表！<br><br><div style="text-align:center; font-size:20px"></div></div>'
+
+            ,btn: '知道了'
+            ,btnAlign: 'c' //按钮居中
+            ,shade: 0 //不显示遮罩
+            ,yes: function(){
+                layer.closeAll();
+            }
+        });
+    });
+
+</script>
+<body>
+<!-- 导航条 -->
+<div class="tou">
+    <div class="an" style="position: relative;">
+        <if condition="$_SESSION['mid']">
+            <img src="{:getUserFace($user['uid'],'b')}" width="40" height="40" onclick="person_center()">
+<!--            <dd><a href="{:U('classroom/UserShow/index',array('uid'=>$_SESSION['mid']))}">{:getUserName($user['uid'])}</a></dd>-->
+
+            <else/>
+            <img src="__THEME__/images/head_img.png" alt="" onclick="user_click()">
+            <div id="login_" class="an2" style="display: none;">
+                <ul>
+                    <li><a  href="{:U('public/Passport/login_g')}">登录</a></li>
+                    <li><a href="{:U('public/Passport/reg')}">注册</a></li>
+                </ul>
+            </div>
+        </if>
+        <div class="sign-out" >
+            <a href="{:U('classroom/User/index')}">个人中心</a>
+            <a href="javascript:;" onclick="logout()" style="padding-top: 5px;">退出登录</a>
+        </div>
+    </div>
+
+    <!-- 导航条 -->
+    <div class="tou_nei">
+        <a href="" class="qllg"><img src="__THEME__/mobile/img/logo墨稿.png" alt="logo"></a>
+    </div>
+    <div class="sousuolan">
+        <input type="password"  placeholder="       搜索讲师/课程" />
+        <button type="button"></button>
+    </div>
+</div>
+
+
+
+
+
+<!-- 轮播图 -->
+<div class="container" id="contaner">
+
+    <div class="content" id="content">
+
+        <div class="slider-img" id="slider" >
+
+            <a href="javascript:;">
+
+                <img src="__THEME__/mobile/img/lb1.jpg" alt="1.jpg" id="img">
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="btn">
+
+        <div class="left" id="left">
+
+            <a href=" ###"><img src="__THEME__/mobile/img/lb2.jpg"></a>
+
+        </div>
+
+        <div class="right" id="right">
+
+            <a href=" ###"><img src="__THEME__/mobile/img/lb3.jpg"></a>
+
+        </div>
+
+    </div>
+
+    <div class="dot">
+
+        <ul id="ul" class="dotul">
+
+            <li class="active"></li>
+
+            <li></li>
+
+            <li></li>
+
+            <li></li>
+
+        </ul>
+
+    </div>
+
+
+
+</div>
+
+<script>
+
+    //首先要获取元素
+
+    var container = document.getElementById("container");
+
+    var content = document.getElementById("content");
+
+    var slider = document.getElementById("slider");
+
+    var img = document.getElementById("img");
+
+    var ul = document.getElementById("ul");
+
+    var li = document.getElementsByTagName("li");
+
+    var left = document.getElementById("left");
+
+    var right = document.getElementById("right");
+
+    var num = 0;
+
+    var timer = null;
+
+    function person_center(){
+        var center = $(".sign-out").css("display");
+        if(center == 'none'){
+            $('.sign-out').show();
+        }else{
+            $(".sign-out").hide();
+        }
+    }
+
+
+    function logout(){
+        $.ajax({
+            type: "POST",
+            async:false,
+            url:"{:U('public/Passport/logout')}",
+            dataType:"json",
+            success:function(data){
+                alert("退出成功！");
+                location.reload();
+            }
+        });
+    }
+
+
+    //图片位置
+
+    var arrUrl = ["__THEME__/mobile/img/lb1.jpg","__THEME__/mobile/img/lb2.jpg","__THEME__/mobile/img/lb3.jpg"];
+
+    left.onclick = function (ev) {
+
+        num--;
+
+        if (num == -1){
+
+            num = arrUrl.length-1;//如果到了第一张，返回最后一张
+
+        }
+
+        changeImg();
+
+    };
+
+    right.onclick = function (ev) {
+
+        num++;
+
+        if (num == arrUrl.length){
+
+            num = 0;//如果是最后一张，则返回第一张
+
+        }
+
+        changeImg();
+
+    };
+
+    //点击小圆点跳转到对应的图片
+
+    //    for (var i=0;i<arrUrl.length;i++){
+
+    //           li[i].index = i;
+
+    //           li[i].onclick = function (ev) {
+
+    //               num = this.index;
+
+    //               changeImg();
+
+    //           }
+
+    //    }
+
+
+
+    setTimeout(autoPlay(),1000);//延迟1秒执行自动切换
+
+
+
+    //鼠标移入清除定时器，鼠标移出恢复
+
+    content.onmouseover = function (ev) {
+
+        clearInterval(timer);
+
+    };
+
+    content.onmouseout = autoPlay;
+
+
+
+    //图片切换函数
+
+    function changeImg() {
+
+        img.src = arrUrl[num];//改变图片src位置
+
+        for (var i = 0;i< li.length;i++){//改变原点样式
+
+            li[i].className = "";
+
+
+        }
+
+        li[num].className = "active";
+
+    }
+
+    //设置定时器
+
+    function autoPlay() {
+
+        timer = setInterval(function () {
+
+            num++;
+
+            num %= arrUrl.length;
+
+            changeImg();
+
+        },3000);
+
+    }
+
+</script>
+
+
+
+<!-- 精品推荐 -->
+<div class="jing" style="margin-top: 35% ;">
+    <div class="jing_redb"></div>
+    <!-- 红色横杠 -->
+    <div class="jingpin">
+        <h2>精品推荐>>> </h2></div>
+</div>
+<!-- 2020年11期健康管理师 -->
+
+<div class="jingpin_list">
+    <div class="jingpin_item">
+        <a href="https://www.qiluzhibo.com/live/136.html" class="imgmes" >
+            <img src="__THEME__/mobile/img/画板1.jpg" alt="" >
+        </a>
+        <div class="tit">
+            <h3>2020年11期健康管理...  </h3>
+            <div class="tit_c">
+                <div class="c"></div>
+                <p class="num">1000人在学习</p>
+            </div>
+        </div>
+    </div>
+    <div class="jingpin_item">
+        <a href="https://www.qiluzhibo.com/live/157.html" class="imgmes" >
+            <img src="__THEME__/mobile/img/画板2.jpg" alt="" >
+        </a>
+        <div class="tit">
+            <h3>2020年04期法律事务...    </h3>
+            <div class="tit_c">
+                <div class="c"></div>
+                <p class="num">1000人在学习</p>
+            </div>
+        </div>
+    </div>
+    <div class="jingpin_item">
+        <a href="https://www.qiluzhibo.com/live/138.html" class="imgmes" >
+            <img src="__THEME__/mobile/img/画板3.jpg" alt="" >
+        </a>
+        <div class="tit">
+            <h3>2020年09期岗位能力...    </h3>
+            <div class="tit_c">
+                <div class="c"></div>
+                <p class="num">1000人在学习</p>
+            </div>
+        </div>
+    </div>
+    <div class="jingpin_item">
+        <a href="https://www.qiluzhibo.com/live/144.html" class="imgmes" >
+            <img src="__THEME__/mobile/img/画板3.jpg" alt="" >
+        </a>
+        <div class="tit">
+            <h3>2020年11期岗位能力...    </h3>
+            <div class="tit_c">
+                <div class="c"></div>
+                <p class="num">1000人在学习</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- vip课程 -->
+
+<div class="jing">
+    <div class="jing_redb"></div>
+    <!-- 红色横杠 -->
+    <div class="jingpin">
+        <h2>VIP课程>>> </h2></div>
+</div>
+<div class="jingpin_list">
+    <div class="jingpin_item">
+        <a href="https://www.qiluzhibo.com/live/136.html" class="imgmes" >
+            <img src="__THEME__/mobile/img/画板122.jpg" alt="" >
+        </a>
+        <div class="tit">
+            <h3>2020年11期健康管理师三级  </h3>
+            <div class="tit_c">
+                <div class="c"></div>
+                <p class="num">1000人在学习</p>
+            </div>
+        </div>
+    </div>
+    <div class="jingpin_item">
+        <a href="https://www.qiluzhibo.com/live/102.html" class="imgmes" >
+            <img src="__THEME__/mobile/img/画板11.jpg" alt="" >
+        </a>
+        <div class="tit">
+            <h3>2004期健康管理师三级（直播课）  </h3>
+            <div class="tit_c">
+                <div class="c"></div>
+                <p class="num">1000人在学习</p>
+            </div>
+        </div>
+    </div>
+    <div class="jingpin_item">
+        <a href="https://www.qiluzhibo.com/live/145.html" class="imgmes" >
+            <img src="__THEME__/mobile/img/画板13.jpg" alt="" >
+        </a>
+        <div class="tit">
+            <h3>心理咨询师VIP实操就业孵化班  </h3>
+            <div class="tit_c">
+                <div class="c"></div>
+                <p class="num">1000人在学习</p>
+            </div>
+        </div>
+    </div>
+    <div class="jingpin_item">
+        <a href="https://www.qiluzhibo.com/live/137.html" class="imgmes" >
+            <img src="__THEME__/mobile/img/画板1.jpg" alt="" >
+        </a>
+        <div class="tit">
+            <h3>2020年11期健康管理师vip就业创业保障班  </h3>
+            <div class="tit_c">
+                <div class="c"></div>
+                <p class="num">1000人在学习</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 名师简介 -->
+<div class="jing">
+    <div class="jing_redb"></div>
+    <!-- 红色横杠 -->
+    <div class="jingpin">
+        <h2>名师简介>>></h2></div>
+</div>
+<div class="teaher">
+    <ul>
+        <li class="ims">
+            <a href="https://www.qiluzhibo.com/teacher/99.html">
+                <img src="__THEME__/mobile/img/tec1.jpg">
+                <div>
+                    <p>李倩</p>
+                    <span>韩国忠北国立大学文学硕士学位  高校教师资格证  英语四级...</span>
+                </div>
+            </a>
+        </li>
+        <li class="ims">
+            <a href="https://www.qiluzhibo.com/teacher/102.html">
+                <img src="__THEME__/mobile/img/tec2.jpg">
+                <div>
+                    <p>吴显锋</p>
+                    <span>法国普瓦杰大学法语硕士学位 黑龙江省翻译协会会员  高校教...</span>
+                </div>
+            </a>
+        </li>
+        <li class="ims">
+            <a href="https://www.qiluzhibo.com/teacher/101.html">
+                <img src="__THEME__/mobile/img/tec3.jpg">
+                <div>
+                    <p>周文芳</p>
+                    <span>黑龙江大学法学硕士学位  A级法律资格证书  律师执业证...</span>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+
+
+
+<!-- 背景图片 -->
+<div class="bj"><img src="__THEME__/mobile/img/wz.jpg" > </div>
+
+<div style="height:80px;"></div>
+
+
+
+<!-- 首页/课程/讲师<div class="footer"> -->
+<div class="footer">
+    <ul>
+        <li><a href="https://www.qiluzhibo.com/"><img src="__THEME__/mobile/img/首页.png" alt="">
+            <p >首页</p></a>
+        </li>
+        
+        </li>
+        <li><a href="https://www.qiluzhibo.com/teacher.html"><img src="__THEME__/mobile/img/课程.png" alt="">
+            <p >名师</p></a>
+        </li>
+        <li><a href="https://www.qiluzhibo.com/course.html?vtype=2"><img src="__THEME__/mobile/img/课程管理%20(1).png" alt="">
+            <p >课程</p></a>
+        </li>
+        <li><a href="https://www.qiluzhibo.com/my/index.html"><img src="__THEME__/mobile/img/我的.png" alt="">
+            <p >我的</p></a>
+        </li>
+    </ul>
+</div>
+</body>
+<script>
+        function user_click(){
+            var login_ = $("#login_").css("display");
+            if(login_ == 'none'){
+                $("#login_").show();
+            }else{
+                $("#login_").hide();
+            }
+        }
+
+
+        function user_login(){
+            console.log("登录");
+            window.location.href="{:U('public/Passport/login_g')}";
+        }
+</script>
+
+
+<html>

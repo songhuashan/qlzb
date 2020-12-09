@@ -1,0 +1,5 @@
+data/
+_runtime/
+addons/
+api/
+.htaccess

@@ -1,0 +1,301 @@
+<include file="__THEME__/public_header"/>
+<!-- <link rel="stylesheet" href="__THEME__/../_static_simple/css/public_header_footer.css"> -->
+<link rel="stylesheet" href="__THEME__/../_static_simple/css/public.css">
+<link rel="stylesheet" href="__THEME__/../_static_simple/css/new_theme.css">
+<link rel="stylesheet" href="__THEME__/../_static_simple/css/banner2.0.css">
+<!-- <link rel="stylesheet" href="css/swiper.mine.css"> -->
+<link rel="stylesheet" href="__THEME__/../_static_simple/css/swiper02.css">
+<link rel="stylesheet" href="__THEME__/../_static_simple/icon/iconfont.css">
+<link rel="stylesheet" href="__THEME__/../_static_simple/css/slick.css">
+
+<!--<script src="__THEME__/../_static_simple/js/jquery-1.8.3.min.js" charset="utf-8"></script>-->
+<script src="__THEME__/../_static_simple/icon/iconfont.js" charset="utf-8"></script>
+<script src="__THEME__/../_static_simple/js/swiper-3.4.2.min.js" charset="utf-8"></script>
+<script src="__THEME__/../_static_simple/js/jquery.SuperSlide.2.1.1.js" charset="utf-8"></script>
+
+<!-- 背景图 -->
+<div class="content_box">
+    <div class="bg_img">
+        <!--banner start-->
+        <section>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <volist name="ad_list" id="adlt">
+                        <div class="swiper-slide">
+                            <a href="{$adlt['bannerurl']}" title="{$adlt['banner_title']}">
+                                <img src="{:getCover($adlt['banner'],1920,420)}" alt="{$adlt['banner_title']}" >
+                            </a>
+                        </div>
+                    </volist>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination swiper-pagination-white"></div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next icon icon-rightarrow"></div>
+                <div class="swiper-button-prev icon icon-leftarrow"></div>
+            </div>
+        </section>
+        <!--banner end-->
+    </div>
+</div>
+
+<volist name="config_index.item" id="item_name">
+    <eq name="item_name" value="hotCourse_two">
+        <div class="content_box">
+            <div class="main">
+                <div class="specific">
+                    <ul>
+                        <volist name="info_data.hotCourse_two" id="vo">
+                            <li>
+                                <div class="div_box">
+                                    <a <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vo['id']))}"</eq>>
+                                    <div class="">
+                                        <img src="{:cutImg($vo['cover'] ,270 , 150 )}" alt="">
+                                    </div>
+                                    <div class="introduce">
+                                        <p class="course_name">{$vo.video_title|msubstr=0,12,'utf-8',true}</p>
+                                        <!--<p class="course_one">{:limitNumber($vo['video_binfo'],26)}</p>-->
+                                    </div>
+                                    </a>
+                                </div>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </eq>
+    <eq name="item_name" value="fineCourse_two">
+        <!-- 精选推荐 -->
+        <div class="content_box">
+        <div class="main">
+        <!--精选推荐  -->
+        <div class="recommend">
+        <div class="recommend_title">
+            <p class="first_p">精选推荐</p>
+            <p class="second_p">每日优选推荐品质课程，让您更好的选择</p>
+            <div class="classify_list">
+                <volist name="info_data.fineCourse_two" id="vo" offset="0" length="4">
+                    <a href="javascript:">{$vo.title}</a>
+                </volist>
+            </div>
+        </div>
+        <div class="classify">
+        <volist name="info_data.fineCourse_two" id="vo" offset="0" length="4">
+            <ul <eq name="key" value="0">style="display:block"</eq>>
+                <volist name="vo.fineCourse_one" id="vf">
+                    <li>
+                        <div class="div_box">
+                            <a <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vf['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vf['id']))}"</eq>>
+                                <img src="{:cutImg($vf['cover'] ,380 , 210 )}" alt="">
+                            </a>
+                            <div class="pub_box">
+                                <p>{$vf.video_title|msubstr=0,12,'utf-8',true}</p>
+                                <div class="content_box">
+                                    <span>
+                                        <i class="icon icon-yanjing3"></i>
+                                        <span class="num">{$vf.view_nums}</span>
+                                    </span>
+                                    <span>
+                                        <i class="icon icon-pinglun2"></i>
+                                        <span class="num">{$vf.comment_num}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </volist>
+            </ul>
+        </volist>
+        <div class="more_d">
+            <a class="more_a" href="{:U('classroom/Video/index',array('best'=>1))}">查看更多</a>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+    </eq>
+    <eq name="item_name" value="counts_two">
+        <!--分享 start-->
+        <div class="content_box settled">
+            <div class="bg_all">
+                <img src="__THEME__/../_static_simple/images/bg111.png" alt="">
+            </div>
+            <div class="main">
+                <ul>
+                    <li>
+                        <p>
+                            {$info_data['counts_two']['course_count']} <if condition="$info_data['counts_two']['course_count'] gt 10000">+</if>
+                        </p>
+                        <span>在线课程<span>
+                    </li>
+                    <li>
+                        <p>{$info_data['counts_two']['school_count']} <if condition="$info_data['counts_two']['school_count'] gt 10000">+</if></p>
+                        <span>入驻机构<span></li>
+                    <li>
+                        <p>{$info_data['counts_two']['teacher_count']} <if condition="$info_data['counts_two']['teacher_count'] gt 10000">+</if></p>
+                        <span>入驻老师<span></li>
+                    <li class="none_bd">
+                        <p>{$info_data['counts_two']['user_count']} <if condition="$info_data['counts_two']['user_count'] gt 10000">+</if></p>
+                        <span>平台用户<span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--分享 end-->
+    </eq>
+    <eq name="item_name" value="live_two">
+        <!--最近直播  -->
+        <div class="content_box">
+            <div class="main">
+                <div class="lately_live">
+                    <p class="first_p">最近直播</p>
+                    <p class="second_p">每日优选推荐品质课程，让您更高的选择</p>
+                    <ul>
+                        <volist name="info_data.live_two" id="vo" offset="0" length="4">
+                            <li>
+                                <div class="div_box">
+                                    <div class="img_box">
+                                        <a href="{:U('live/Index/view',array('id'=>$vo['id']))}">
+                                            <img src="{:cutImg($vo['cover'] ,240 , 132 )}" alt="">
+                                        </a>
+                                        <div class="time">
+                                            {:date('Y-m-d',$vo['beginTime'])}~{:date('Y-m-d',$vo['endTime'])}
+                                        </div>
+                                    </div>
+                                    <div class="text_box">
+                                        <a href="{:U('live/Index/view',array('id'=>$vo['id']))}" class="title">{:limitNumber($vo['video_title'],12)}</a>
+                                        <p class="content_box">{:limitNumber($vo['video_binfo'],50)}</p>
+                                        <p class="students">学员:<php>if($marketConf['order_switch'] == 1) {</php>{$vo['video_order_count_mark']}<php>}else{</php>{$vo['video_order_count']}<php>}</php>人</p>
+                                        <p class="teachers">老师:{:msubstr(t($vo['teacher_name']),0,10,'utf-8',true)}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </volist>
+                    </ul>
+                    <div class="clear"></div>
+                    <div class="more_d">
+                        <a class="more_a" href="{:U('classroom/Video/index', array('vtype'=>2))}">查看更多</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </eq>
+    <eq name="item_name" value="teacher_two">
+        <div class="content_box">
+            <div class="main">
+                <!--讲师推荐  -->
+                <div class="teacher_recommend">
+                    <p class="first_p">讲师推荐</p>
+                    <p class="second_p">优秀讲师，优质课程</p>
+                    <div class="teacher_list_box">
+                        <ul>
+                            <volist name="info_data.teacher_two" id="vo" offset="0" length="6">
+                                <li>
+                                    <div class="div_box">
+                                        <a href="{:U('classroom/Teacher/view',array('id'=>$vo['id']))}">
+                                            <img src="{:getCover($vo['head_id'] , 170 , 170)}" alt="">
+                                        </a>
+                                        <p class="name">{:msubstr(t($vo['name']),0,10,'utf-8',true)}</p>
+                                        <p class="btm"></p>
+                                        <p class="shcool">{$vo.graduate_school|default='暂无院校信息'}</p>
+                                    </div>
+                                </li>
+                            </volist>
+                        </ul>
+                        <div class="clear"></div>
+                        <div class="more_d">
+                            <a class="more_a" href="{:U('classroom/Teacher/index')}">查看更多</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </eq>
+    <eq name="item_name" value="topic_two">
+        <!-- 热门咨询 -->
+        <div class="hot-box">
+          <div class="content_box hot">
+              <div class="main">
+                  <p class="first_p">热门资讯</p>
+                  <p class="second_p">天天热门咨询，让您了解前沿动态</p>
+                  <div class="hot_list">
+                      <ul>
+                          <volist name="info_data.topic_two" id="vo" offset="0" length="3">
+                              <li>
+                                  <div class="div_box">
+                                      <a href="{:U('classroom/Topic/view',array('id'=>$vo['id']))}">
+                                          <img src="{:getCover($vo['image'],370,220)}" alt="">
+                                      </a>
+                                      <div class="content_box">
+                                          <a href="{:U('classroom/Topic/view',array('id'=>$vo['id']))}" class="title">{:msubstr(t($vo['title']),0,20,'utf-8',true)}</a>
+                                          <p class="time">{:date('m月d日',$vo['dateline'])}</p>
+                                          <p class="text">{:msubstr(t($vo['desc']),0,50,'utf-8',true)}</p>
+                                      </div>
+                                  </div>
+                              </li>
+                          </volist>
+                      </ul>
+                      <div class="clear"></div>
+                      <div class="more_d">
+                          <a class="more_a" href="{:U('classroom/Topic/index')}">查看更多</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+
+    </eq>
+    <eq name="item_name" value="group_two">
+        <div class="content_box education">
+            <div class="main">
+                <p class="first_p">推荐小组</p>
+                <p class="second_p">出乎意料，其思妙想</p>
+                <div class="education_list">
+                    <ul>
+                        <volist name="info_data.group_two" id="group">
+                            <li>
+                                <div class="div_box">
+                                    <a class="img_title" href="{:U('group/Index/view',array('gid'=>$group['id']))}">
+                                        <img src="{$group.logo}" alt="">
+                                    </a>
+                                    <a class="content_box" href="javascript:">
+                                        <p class="name">{:msubstr(t($group['name']),0,7,'utf-8',true)}</p>
+                                        <p class="text">{:msubstr(t($group['intro']),0,25,'utf-8',true)}</p>
+                                    </a>
+                                </div>
+                            </li>
+                        </volist>
+                    </ul>
+                    <div class="clear"></div>
+                    <div class="more_d">
+                        <a class="more_a" href="{:U('group/Index/index')}">查看更多</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </eq>
+</volist>
+
+
+
+
+<script type="text/javascript">
+    $(".recommend .classify_list a").click(function(){
+        var index_img= $(this).index();
+        $(".classify ul").eq(index_img).show().siblings("ul").hide();
+    });
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false,
+        loop : true,
+    });
+
+</script>
+<include file="__THEME__/public_footer"/>

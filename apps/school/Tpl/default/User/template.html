@@ -1,0 +1,91 @@
+<include file="__THEME__/public_header" />
+<style type="text/css">
+.jgpage_right_con{padding: 30px 30px 0 30px!important;}
+.jgpage_right_con .jgformitem{padding: 0px!important;}
+.user-set-sz{padding: 0px!important;}
+.jgpage_right_con .jgformitem{width: 100%!important;}
+.jgpage_right_con .jgformitem .jg_btn{margin: 30px auto!important;}
+</style>
+<div class="content">
+	<div class="wrap">
+    	<!--左-->
+	    <include file="../User/_left" />
+	    <!--右-->
+        <div class="jgpage_right">
+        	<div class="jgpage_right_tit mb50">首页模板</div>
+            <div class="jgpage_right_con">
+                <ul class="jg_home_list theme_select">
+                    <li data-tpl="theme_x1" <eq name="template.tpl" value="theme_x1">class="on"</eq>>
+                        <img src="__THEME__/images/1.png" alt="">
+                        <a href="javascript:;">点击选中此模板</a>
+                        <div class="modle_a"></div>
+                    </li>
+                    <li data-tpl="theme_x2" <eq name="template.tpl" value="theme_x2">class="on"</eq>>
+                    	<img src="__THEME__/images/3.png" alt="">
+                        <a href="javascript:;">点击选中此模板</a>
+                        <div class="modle_a"></div>
+                    </li>
+                    <li data-tpl="theme_x3" <eq name="template.tpl" value="theme_x3">class="on"</eq>>
+                        <img src="__THEME__/images/2.png" alt="">
+                        <a href="javascript:;">点击选中此模板</a>
+                        <div class="modle_a"></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="jgpage_right_con" id="checkfrom">
+                <div class="jgformitem" style="width: 100%;">
+                    <h1>自定义首页展示模块</h1>
+                    <ul class="user-set-sz">
+                        <li>
+                            <input type="checkbox" name="item" value="video"  checked="checked" disabled="disabled">课程</input>&nbsp;&nbsp;
+                            <input type="checkbox" name="item" value="album"  <php>if(in_array("album",$template['items'])){</php>checked="checked"<php>}</php>">班级</input>&nbsp;&nbsp;
+                            <input type="checkbox" name="item" value="live" <php>if(in_array("live",$template['items'])){</php>checked="checked"<php>}</php>>直播</input>&nbsp;&nbsp;
+                            <input type="checkbox" name="item" value="coupon"    <php>if(in_array("coupon",$template['items'])){</php>checked="checked"<php>}</php>>优惠券</input>&nbsp;&nbsp;
+                            <input type="checkbox" name="item" value="teacher"   <php>if(in_array("teacher",$template['items'])){</php>checked="checked"<php>}</php>>讲师</input>&nbsp;&nbsp;
+                            <input type="checkbox" name="item" value="topic"    <php>if(in_array("topic",$template['items'])){</php>checked="checked"<php>}</php>>资讯</input>
+                        </li>
+                    </ul>
+                </div>
+                <div class="jgformitem">
+                    <a class="jg_btn saveTpl" href="javascript:;">保存</a>
+                </div>
+
+			</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    // 切换模板
+    $(".theme_select li").click(function(){
+        $(this).addClass('on').siblings().removeClass('on');
+    });
+	// 保存
+    $(".saveTpl").click(function(){
+        // 获取设置的显示模板
+        var tpl = $(".theme_select").find("li.on").data("tpl");
+        if(!tpl){
+            notes('请选择显示模板', 'failure');
+            return false;
+        }
+        // 获取选取的显示模块
+        var items =[];
+        $('input[name="item"]:checked').each(function(){
+            items.push($(this).val());
+        });
+        $.post(U('school/User/template'),{tpl:tpl,items:items},function(msg){
+            var msg = getResponseData(msg);
+            if(msg.status == 1){
+                notes(msg.data.info, 'success');
+                return true;
+            }else{
+                notes(msg.message, 'failure');
+                return false;
+            }
+        });
+        return false;
+    });
+});
+</script>
+<include file="__THEME__/public_footer" />

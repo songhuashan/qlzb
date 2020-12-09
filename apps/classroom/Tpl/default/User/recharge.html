@@ -1,0 +1,300 @@
+<include file="__THEME__/public_header" />
+
+<style type="text/css">
+    .center_left{
+        border-radius: 4px;
+        overflow:hidden;
+        float: left;
+    }
+    .center_right{
+        float: right;
+    }
+    .center_right_tit div .on{
+        color:#00BED4;
+    }
+    .user-con-title a{
+        width:auto;
+        float: left;
+    }
+    .rec_box_r .clearfix{
+        float: left;
+    }
+    .rec_box_r{
+        padding: 0 20px;
+        width: auto;
+    }
+    .selected_title .h55{
+        display: inline;
+    }
+    .selected_title .h55 label{
+        color:#888;
+        font-size: 14px;
+        margin-right: 30px;
+    }
+    .zfb_zxzf label{
+        margin-right:10px;
+    }
+    .rihleo{
+        float: right;
+        line-height: 40px;
+        margin-right: 20px;
+        font-size: 14px;
+    }
+</style>
+<!--centerbox end-->
+<div class="content cbg" >
+	<div class="wrap">
+		<include file="../User/public/_left" />
+
+		<div class="center_right">
+            <div class="center_right_tit">
+                <div class="center_right_tit">
+                    <div class="user-con-title">
+                        <a href="javascript:;" class="">会员充值</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="center_right_con">
+                <!-- 会员充值 -->
+                <div class="rec_box_r Manage_all">
+                    <form action="{:U('classroom/Pay/rechargeVip')}" method="post" target="_blank">
+                        <input type="hidden" value="alipay" name="pay" />
+                        <input type="hidden" value="1" name="type" />
+
+                        <span class="selected_title selected_title_a mt10 fl">当前身份：
+                            <div class="h55" id="vip_type">
+                                <label><?php if($learnc['vip_type']==0):?>
+                                    非VIP会员
+                                    <?php else: echo $learnc['vip_type_txt'];echo $learnc['vip_expire']>0?date('，过期时间：Y-m-d', $learnc['vip_expire']):'';endif;?></label>
+                            </div>
+                        </span>
+
+                        <span class="selected_title selected_title_a mt10 fl">会员等级：
+                            <div class="h55" id="vip_type">
+                                <volist name="user_vip" id="vo">
+                                    <label><input type="radio" data-vip-month="{$vo.vip_month}" data-vip-year="{$vo.vip_year}" <php>if($key == 0){</php>checked="checked"<php>}</php> name="user_vip" value="{$vo.id}"/> {$vo.title}</label>
+                                </volist>
+                            </div>
+                        </span>
+
+                        <span class="selected_title selected_title_a mt10 fl">开通时长：
+                            <div class="h55" id="vip_type_time">
+                                <label><input type="radio" name="vip_type_time" id="vip_month" data-value="{$user_vip[0]['vip_month']|default=0}" value="month" checked /> 按月（{$user_vip[0]['vip_month']|default=0}元）</label>
+                                <label><input type="radio" name="vip_type_time" id="vip_year" data-value="{$user_vip[0]['vip_year']|default=0}"  value="year"  /> 按年（{$user_vip[0]['vip_year']|default=0}元）</label>
+                            </div>
+                        </span>
+
+                        <div class="withdrawals_box" id="vip_time">
+                            <label><input type="text" class="head_search upload_input_a" name="vip_time" value="1" placeholder="自定义"> <span>个月</span></label>
+                        </div>
+
+                        <div class="h55"> <span class="selected_title selected_title_a fl">支付方式：</span>
+                            <div class="clearfix zfb_zxzf h55">
+                                <if condition="in_array('alipay',$payConfig['pay'])">
+                                    <a class="zfb mr15" href="javascript:;" val="alipay"><em class="ch_z"></em></a>
+                                </if>
+                                <if condition="in_array('wxpay',$payConfig['pay'])">
+                                    <a class="wxzf mr15" href="javascript:;" val="wxpay"><em></em></a>
+                                </if>
+                                <if condition="in_array('unionpay',$payConfig['pay'])">
+                                    <!--<a class="zxzf mr15" href="javascript:;" val="unionpay">在线支付<em></em></a>-->
+                                </if>
+                            </div>
+                        </div>
+                        <div clss="sjo_ing_plmb" style="display: inline-block;width: 100%; margin: 30px 0 15px;">
+                            <a id="buy-s-1r" class="topics_up color_wen9 fl pos_r"> <b class="Test_True"></b> 同意<em class="green_txt">《{$site['site_keyword']}虚拟货币服务协议》</em> </a>
+                            <a id="btn_ljcz" class="btn_big mt30" onclick="rechangeVip(this)">立即购买</a>
+                            <p id="vip_price" class="rihleo">应付：
+                                <label><em class="red_txt ft18" id="price_show">¥{$user_vip[0]['vip_month']}</em></label>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	//头部选择充值VIP类型
+    $(".user-con-title a").click(function(){
+        $(this).addClass("on").siblings().removeClass();
+        var index = $(this).index();
+        $(".Manage_all").hide().eq(index).show();
+    });
+//	$(".user-con-title a").click(function(){
+//		$(this).siblings().removeClass('onactive');
+//		$(this).addClass('onactive');
+//		if($(this).index() == 1){
+//			$(".user-Release").find("div.rec_box_r").hide().eq(1).show();
+//
+//		}else if($(this).index() == 0){
+//			$(".user-Release").find("div.rec_box_r").hide().eq(0).show();
+//		}
+//	});
+	//输入框	
+	$("html,body").click(function(){
+		if($('input#custom_money').val()==''){
+			$('span.w175').show();
+		}
+	});
+	$('div.w175').click(function(){
+		$('input#custom_money').focus();
+		$(this).find('span.w175').hide();
+		return false;
+	});
+	//协议
+	$("a.topics_up").click(function(){
+		$(this).find('b').attr('class') == 'Test_True' ? $(this).find('b').attr('class','Text_error') : $(this).find('b').attr('class','Test_True');
+	});
+});
+
+$('.zfb_zxzf a').click(function(){
+	$(this).siblings().find('em').removeClass('ch_z');
+	$(this).find('em').addClass('ch_z');
+	$(this).parents('form').find('input:hidden[name="pay"]').val($(this).attr('val'));
+
+    var pay   = $(this).parents('form').find('input:hidden[name="pay"]').val();
+
+    if(pay == 'cardpay'){
+        $('#oline_pay_div').hide(100);
+        $('#cardpay_div').show(100);
+    }else{
+        $('#oline_pay_div').show(100);
+        $('#cardpay_div').hide(100);
+    }
+});
+$('.zfb_zxzf a:first').click();
+$('.btn_je_box a.btn_hui_h').click(function(){
+	$(this).siblings().removeAttr('style');
+	$(this).css({'border':'1px solid #ff4000','color':'#ff4000'});
+	$(this).parents('form').find('input:hidden[name="money"]').val($(this).attr('val')+$(this).attr('give'));
+	$('#lan_txt_cost').text($(this).attr('val'));
+	$('input#custom_money').val('').blur();
+});
+$('.btn_je_box a.btn_hui_h:eq(1)').click();
+$('input#custom_money').val('');
+$('input#custom_money').change(function(e) {
+    $('.btn_je_box a.btn_hui_h').removeAttr('style');
+	$(this).parents('form').find('input:hidden[name="money"]').val($(this).val());
+	$('#lan_txt_cost').text($(this).val());
+});
+//选择充值VIP类型
+$('#vip_type input').click(function(){
+	var _this = this;
+    var vip_month = $(_this).attr('data-vip-month');
+    var vip_year  = $(_this).attr('data-vip-year');
+    var vip_time  = $('input[name="vip_time"]').val();
+    
+    var html = '<label><input type="radio" name="vip_type_time" id="vip_month" data-value="'+vip_month+'" value="month" checked/> 按月（'+vip_month+'元）</label><label><input type="radio" name="vip_type_time" id="vip_year" data-value="'+vip_year+'"  value="year"  /> 按年（'+vip_year+'元）</label>';
+    $("#vip_type_time").html(html);
+
+    var text = $('input[name="vip_type_time"]:checked').attr('data-value')*vip_time;
+    $('#price_show').text('￥'+text);
+
+});
+
+//选择充值时长
+$(document).on("click","#vip_type_time input",function(){ 
+    var _this = this;
+    var _val  = $(_this).attr("data-value");
+    var val   = $(_this).val();
+    var vip_time  = $('input[name="vip_time"]').val();
+    var text = _val*vip_time;
+    if( val == 'year') {
+        $('#vip_time span').text('年');
+    } else {
+        $('#vip_time span').text('个月');
+    }
+    $('#price_show').text('￥'+text);
+});  
+
+//输入月数
+$('#vip_time input').blur(function(){
+    var _this = this;
+	var vip_time = parseInt($(_this).val());
+    var val      = $('input[name="vip_type_time"]:checked').attr('data-value');
+	if(vip_time <= 0 || isNaN(vip_time)){
+		$(_this).val('');$('#price_show').text(0);return ;
+	}else{
+		$(_this).val(vip_time);
+	}
+
+	$('#price_show').text('￥'+vip_time*val);
+});
+
+//充值VIP
+function rechangeVip(sbt){
+    var form  = $(sbt).parents('form');
+    var pay   = form.find('input:hidden[name="pay"]').val();
+    var type  = form.find('input:hidden[name="type"]').val();
+
+    if(pay!='alipay'&&pay!='unionpay'&&pay!='wxpay'){
+        notes('支付方式错误', 'failure');
+        return false;
+    }
+    if(type != 0 && type !=1){
+        notes('充值类型错误', 'failure');
+        return false;
+    }
+
+    if(form.find('#buy-s-1r b').hasClass('Text_error')){
+        notes('请同意《{$site['site_keyword']}虚拟货币服务协议》', 'failure');
+        return false;
+    }
+    var s = 0
+    if(pay == 'wxpay'){
+        $.ajax({
+            url: "{:U('classroom/Pay/rechargeVip')}",
+            data:form.serialize(),
+            async:false,
+            type:'post',
+            success: function(data){
+                if(typeof data != 'object'){
+                    var data = eval('('+data+')');
+                }
+                clearInterval(s);
+                if(data.status == 1){
+                    s = setInterval(function(){
+                        $.ajax({
+                            url: "{:U('classroom/Pay/getPayStatus')}",
+                            data:{pay_pass_num:data.data.pay_pass_num},
+                            type:'post',
+                            success: function(res){
+                                try{
+                                    res = JSON.parse(res);
+                                    if(res.status == 1){
+                                        clearInterval(s);
+                                        $(".hide_box").fadeToggle();
+                                        $(".shang_box").fadeToggle();
+                                        notes('使用微信充值成功','success');
+                                        setTimeout(function(){
+                                            location.reload();
+                                        },2000);
+                                    }
+                                }catch(e){
+                                    return;
+                                }
+                            }
+                        });
+                    },1800);
+                    $("body").append(data.data.html);
+                    return true;
+                }
+            },
+            error: function(){
+                return false
+            }
+
+        });
+    }else{
+        form.submit();
+    }
+}
+//border_bg
+</script>
+
+<include file="__THEME__/public_footer" />

@@ -1,0 +1,283 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="https://www.qiluzhibo.com/apps/admin/_static/admin.css" rel="stylesheet" type="text/css">
+    <script>
+        /**
+         * 全局变量
+         */
+        var SITE_URL  = 'https://www.qiluzhibo.com';
+        var THEME_URL = 'https://www.qiluzhibo.com/addons/theme/stv1/_static';
+        var APPNAME   = 'classroom';
+        var UPLOAD_URL ='https://www.qiluzhibo.com/data/upload';
+        var MID		  = '1';
+        var UID		  = '1';
+        // Js语言变量
+        var LANG = new Array();
+    </script>
+    <script type="text/javascript" src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/core.js"></script>
+    <script src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/module.js"></script>
+    <script src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/common.js"></script>
+    <script src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/module.common.js"></script>
+    <script src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/module.weibo.js"></script>
+    <script type="text/javascript" src="https://www.qiluzhibo.com/apps/admin/_static/admin.js?t=11"></script>
+    <script type="text/javascript" src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/ui.core.js"></script>
+    <script type="text/javascript" src="https://www.qiluzhibo.com/addons/theme/stv1/_static/js/ui.draggable.js"></script>
+
+    <script type="text/javascript" src="https://www.qiluzhibo.com/apps/classroom/_static/admin.js"></script>
+    <script src="https://www.qiluzhibo.com/apps/classroom/_static/admin/common.js"></script>
+    <script src="https://www.qiluzhibo.com/apps/classroom/_static/mz.js"></script>
+    <script src="https://www.qiluzhibo.com/apps/classroom/_static/wayne.js"></script>
+    <script src="https://www.qiluzhibo.com/data/lang/public_zh-cn.js"></script>
+    <script src="https://www.qiluzhibo.com/data/lang/classroom_zh-cn.js"></script>
+</head>
+<body>
+<style type="text/css">
+    .hide{
+        display: none;
+    }
+    .ico_top, .ico_btm {
+        background: url("https://www.qiluzhibo.com/addons/theme/stv1/_static/admin/image/ico_top_btm.gif") no-repeat scroll 0 0 transparent;
+        height: 14px;
+        width: 12px;
+    }
+    .ico_top, .ico_btm {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .ico_top {
+        background-position: -12px 0;
+    }
+    .ico_btm {
+        background-position: -24px 0;
+    }
+    .ico_top:hover {
+        background-position: 0 0;
+    }
+    .ico_btm:hover {
+        background-position: -35px 0;
+    }
+</style>
+
+<div id="container" class="so_main">
+    <div class="tit_tab">
+        <ul>
+            <ul>
+                <li><a href="{:U('live/AdminLive/addLive')}&tabHash=addLive">添加</a></li>
+            </ul>
+        </ul>
+    </div>
+
+    <!-- START TOOLBAR -->
+    <div class="Toolbar_inbox">
+        <volist name="type" id="v">
+            <a href="javascript:void(0);" class="btn_a" onclick="admin.getlist({$v.zy_currency_category_id});"><span>{$v.title}</span></a>
+        </volist>
+
+    </div>
+    <!-- END TOOLBAR -->
+
+    <!-- START LIST -->
+
+
+    <div class="list" id="list">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr>
+
+                <th class="line_l" style="width:30px;">id</th>
+                <th class="line_l">创建者</th>
+                <th class="line_l">机构名称</th>
+                <th class="line_l">直播课堂名称</th>
+                <th class="line_l">直播课分类</th>
+                <th class="line_l">主讲人</th>
+
+                <th class="line_l">市场价格</th>
+                <th class="line_l">销售价格</th>
+                <th class="line_l">学习人数</th>
+                <th class="line_l">学习人数（营销）</th>
+                <th class="line_l">封面</th>
+
+                <th class="line_l">上架时间</th>
+                <th class="line_l">下架时间</th>
+                <th class="line_l">最大并发量</th>
+                <th class="line_l">是否精选</th>
+                <th class="line_l">是否免费</th>
+
+                <th class="line_l">是否审核</th>
+                <th class="line_l">是否禁用</th>
+                <th class="line_l">直播类型</th>
+                <th class="line_l" style="width:auto;">操作</th>
+            </tr>
+            <volist name="lists" id="v">
+                <tr>
+                    <td >{$v.id}</td>
+                    <td >{$v.uid}</td>
+                    <td >{$v.mhm_title}</td>
+                    <td >{$v.video_title}</td>
+                    <td >{$ss[$v['video_category']]['title']}</td>
+                    <td >{$v.speaker_name}</td>
+
+                    <td >{$v.v_price}</td>
+                    <td >{$v.t_price}</td>
+                    <td >{$v.video_order_count}</td>
+                    <td >{$v.video_order_count_mark}</td>
+                    <td >{$v.cover}</td>
+
+                    <td >{$v.listingtime}</td>
+                    <td >{$v.uctime}</td>
+                    <td >{$v.maxmannums}</td>
+                    <td >{$v.is_best}</td>
+                    <td >{$v.is_charge}</td>
+
+                    <td >{$v.is_activity}</td>
+                    <td >{$v.is_open}</td>
+                    <td >{$v.live_type}</td>
+                    <td >{$v.DOACTION}</td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+
+    </div>
+    <!-- END LIST -->
+</div>
+
+<script type="text/javascript">
+
+
+
+    /**
+     * 移动分类位置
+     * @param integer cid 分类ID
+     * @param string type 移动类型
+     * @param string stable 所操作的数据表
+     * @return boolean false
+     */
+    admin.moveTreeCategory = function(cid, type, stable)
+    {
+        // 验证数据正确性
+        if(typeof cid === "undefined" || typeof type === "undefined" || typeof stable === "undefined") {
+            return false;
+        }
+        // 提交数据，修改排序位置
+        $.post(U('admin/Public/moveTreeCategory'), {cid:cid, type:type, stable:stable}, function(msg) {
+            if(msg.status == 1) {
+                ui.success(msg.data);
+                var $category = $('#' + stable + '_' + cid);
+                if (type === 'up') {
+                    var size = $category.prev().size();
+                    if (size > 0) {
+                        var otherId = $($category.prevAll('li[id^="' + stable + '_"]')[0]).attr('id');
+                        otherId = otherId.split('_').pop();
+                        $target = $('#' + stable + '_' + otherId);
+                        $target.before($category);
+                        $('#sub_' + cid).length > 0 && $target.before($('#sub_' + cid));
+                    }
+                } else if (type === 'down') {
+                    var size = $category.next().size();
+                    if (size > 0) {
+                        var otherId = $($category.nextAll('li[id^="' + stable + '_"]')[0]).attr('id');
+                        otherId = otherId.split('_').pop();
+                        $target = $('#' + stable + '_' + otherId);
+                        if ($('#sub_' + otherId).length > 0) {
+                            $target = $('#sub_' + otherId);
+                        }
+                        $('#sub_' + cid).length > 0 && $target.after($('#sub_' + cid));
+                        $target.after($category);
+                    }
+                }
+            } else {
+                ui.error(msg.data);
+            }
+        }, 'json');
+        return false;
+    };
+    /**
+     * 添加子分类
+     * @parma integer cid 分类ID
+     * @param string stable 所操作的数据表
+     * @parma integer limit 字数限制
+     * @param integer type 分类所属 云课堂特有
+     * @return boolean false
+     */
+    admin.addTreeCategory = function()
+    {
+        ui.box.load(U('admin/Public/addLiveType'), "添加直播分类");
+        return false;
+    };
+
+
+    /**
+     * 编辑分类
+     * @param integer cid 分类ID
+     * @param integer type 分类所属 云课堂特有
+     * @return boolean false
+     */
+    admin.upTreeCategory = function(id)
+    {
+        if(typeof id === "undefined" ) {
+            return false;
+        }
+        ui.box.load(U('admin/Public/addLiveType')+'&id='+id, "编辑直播分类");
+        return false;
+    };
+    /**
+     * 删除分类
+     * @param integer cid 分类ID
+     * @return boolean false
+     */
+    admin.rmTreeCategory = function(cid)
+    {
+        if(typeof cid === "undefined") {
+            return false;
+        }
+        // 删除操作
+        if(confirm("是否删除该标题？")) {
+            $.post(U('admin/Public/rmTreeLiveCategory'),
+                {cid:cid}, function(msg) {
+                    if(msg.status == 1) {
+                        ui.success(msg.data);
+                        location.href = location.href;
+                        return false;
+                    } else {
+                        ui.error(msg.data);
+                        return false;
+                    }
+                }, 'json');
+        }
+        return false;
+    };
+    /**
+     * 编辑分类
+     * @param integer cid 分类ID
+     * @param integer type 分类所属 云课堂特有
+     * @return boolean false
+     */
+    admin.getlist = function(id)
+    {
+
+        location.href="{:U('live/adminlive/type')}"+'&type='+id;
+        return false;
+    };
+</script>
+
+<script type="text/javascript">
+    /**
+     * 初始化对象
+     */
+    //表格样式
+    $(document).ready(function(){
+        admin.bindTrOn();});
+</script>
+
+
+
+<div id="topcontrol" title="返回顶部" style="position: fixed; bottom: 30px; right: 20px; opacity: 0; cursor: pointer;">
+    <a href="#top" class="top_stick">&nbsp;</a>
+</div>
+
+</body>
+</html>

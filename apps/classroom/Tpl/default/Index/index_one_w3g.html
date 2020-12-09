@@ -1,0 +1,416 @@
+<if condition="$config_index['tpl'] eq 'index_one'">
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title><neq name='_title' value=''>{$_title} - {$site.site_name}<else />{$site.site_name} - {$site.site_slogan}</neq></title>
+    <meta charset="utf-8">
+    <meta content="<neq name= '_keywords' value=''>{$_keywords}<else />{$site.site_header_keywords}</neq>" name="keywords">
+    <meta content="<neq name= '_description' value=''>{$_description}<else />{$site.site_header_description}</neq>" name="description">
+    <meta name="viewport" charset="UTF-8" content="user-scalable=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="qc:admins" content="1403267155765154541656375" />
+    <meta property="wb:webmaster" content="fdcd9430a88b1552" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="full-screen" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="full-screen" content="yes">
+    <link href="__THEME__/image/favicon.ico?v={$site.sys_version}" type="image/x-icon" rel="shortcut icon">
+
+    <link rel="stylesheet" type="text/css" href="__THEME__/css/index_new/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="__THEME__/css/index_new/public_header_footer_media.css">
+    <link rel="stylesheet" type="text/css" href="__THEME__/css/index_new/public.css">
+    <link rel="stylesheet" href="__THEME__/../_static_simple/css/live_index_w3g.css">
+    <link rel="stylesheet" href="__THEME__/../_static_simple/css/swiper_w3g.css">
+
+    <script>
+
+        //全局变量
+        var SITE_URL  = '<php> echo SITE_URL;</php>';
+        var UPLOAD_URL= '<php> echo UPLOAD_URL;</php>';
+        var THEME_URL = '__THEME__';
+        var APPNAME   = '<php> echo APP_NAME;</php>';
+        var MID       = '<php> echo $mid;</php>';
+        var UID       = '<php> echo $uid;</php>';
+        var initNums  =  '<php> echo $initNums;</php>';
+        var SYS_VERSION = '<php> echo $site["sys_version"];</php>';
+        var _ROOT_    = '__ROOT__';
+        // Js语言变量
+        var LANG = new Array();
+        //注册登录模板
+        var REG_LOGIN="{:U('public/Passport/regLogin')}";
+        //邮箱验证地址
+        var CLICK_EMIL="{:U('public/Passport/clickEmail')}";
+        //异步注册地址
+        var REG_ADDRESS="{:U('public/Passport/ajaxReg')}";
+        //异步登录
+        var LOGIN_ADDRESS="{:U('public/Passport/ajaxLogin')}";
+        //退出登录
+        var LOGINOUT_ADDRESS="{:U('public/Passport/logout')}";
+    </script>
+    <php>if(!empty($langJsList)) {</php>
+    <volist name="langJsList" id="vo">
+        <script src="{$vo}?v={$site.sys_version}"></script>
+    </volist>
+    <php>}</php>
+    <!-- 站点js -->
+    <!--[if lt IE 9]>
+    <script src="__THEME__/js/lazyload/html5shiv.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]><script src="js/html5.js" type="text/javascript"></script><![endif]-->
+
+    <script type="text/javascript" src="__THEME__/js/user/user.js"></script>
+    <script>
+        function login_box() {
+            reg_login();
+        }
+
+        function closeMsg(obj){
+            $(".news-msg").remove();
+        }
+
+        /**
+         * 退出成功
+         */
+        function logout(){
+            $.ajax({
+                type: "POST",
+                async:false,
+                url:LOGINOUT_ADDRESS,
+                dataType:"json",
+                success:function(data){
+                    alert("退出成功！");
+                    location.reload();
+                }
+            });
+        }
+    </script>
+</head>
+<style media="screen">
+
+</style>
+
+<body style="background:#f0f0f2;">
+<!-- <div class="window-panle" id="window-panle">
+
+    <dl>
+        <if condition="$_SESSION['mid']">
+            <dt><img src="{:getUserFace($user['uid'],'b')}" width="40" height="40"></dt>
+            <dd><a href="{:U('classroom/UserShow/index',array('uid'=>$_SESSION['mid']))}">{:getUserName($user['uid'])}</a></dd>
+            <else/>
+            <dt><img src="__THEME__/images/head_img.png"></dt>
+            <dd><a href="{:U('public/Passport/login_g')}">登录</a></dd>
+            <dd><p>或</p></dd>
+            <dd><a href="{:U('public/Passport/reg')}">注册</a></dd>
+        </if>
+    </dl>
+    <ul>
+        <volist name="site_top_nav" id="vo" key="k">
+            <li <php>if(APP_NAME == lcfirst( $vo['app_name'] ) || ( APP_NAME == 'classroom' && MODULE_NAME == ucfirst( $vo['app_name'] ) ) ){echo "class='active'";}</php>>
+            <if condition="$vo['app_name'] neq 'Vip'">
+                <a href="{$vo['url']}" target="{$vo['target']}"<if condition="($vo.app_name eq 'Video') or ($vo.app_name eq 'more')"> onclick="show_list(this)"</if>>{$vo['navi_name']}
+                <if condition="($vo.app_name eq 'Video') or ($vo.app_name eq 'more')"> <span class="bgc icon icon-xiala2"></span></if>
+                </a>
+            </if>
+            <if condition="$vo.child neq ''">
+                <span class="course-class" style="display: none"  <if condition="($vo.app_name eq 'Video') or ($vo.app_name eq 'more')">id="hide_list"</if>>
+                <volist name="vo.child" id="child" key="k">
+                    <if condition="($child.app_name neq 'more') and ($child['app_name'] neq 'Album') and ($child['app_name'] neq 'Vip')">
+                        <a href="{$child['url']}" target="{$child['target']}">{$child['navi_name']}</a>
+                    </if>
+                </volist>
+                </span>
+            </if>
+            </li>
+        </volist>
+    </ul>
+    <script>
+        function show_list(obj){
+            if ($(obj).siblings('.course-class').css("display")=="none") {
+                $(obj).siblings('.course-class').show();
+            }
+            else {
+                $(obj).siblings('.course-class').hide();
+            }
+        };
+    </script>
+    <if condition="$_SESSION['mid']">
+        <div class="sign-out">
+            <a href="javascript:;" onclick="logout()">退出登录</a>
+        </div>
+    </if>
+</div>
+<div class="overall_situation_box_alls">
+<div class="shadow-panle" style="display: none;"></div> -->
+<!--header start-->
+<!-- <header>
+    <div class="modular icon icon-caidan"></div>
+    <a class="logos" href="/" title="{$site['site_keyword']}在线教育系统">
+        <img src="{$site.logo_head_w3g}">
+    </a>
+    <div class="users">
+        <if condition="$_SESSION['mid']">
+            <img src="{:getUserFace($user['uid'],'b')}" width="30" height="30">
+                <span>
+                    <i class="icon icon-shang1"></i>
+                    <a href="{:U('classroom/User/index')}">个人中心</a>
+                    <a href="javascript:;" onclick="logout()">退出</a>
+                </span>
+            <else/>
+            <img src="__THEME__/image/noavatar/big.jpg">
+                <span>
+                    <i class="icon icon-shang1"></i>
+                    <a href="{:U('public/Passport/login_g')}">登录</a>
+                    <if condition="$this_mhm_id neq ''">
+                        <a href="{:U('public/Passport/reg',array('this_mhm_id'=> $this_mhm_id))}">注册</a>
+                        <else/>
+                        <a href="{:U('public/Passport/reg')}">注册</a>
+                    </if>
+                </span>
+        </if>
+    </div>
+    <a href="{:U('classroom/Index/search')}" class="fill-in"><i class="icon icon-sousuo"></i></a>
+</header> -->
+<include file="public/public_header_w3g"/>
+<!--header end-->
+<div class="min-height-wrap">
+
+
+<volist name="config_index.item" id="item_name">
+<eq name="item_name" value="today_live_one">
+    <section>
+        <div class="title_p">
+            <p>最近直播</p>
+            <span></span>
+        </div>
+        <div class="soon_live">
+            <ul>
+                <volist name="info_data.today_live_one" id="vo" offset="0" length="4">
+                    <li>
+                        <div class="div_box">
+                            <a href="{:U('live/Index/view',array('id'=>$vo['id']))}">
+                                <img src="{:cutImg($vo['cover'] ,580 , 320 )}" alt="">
+                                <p class="time"><span>{:date('m-d H:i',$vo['beginTime'])}-{:date('m-d H:i',$vo['endTime'])}</span></p>
+                            </a>
+                            <div class="pub_box">
+                                <p>{:limitNumber($vo['video_title'],12)}</p>
+                                <div class="content">
+                                    <span class="num">学员 : <php>if($marketConf['order_switch'] == 1) {</php>{$vo['video_order_count_mark']}<php>}else{</php>{$vo['video_order_count']}<php>}</php>人</span><span class="price"><if condition="$vo['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$vo['t_price']}</if></span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </volist>
+            </ul>
+            <!-- 查看更多 -->
+            <div class="more_box">
+                <a href="{:U('classroom/Video/index',array('vtype'=>2))}">查看更多</a>
+            </div>
+        </div>
+    </section>
+</eq>
+<eq name="item_name" value="fineCourse_one">
+    <!-- 精品课程 -->
+    <section>
+        <div class="title_p">
+            <p>精品课程</p>
+            <span></span>
+        </div>
+        <div class="boutique_course">
+            <ul>
+                <volist name="info_data.fineCourse_one" id="vo" offset="0" length='4'>
+                    <li>
+                        <div class="div_box">
+                            <a <eq name="vo.type" value="1">href="{:U('classroom/Video/view',array('id'=>$vo['id']))}"<else/>href="{:U('live/Index/view',array('id'=>$vo['id']))}"</eq>>
+                                <img src="{:cutImg($vo['cover'] ,580 , 320 )}" alt="">
+                            </a>
+                            <div class="pub_box">
+                                <p>{$vo.video_title|msubstr=0,12,'utf-8',true}</p>
+                                <div class="content">
+                                    <div class="fl">
+                                        <i class="icon icon-yanjing3"></i>
+                                        <span class="num">{$vo.view_nums}</span>
+                                        <i class="icon icon-pinglun2"></i>
+                                        <span class="num">{$vo.comment_num}</span>
+                                    </div>
+                                    <b class="fr"><if condition="$vo['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$vo['t_price']}</if></b>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </volist>
+            </ul>
+            <!-- 查看更多 -->
+            <div class="more_box">
+                <a href="{:U('classroom/Video/index',array('best'=>1))}">查看更多</a>
+            </div>
+        </div>
+    </section>
+</eq>
+<eq name="item_name" value="banner_one">
+    <!--banner start-->
+    <div class="device">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <volist name="ad_list" id="adlt">
+                    <div class="swiper-slide">
+                        <a href="{$adlt['bannerurl']}" title="{$adlt['banner_title']}">
+                            <img src="{:getCover($adlt['banner'],720,300)}" alt="{$adlt['banner_title']}" >
+                        </a>
+                    </div>
+                </volist>
+            </div>
+        </div>
+        <div class="pagination"></div>
+    </div>
+    <!--banner end-->
+</eq>
+<eq name="item_name" value="teacher_one">
+    <!-- 推荐名师 -->
+    <section>
+        <div class="title_p">
+            <p>推荐名师</p>
+            <span></span>
+        </div>
+        <div class="famous_list">
+            <ul>
+                <volist name="info_data.teacher_one" id="tea" offset="0" length="3">
+                    <li>
+                        <div class="div_box">
+                            <div class="pub_box">
+                                <a href="{:U('classroom/Teacher/view',array('id'=>$tea['id']))}">
+                                    <img src="{:getCover($tea['head_id'])}" alt="">
+                                </a>
+                                <div class="fl">
+                                    <p class="name">{:msubstr(t($tea['name']),0,10,'utf-8',true)}</p>
+                                    <p class="school">{$tea.graduate_school|default='暂无院校信息'}</p>
+                                </div>
+                            </div>
+                            <p class="text">{:msubstr(t($tea['inro']),0,40,'utf-8',true)}</p>
+                        </div>
+                    </li>
+                </volist>
+            </ul>
+            <!-- 查看更多 -->
+            <div class="more_box">
+                <a href="{:U('classroom/Teacher/index')}">查看更多</a>
+            </div>
+        </div>
+    </section>
+</eq>
+<eq name="item_name" value="school_one">
+    <!-- 入驻机构 -->
+    <section>
+        <div class="title_p">
+            <p>入驻机构</p>
+            <span></span>
+        </div>
+        <ul class="join_team">
+            <volist name="info_data.school_one" id="mhm">
+                <li>
+                    <a href="{$mhm.domain}">
+                        <img src="{:getCover($mhm['logo'],140,140)}" alt="">
+                    </a>
+                </li>
+            </volist>
+        </ul>
+        <!-- 查看更多 -->
+        <div class="more_box">
+            <a href="{:U('school/Index/index')}">查看更多</a>
+        </div>
+    </section>
+</eq>
+<eq name="item_name" value="group_one">
+    <!-- 热门小组 -->
+    <div class="hot_team">
+        <div class="hot_bg">
+            <div class="title_p">
+                <p>热门小组</p>
+                <span></span>
+            </div>
+            <div class="bd">
+                <ul>
+                    <volist name="info_data.group_one" id="vo" offset="0" length="4">
+                        <li>
+                            <div class="pic">
+                                <a href="{:U('group/Index/view',array('gid'=>$vo['id']))}">
+                                    <img src="{$vo.logo}" />
+                                </a>
+                            </div>
+                            <div class="title">
+                                <h5><a href="{:U('group/Index/view',array('gid'=>$vo['id']))}">{:msubstr(t($vo['name']),0,6,'utf-8',true)}</a></h5>
+                                <p><span class="member">{$vo.membercount}成员</span><span class="seen">{$vo.threadcount}帖子</span></p>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+                <!-- 查看更多 -->
+                <div class="more_box">
+                    <a href="{:U('group/Index/index')}">查看更多</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</eq>
+<eq name="item_name" value="topic_one">
+    <!-- 热门资讯 -->
+    <section>
+        <div class="title_p">
+            <p>热门资讯</p>
+            <span></span>
+        </div>
+        <div class="text_list">
+            <ul>
+                <volist name="info_data.topic_one" id="vo">
+                    <li><a href="{:U('classroom/Topic/view',array('id'=>$vo['id']))}"><span class="time">[{:date('m-d',$vo['dateline'])}]</span><span class="text">{:msubstr(t($vo['title']),0,15,'utf-8',true)}</span></a></li>
+                </volist>
+            </ul>
+        </div>
+    </section>
+</eq>
+</volist>
+
+<!--&lt;!&ndash; 广告 &ndash;&gt;-->
+<!--<div class="content bg_box">-->
+    <!--<div class="opcity_bg">-->
+        <!--<div class="text">-->
+            <!--<p class="title">不知道放什么，那就可以放点广告语呗</p>-->
+            <!--<p class="box_p">发挥想象，写你所想</p>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+</div>
+</div>
+
+<!-- footer strat -->
+<!-- <div class="footer">
+    <b>{$site['site_footer']}</b>
+</div> -->
+
+<!-- footer end -->
+<include file="__THEME__/public_footer_w3g"/>
+
+
+</body>
+<script src="__THEME__/../_static_simple/js/jquery-1.8.3.min.js" charset="utf-8"></script>
+<script src="__THEME__/../_static_simple/icon/iconfont.js" charset="utf-8"></script>
+<script src="__THEME__/../_static_simple/js/index_3g.swiper.min.js" charset="utf-8"></script>
+<script src="__THEME__/../_static_simple/js/jquery.SuperSlide.2.1.1.js" charset="utf-8"></script>
+<!-- <script src="__THEME__/js/index_new/public_header_footer_media.js"></script> -->
+<script src="__THEME__/../_static_simple/js/index_3g.js" charset="utf-8"></script>
+<script type="text/javascript">
+    $(".classify_list a").click(function(){
+        var index_img= $(this).index();
+        $(".classify ul").eq(index_img).show().siblings("ul").hide();
+    })
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+            $(".nav_list ul li:eq(0)").addClass("on");
+        });
+</script>
+</html>
+</if>

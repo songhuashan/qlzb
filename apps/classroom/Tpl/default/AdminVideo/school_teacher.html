@@ -1,0 +1,21 @@
+
+
+<dt><font color="red"> * </font>讲师选择：</dt>
+<dd>
+     <select class="teacher_id_select2" multiple="multiple" >
+        <if condition="$trlist">
+            <foreach name="trlist" item="tl">
+                <option value="{$tl.id}" <php>if(in_array($tl['id'],$teacher)){</php>selected="selected"<php>}</php> >{$tl.name}</option>
+            </foreach>
+            <else/>
+            <option value="0">该机构暂时没有讲师</option>
+        </if>
+    </select>
+</dd>
+<input type="hidden" name="teacher_id" id="teacher_id">
+
+ <script>
+        $(function() {
+                $('.teacher_id_select2').fSelect();
+            });
+        </script>

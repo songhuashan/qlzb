@@ -1,0 +1,213 @@
+
+<include file="__THEME__/public_header" />
+
+<!---选择地址弹出框-->
+<script>
+    $(document).ready(function(){
+        $('div.user-con-title a:eq({:intval($_GET["tab"])})').click();
+        $("#user-shcool_select").click(function(){
+            $(".user-fixdworap").css("display","block");
+        });
+    });
+</script>
+<style>
+    .box-ver{
+        float: right;
+        margin-right: 70px;
+    }
+    .user-con-title a{
+        width:auto;
+    }
+    .center_right_tit div a{
+        color: #00BED4;
+    }
+    .user-imglist{
+        padding-bottom: 30px;
+    }
+
+    .center_right {
+        margin-bottom: 30px;
+    }
+</style>
+
+<include file="../User/public/_top" />
+<!--centerbox end-->
+
+<!--course-->
+<div class="left-all">
+    <!-- <div class="center_right">
+        <div class="center_right_tit">
+            <div class="center_right_tit">
+                <div class="user-con-title">
+                    <h5>点播课</h5>
+                    <a href="{:U('classroom/Home/video')}">更多></a>
+                </div>
+            </div>
+        </div>
+        <div class="center_right_con Manage_all">
+            <ul class="user-imglist">
+                <if condition="$video_data['data'] eq null">
+                    <li style="border: none;box-shadow: none;">您还没有相关课程。。</li>
+                    <else/>
+                    <foreach name="video_data['data']" item="l">
+                        <li>
+                            <a href="{:U('classroom/Video/view',array('id'=>$l['id']))}" class="img">
+                                <img src="{:getCover($l['cover'] , 266,138)}" class="lazyloading" >
+                            </a>
+                            <div class="user-title">
+                                <h3><a href="{:U('classroom/Video/view',array('id'=>$l['id']))}">{$l['video_title']}</a></h3>
+                                <p><a href="{$l['school_url']}">{$l['school_title']}</a><a href="{:U('classroom/Teacher/view',array('id'=>$l['teacher_id']))}">{$l['teacher_neme']}</a></p>
+                                <span><strong>¥{$l.t_price}</strong><small><php>if($marketConf['order_switch'] == 1) {</php>{$l['video_order_count_mark']}<php>}else{</php>{$l['video_order_count']}<php>}</php>人在学</small></span>
+                            </div>
+                        </li>
+                    </foreach>
+                </if>
+            </ul>
+        </div>
+    </div> -->
+
+    <!--live-->
+    <style>
+    .undis{
+        display: none;
+    }
+    </style>
+    <div class="center_right">
+        <div class="center_right_tit">
+            <div class="center_right_tit">
+                <div class="user-con-title">
+                    <h5>课程</h5>
+                    <a href="{:U('classroom/Home/live')}">更多></a>
+                </div>
+            </div>
+        </div>
+        <style>
+            .nav_link{
+                display: inline-block;
+                width: 10%;
+                font-size: 16px;
+                text-align: center;
+                
+            }
+
+            .nav_current{
+                display: inline-block;
+                width: 10%;
+                font-size: 16px;
+                text-align: center;
+                color:#00BED4;
+            }
+        </style>
+        <div class="center_right_con Manage_all">
+            <div style="height: 40px;line-height: 40px;width: 94%;margin: 0 3%;border-bottom: 1px solid #00BED4;">
+                <a class="nav_current" id="nav1" onclick="javascript:doClick(this)">进行中</a>
+                <a class="nav_link" id="nav2" onclick="javascript:doClick(this)">已结束</a>
+                <a class="nav_link" id="nav3" onclick ="javascript:doClick(this)">未开始</a>
+            </div>
+        
+            <div id="sub1" calss="dis">
+                <ul class="user-imglist">
+                    <if condition="$live_data['data'] eq null">
+                        <li style="border: none;box-shadow: none;">您还没有相关直播课程。。</li>
+                        <else/>
+                        <foreach name="live_data['data']" item="l">
+                              <if condition="$l.timestate eq 2">
+                                <li>
+                 
+                                    <a href="{:U('live/Index/view',array('id'=>$l['id']))}" class="img">
+                                        <img src="{:getCover($l['cover'] , 266,138)}" class="lazyloading" >
+                                    </a>
+                                    <div class="user-title">
+                                        <h3><a href="{:U('live/Index/view',array('id'=>$l['id']))}">{$l['video_title']}</a></h3>
+                                        <p><a href="{$l['school_url']}">{$l['school_title']}</a><a href="{:U('classroom/Teacher/view',array('id'=>$l['teacher_id']))}">{$l['teacher_neme']}</a></p>
+                                        <span>
+                                        <!-- <strong>¥{$l.t_price}</strong> -->
+                                        <small><php>if($marketConf['order_switch'] == 1) {</php>{$l['video_order_count_mark']}<php>}else{</php>{$l['video_order_count']}<php>}</php>人在学</small></span>
+                                    </div>
+                                </li>
+                            </if>
+                        </foreach>
+                    </if>
+                </ul>
+            </div>
+            <div id="sub2"  class="undis">
+                <ul class="user-imglist">
+
+                    <if condition="$live_data['data'] eq null">
+                        <li style="border: none;box-shadow: none;">您还没有相关直播课程。。</li>
+                        <else/>
+                        <foreach name="live_data['data']" item="l">
+                           
+                            <!-- 开始时间  $time-   结束时间 -->
+                              <if condition="$l.timestate eq 1">
+                            <li>
+                            
+                                <a href="{:U('live/Index/view',array('id'=>$l['id']))}" class="img">
+                                    <img src="{:getCover($l['cover'] , 266,138)}" class="lazyloading" >
+                                </a>
+                                <div class="user-title">
+                                    <h3><a href="{:U('live/Index/view',array('id'=>$l['id']))}">{$l['video_title']}</a></h3>
+                                    <p><a href="{$l['school_url']}">{$l['school_title']}</a><a href="{:U('classroom/Teacher/view',array('id'=>$l['teacher_id']))}">{$l['teacher_neme']}</a></p>
+                                    <span>
+                                    <!-- <strong>¥{$l.t_price}</strong> -->
+                                    <small><php>if($marketConf['order_switch'] == 1) {</php>{$l['video_order_count_mark']}<php>}else{</php>{$l['video_order_count']}<php>}</php>人在学</small></span>
+                                </div>
+                            </li>
+                            </if>
+                        </foreach>
+                    </if>
+                </ul>
+            </div>
+            <div id="sub3" class="undis">
+                <ul class="user-imglist">
+                    <if condition="$live_data['data'] eq null">
+                            <li style="border: none;box-shadow: none;">您还没有相关直播课程。。</li>
+                        <else/>
+                        <foreach name="live_data['data']" item="l">
+
+                            <if condition="$l.timestate eq 3">
+                                <li>
+                                    <a href="{:U('live/Index/view',array('id'=>$l['id']))}" class="img">
+                                        <img src="{:getCover($l['cover'] , 266,138)}" class="lazyloading" >
+                                    </a>
+                                    <div class="user-title">
+                                        <h3><a href="{:U('live/Index/view',array('id'=>$l['id']))}">{$l['video_title']}</a></h3>
+                                        <p><a href="{$l['school_url']}">{$l['school_title']}</a><a href="{:U('classroom/Teacher/view',array('id'=>$l['teacher_id']))}">{$l['teacher_neme']}</a></p>
+                                        <span>
+                                        <!-- <strong>¥{$l.t_price}</strong> -->
+                                        <small><php>if($marketConf['order_switch'] == 1) {</php>{$l['video_order_count_mark']}<php>}else{</php>{$l['video_order_count']}<php>}</php>人在学</small></span>
+                                    </div>
+                                </li>
+                            </if>
+                        </foreach>
+                    </if>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<script>
+    function doClick(o){ 
+         o.className="nav_current"; 
+         var j; 
+         var id; 
+         var e; 
+         for(var i=1;i<=3;i++){ //这里3 需要你修改 你多少条分类 就是多少 
+           id ="nav"+i;     
+           j = document.getElementById(id); 
+           e = document.getElementById("sub"+i); 
+           if(id != o.id){ 
+             j.className="nav_link"; 
+
+             e.style.display = "none"; 
+           }else{ 
+                e.style.display = "block"; 
+           } 
+         } 
+         }
+</script>
+
+<include file="../User/public/_right" />
+
+<include file="__THEME__/public_footer" />

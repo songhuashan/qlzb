@@ -1,0 +1,158 @@
+<include file="__THEME__/public_header_w3g" />
+<script type="text/javascript" src="__THEME__/js/jquery.js"></script>
+
+
+
+
+
+
+    <div class="header2">
+        <a href="{:U('classroom/User/index')}" class="icon-back"></a>
+        <div>我的课程</div>
+    </div>
+    <div class="body">
+        <ul class="classlistnav">
+            <li><a href="{:U('classroom/User/teacherVideo')}">我上传的课程</a></li>
+            <li class="on"><a onclick="navClick(this,'updatevideo')" href="javascript:;">修改点播课程</a></li>
+        </ul>
+
+
+<div class="content">
+
+          <form method="POST" action="{:U('classroom/User/doAddVideo')}" class="infobox" id="detail_form" name="detail_form" onsubmit="return j_validateCallback(this,checkForm,post_callback)">
+             <div class="form2">
+                 <input type = "hidden"  name ="id" id ="thisid"   value ="{$id}">
+                 <input type = "hidden"  name ="video_type"   value ="1">
+
+                 <div class="jgzlbox">
+              <dl>
+                  <dt><font color="red"> * </font>课程名称：</dt>
+                <dd>
+                    <input type="text" name="video_title" id="video_title"  value="{$data.video_title}">
+                </dd>
+              </dl>
+              <dl>
+                  <dt><font color="red"> * </font>课程分类：</dt>
+                <dd style="width: 450px;">
+                    <style>
+                        .content  .jgzlbox  select {
+                            min-width: 70px;
+                            border-radius: 4px;
+                            border: solid 1px #b6c7d6;
+                            line-height: 34px;
+                        }
+                    </style>
+                    <php>$fullcategorypaths = trim($data['fullcategorypath'] , ',');</php>
+                    {:W('CategoryLevel',array('table'=>'zy_currency_category','id'=>'video_level','default'=>$fullcategorypaths ))}
+                </dd>
+              </dl>
+                <!--
+                 <dl class="lineD" id="dl_video_binfo">
+                     <dt><font color="red"> * </font>课程简介：</dt>
+                     <dd>
+                         <textarea name="video_binfo" id="video_binfo" rows="10" cols="54">{$data.video_binfo}</textarea>
+                     </dd>
+                 </dl>
+                -->
+
+
+                 <dl class="lineD" id="dl_video_intro">
+                  <div>   <dt><font color="red"> * </font>课程简介：</dt></div>
+                     <dd>
+                         <textarea name="video_intro" id="video_intro" rows="10" cols="54">{$data.video_intro}</textarea>
+                     </dd>
+                 </dl>
+
+                 <!--<dl>
+                     <dt><span>*</span>课程标签：</dt>
+                     <dd>
+                         <input type="text" class="inp01" name="video_tag" id="video_tag" class="head_search upload_input_a"  value = "{$data.str_tag}" >
+
+                     </dd>
+                 </dl>-->
+              <dl>
+                  <dt><span>*</span>原价：</dt>
+                  <dd>
+                      <input type="text"  id="v_price" name="v_price" value="{$data.v_price}">
+                  </dd>
+              </dl>
+                 <dl>
+                     <dt><span>*</span>销售价：</dt>
+                     <dd>
+                         <input type="text"  id="t_price" name="t_price" value="{$data.t_price}" >
+                     </dd>
+                 </dl>
+
+                 <dl>
+                     <dt><span>*</span>上架时间：</dt>
+                     <dd>
+                         <input name="listingtime"  id ="listingtime" type="text" value="<php>if($data.listingtime){</php>{:date("Y-m-d H:i:s", $data['listingtime'])}<php>}</php>" class="inp01" onfocus="core.rcalendar(this,'full');" readonly="readonly">
+                     </dd>
+                 </dl>
+                 <dl>
+                     <dt><span>*</span>下架时间：</dt>
+                     <dd>
+                         <input name="uctime" type="text"  id ="uctime"  value="<php>if($data.uctime){</php>{:date("Y-m-d H:i:s", $data['uctime'])}<php>}</php>" class="inp01" onfocus="core.rcalendar(this,'full');" readonly="readonly">
+                     </dd>
+                 </dl>
+                 <dl>
+                     <dt>封面上传</dt>
+                     <dd><a href="javascript:(0)" onclick="upfile()" class="head" style="float: left;"><span id="show_cover" class="show_cover_diy"><img src="{$data.cover_path}"></span></a>
+                         <input type="file" name="userCover" rel="9999" onchange="largeCover(this)" urlquery="attach_type=avatar&amp;upload_type=image&amp;thumb=1" class="file" id="File" style="width: 27%;margin-left: 40%;display: none;"/>
+                     </dd>
+                     <input name="cover_ids" id="large_cover" type="hidden" value="{$data.cover}" class="s-txt">
+                 </dl>
+
+</div>
+
+              <dl>
+                <dd>
+                <input id="videokey" name="videokey" type="hidden" value="{$qiniu_key}"> 
+                <!--<input  class="btn"  type="submit"  style="line-height: 0;" value="保 存">-->
+                </dd>
+              </dl>
+            </div>
+              <a   style = "width: 80%;height: 50px; margin: 10px auto;line-height: 50px;color: #fff;font-size: 18px; background-color: #2b92f9;text-align: center;display: block; border-radius: 4px;" href="javascript:;"  onclick = "subeditvideo(this)">保 存</a>
+          </form>
+        </div>
+      </div>
+
+<script type="text/javascript">
+    //上传课程封面
+    function upfile(){
+        return $("#File").click();
+    }
+    function largeCover(obj) {
+        if ("undefined" != typeof(core.uploadFile)) {
+            core.uploadFile.filehash = new Array();
+        }
+        core.plugInit('uploadFile', obj, function (data) {
+            $(obj).prev('.head').children('#show_cover').html('<img class="pic-size" width="80" height="80" src="' + data.src + '">');
+            $("#large_cover").val(data.attach_id);
+        }, 'image');
+    }
+
+    function subeditvideo(sbt)
+    {
+        var form  = $(sbt).parents('form');
+        var video_levelhidden = form.find('#video_levelhidden').val();
+        $.ajax({
+            type: "POST",
+            url: "{:U('classroom/User/doAddVideo')}",
+            data: form.serializeArray(),
+            dataType: "json",
+            success: function (e) {
+                if (e.status == 1) {
+                    alert(e.info);
+                    window.location.href = U('classroom/User/teacherVideo')+"&tabHash=index";
+                } else {
+                    alert(e.info);
+                }
+            }
+        });
+
+    }
+
+
+  </script>
+<include file="__THEME__/public_footer_w3g" />

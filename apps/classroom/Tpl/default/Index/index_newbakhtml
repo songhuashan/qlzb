@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><neq name='_title' value=''>{$_title} - {$site.site_name}<else />{$site.site_name} - {$site.site_slogan}</neq></title>
+ 
+<!-- 样式 -->
+<link rel="stylesheet" href="__THEME__/../_static_new/css_g/reset.css">
+<link rel="stylesheet" href="__THEME__/../_static_new/css_g/swiper.css">
+<link rel="stylesheet" href="__THEME__/../_static_new/css_g/style.css">
+<script type="text/javascript" src="__THEME__/../_static_new/js_g/jquery-1.js"></script>
+<link rel="stylesheet" href="__THEME__/../_static_new/css_g/layer.css" id="layuicss-layer">
+<script src="__THEME__/../_static_new/js_g/share.js"></script>
+<script src="__THEME__/datejs/countDown.js"></script>
+<link rel="stylesheet" href="__THEME__/../_static_new/css_g/share_style1_24.css">
+<link rel="stylesheet" href="__THEME__/../_static_new/css_g/imgshare.css">
+<link rel="stylesheet" type="text/css" href="__THEME__/../_static_new/css_g/reg_login.css">
+
+</head>
+<body>
+   
+
+ <script>
+ 
+
+        $(function(){
+            $('.backtop').click(function(){
+                $('body,html').animate({scrollTop:0},300);
+                return false;
+            });
+            $('.full-course').hover(function(){
+                $(this).addClass('hover');
+            },function(){
+                $(this).removeClass('hover');
+            });
+
+            $(".search_index_val span a").click(function(){
+                var span_Val = $(this).text();
+                var a_Attr = $(this).attr("attr");
+                $(".search_index_val p").html(span_Val);
+                $("#search_cate").val(a_Attr);
+                $(".search_index #search_combo_input").attr("placeholder","搜索"+span_Val);
+                $(this).hide().siblings().show();
+            })
+
+            $(".search_index input").focus(function(){
+                $(".search_index").css("width","270px");
+                $(".search_index input").css("width","140px");
+            })
+
+        });
+
+    </script>
+
+
+<div class="win hide"></div>
+
+
+<include file="__THEME__/public_header" />
+
+<style>.swiper-button-next{display:none;}.swiper-button-prev{display:none;}
+.swiper-container:hover .swiper-button-next{display:block}.swiper-container:hover .swiper-button-prev{display:block}
+
+</style>
+<!-- 轮播图 -->
+<div class="swiper-container swiper-containera">
+  <div class="swiper-wrapper">
+  
+     <volist name="ad_list" id="adlt">
+ 
+    <div class="swiper-slide" style="background: url({:getCover($adlt['banner'],1920,500)}) no-repeat center;"></div> 
+     </volist>
+  </div>
+  
+  <div class="swiper-pagination"></div>
+  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev"></div>
+</div>
+<!-- 轮播图END -->
+<!-- 轮播图下面的切换 -->
+
+    
+
+<div class="main">
+<div class="cen" style="text-align:center;margin-bottom: 50px;">
+<em style="color: #000000;
+font-size: 26px;
+margin-top: 40px;
+display: block;">项目介绍</em>
+</div> 
+  
+  
+<link rel="stylesheet" href="__THEME__/../_static_new/css_g/featureCarousel.css" charset="utf-8">
+
+<script src="__THEME__/../_static_new/js_g/jquery-1.js" type="text/javascript" charset="utf-8"></script>
+<script src="__THEME__/../_static_new/js_g/jquery.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script type="text/javascript">
+            $(document).ready(function() {
+                $("#featureCarousel").featureCarousel({
+                });
+            });
+</script>
+       
+	
+        <div id="featureCarousel">
+           
+        <volist name="object_xm" id="object_xm">
+		    <div class="feature" style="left: 372px; width: 450px; height: 230px; top: 20px; opacity: 1; z-index: 4; display: block;">
+                <a href="{:U('classroom/Topic/view',array('id'=>$object_xm['id']))}">
+				<img alt="Image Caption" src="{:getCover($object_xm['image'],450,230)}" style="width: 450px; display: inline; height: 230px;">
+				</a>
+                <div style="display: block; opacity: 0.85;">
+                    <p>{:msubstr(t($object_xm['title']),0,15,'utf-8',true)}</p>
+                </div>
+            </div>
+		</volist>
+         
+
+		 
+        <ul class="blipsContainer" style="display: block;">				
+		
+		
+		<php>
+        for($i=1;$i<=$object_xmpage;$i++){
+
+        echo "<li style='float: left; list-style-type: none;'><div class='blip' style='cursor: pointer;' id='blip_{$i}'>{$i}</div></li>";
+
+        }
+
+        </php>
+	
+		
+		</ul>
+		
+		</div>
+</div>
+
+  
+  
+</div>
+<!-- 轮播图下面的切换END -->
+
+
+
+<!-- 觅好课 -->
+<div class="main">
+  <div class="vid-box">
+    <div class="box">
+      <span>觅好课</span>
+      <div class="box-a">
+         <volist name="selCate" id="vo">
+ 		 <a href="javascript:void(0);"   <if condition="$i eq 1">class="hover"</if>>
+		 {:msubstr(t($vo['title']),0,10,'utf-8',true)}
+		 </a>
+        </volist>
+      </div>
+      
+      <a href="#" class="a_hover">修改兴趣</a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="content">
+      <div class="conter" style="display: block">
+        
+		
+	<volist name="live_list" id="live_o">
+	<if condition="$i eq 1">
+		<div class="conter-left">
+		<img src="{:cutImg($live_o['cover'] ,681,382 )}" alt="">
+          <div class="vid-shadow">
+            <em>{:limitNumber($live_o['video_title'],12)}</em>
+            <div class="vid-time"> 
+			<!-- <div class="count_down"> 距离上课<span class="day_num"></span>天<span class="hour_num"></span>时<span class="min_num"></span>分<span class="sec_num"></span>秒</div>
+             <span class="count_down"> -->
+			  <span class="count_down">
+                距离上课 <i class="vid-h day_num"></i><i class="vid-h hour_num"></i><i class="vid-m min_num"></i><i class="vid-s sec_num"></i>
+              </span>
+            </div>
+            <div class="vid-btn">
+              <a href="{:U('live/Index/view',array('id'=>$live_o['id']))}">立即报名</a>
+            </div>
+          </div>
+		<script src="__THEME__/datejs/countDown.js"></script>	
+	
+	
+        <script type="text/javascript">
+	$(function(){
+		$(".count_down").countDown({
+			startTimeStr:"{$live_o['starttime']}",//开始时间
+        	endTimeStr:"{$live_o['endtime']}",//结束时间
+        	daySelector:".day_num",
+            hourSelector:".hour_num",
+            minSelector:".min_num",
+            secSelector:".sec_num"
+		});
+	})
+	</script>
+		  
+		  
+	  
+		  
+		  <div class="vid-bot">
+            <img src="{:getCover($live_o['teacherface'],40,40)}" alt="">
+            <em>{$live_o['teachername']}</em>
+            <!-- <i>来自课程：2019国考笔试大神公开课【尚政公..></i> -->
+            <div id="marquee4"><!--  -->
+
+            <ul>
+              <li><a href="{:U('classroom/Teacher/view',array('id'=>$live_o['teacher_id']))}">来自简介：{:limitNumber($live_o['teacherdesc'],16)}..></a></li> 
+            </ul>
+
+          </div>
+          </div>
+		  
+		</if>	  
+	</volist>	  
+		  
+		  
+        </div>
+
+		
+		
+		
+        <style>
+        #marquee4{width:360px;height:30px; overflow:hidden; margin:20px auto 0;}
+
+#marquee4 ul li{float:left; width:360px; padding:10px; line-height:20px; }
+#marquee4 ul li a{
+  color: #fff;
+}
+</style>
+        <div class="conter-right">
+          <div class="xian"></div>
+          <div class="Live">
+            
+			
+			<volist name="live_list" id="live_o">
+			
+			<a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.gif" alt="">
+              <i >直播中</i>
+              <em>【{:limitNumber($live_o['school']['title'],16)}】直播：{:limitNumber($live_o['video_title'],12)}</em>
+
+            </a>
+            </volist>
+			
+			
+
+          </div>
+        </div>
+		
+		
+		
+      </div>
+      <div class="conter">
+        <div class="conter-left">
+          <img src="__THEME__/../_static_new/images_g/vid-img.jpg" alt="">
+          <div class="vid-shadow">
+            <em>综合分析的陷阱</em>
+            <div class="vid-time"> 
+              <span>
+                距离上课 <i class="vid-h">00</i> 时 <i class="vid-m">18</i> 分<i class="vid-s"> 42</i> 秒
+              </span> 
+            </div>
+            <div class="vid-btn">
+              <a href="#">立即报名</a>
+            </div>
+          </div>
+          <div class="vid-bot">
+            <img src="__THEME__/../_static_new/images_g/vid-phot.jpg" alt="">
+            <em>周颖</em>
+            <i>来自课程：2019国考笔试大神公开课【尚政公..></i>
+          </div>
+        </div>
+        <div class="conter-right">
+          <div class="xian"></div>
+          <div class="Live">
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="conter">
+        <div class="conter-left">
+          <img src="__THEME__/../_static_new/images_g/vid-img.jpg" alt="">
+          <div class="vid-shadow">
+            <em>综合分析的陷阱</em>
+            <div class="vid-time"> 
+              <span>
+                距离上课 <i class="vid-h">00</i> 时 <i class="vid-m">18</i> 分<i class="vid-s"> 42</i> 秒
+              </span> 
+            </div>
+            <div class="vid-btn">
+              <a href="#">立即报名</a>
+            </div>
+          </div>
+          <div class="vid-bot">
+            <img src="__THEME__/../_static_new/images_g/vid-phot.jpg" alt="">
+            <em>周颖</em>
+            <i>来自课程：2019国考笔试大神公开课【尚政公..></i>
+          </div>
+        </div>
+        <div class="conter-right">
+          <div class="xian"></div>
+          <div class="Live">
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="conter">
+        <div class="conter-left">
+          <img src="__THEME__/../_static_new/images_g/vid-img.jpg" alt="">
+          <div class="vid-shadow">
+            <em>综合分析的陷阱</em>
+            <div class="vid-time"> 
+              <span>
+                距离上课 <i class="vid-h">00</i> 时 <i class="vid-m">18</i> 分<i class="vid-s"> 42</i> 秒
+              </span> 
+            </div>
+            <div class="vid-btn">
+              <a href="#">立即报名</a>
+            </div>
+          </div>
+          <div class="vid-bot">
+            <img src="__THEME__/../_static_new/images_g/vid-phot.jpg" alt="">
+            <em>周颖</em>
+            <i>来自课程：2019国考笔试大神公开课【尚政公..></i>
+          </div>
+        </div>
+        <div class="conter-right">
+          <div class="xian"></div>
+          <div class="Live">
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="conter">
+        <div class="conter-left">
+          <img src="__THEME__/../_static_new/images_g/vid-img.jpg" alt="">
+          <div class="vid-shadow">
+            <em>综合分析的陷阱</em>
+            <div class="vid-time"> 
+              <span>
+                距离上课 <i class="vid-h">00</i> 时 <i class="vid-m">18</i> 分<i class="vid-s"> 42</i> 秒
+              </span> 
+            </div>
+            <div class="vid-btn">
+              <a href="#">立即报名</a>
+            </div>
+          </div>
+          <div class="vid-bot">
+            <img src="__THEME__/../_static_new/images_g/vid-phot.jpg" alt="">
+            <em>周颖</em>
+            <i>来自课程：2019国考笔试大神公开课【尚政公..></i>
+          </div>
+        </div>
+        <div class="conter-right">
+          <div class="xian"></div>
+          <div class="Live">
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="conter">
+        <div class="conter-left">
+          <img src="__THEME__/../_static_new/images_g/vid-img.jpg" alt="">
+          <div class="vid-shadow">
+            <em>综合分析的陷阱</em>
+            <div class="vid-time"> 
+              <span>
+                距离上课 <i class="vid-h">00</i> 时 <i class="vid-m">18</i> 分<i class="vid-s"> 42</i> 秒
+              </span> 
+            </div>
+            <div class="vid-btn">
+              <a href="#">立即报名</a>
+            </div>
+          </div>
+          <div class="vid-bot">
+            <img src="__THEME__/../_static_new/images_g/vid-phot.jpg" alt="">
+            <em>周颖</em>
+            <i>来自课程：2019国考笔试大神公开课【尚政公..></i>
+          </div>
+        </div>
+        <div class="conter-right">
+          <div class="xian"></div>
+          <div class="Live">
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="conter">
+        <div class="conter-left">
+          <img src="__THEME__/../_static_new/images_g/vid-img.jpg" alt="">
+          <div class="vid-shadow">
+            <em>综合分析的陷阱</em>
+            <div class="vid-time"> 
+              <span>
+                距离上课 <i class="vid-h">00</i> 时 <i class="vid-m">18</i> 分<i class="vid-s"> 42</i> 秒
+              </span> 
+            </div>
+            <div class="vid-btn">
+              <a href="#">立即报名</a>
+            </div>
+          </div>
+          <div class="vid-bot">
+            <img src="__THEME__/../_static_new/images_g/vid-phot.jpg" alt="">
+            <em>周颖</em>
+            <i>来自课程：2019国考笔试大神公开课【尚政公..></i>
+          </div>
+        </div>
+        <div class="conter-right">
+          <div class="xian"></div>
+          <div class="Live">
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+            <a href="#">
+              <img src="__THEME__/../_static_new/images_g/live.png" alt="">
+              <i >直播中</i>
+              <em>【智源VIP试听】直播：美工Banner海报设计</em>
+
+            </a>
+          </div>
+        </div>
+      </div> 
+    </div> 
+  </div>
+</div>
+<!-- 觅好课END -->
+<!-- 录播 -->
+<div class="broadcasting">
+  <div class="main">
+    <div class="broadcasting-box">
+      <div class="broadcasting-box-title">
+        <span><i>录播</i><img src="__THEME__/../_static_new/images_g/video.png" alt=""></span>
+        <div class="broadcasting-box-a">
+       
+         <volist name="selCate" id="vo">
+ 		 <a href="javascript:void(0);"   <if condition="$i eq 1">class="hover"</if>>
+		 {:msubstr(t($vo['title']),0,10,'utf-8',true)}
+		  
+		 </a>
+		 
+        </volist>
+        </div>
+		
+		
+		
+	
+		
+		
+		
+        <a href="{:U('classroom/Video/index',array('orderBy'=>'new'))}" class="a_hover">查看更多></a>
+      </div>
+      <div class="clearfix"></div>
+      <div class="broadcasting-content">
+       
+
+	   <div class="broadcasting-center" style="display: block;">
+          
+		  <style>
+		  .broadcasting-col-1:hover img{
+		   transform: scale(1.05,1.05);
+		  }
+		  .broadcasting-col-1{
+		  transition: box-shadow .2s;
+		  }
+		  .broadcasting-col-1:hover{
+		   box-shadow: 0px 10px 18px #A3A3A3;
+		  }
+		  </style>
+		 
+     <volist name="videoal2" id="voal2">
+		
+	
+		<a href="/course/{$voal2['id']}.html">
+		 <div class="broadcasting-col-1" style="transition: 0.2s;">
+            <img src="{:cutImg($voal2['cover'] ,256 , 160 )}" alt="">
+            <i>{$voal2.video_title|msubstr=0,12,'utf-8',true}</i>
+            <i>【{:limitNumber($voal2['school']['title'],16)}】</i>
+            <div class="money"><i><if condition="$voal2['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$voal2['t_price']}</if></i><em><php>if($marketConf['order_switch'] == 1) {</php>{$voal2['video_order_count_mark']}<php>}else{</php>{$voal2['video_order_count']}<php>}</php>人购买</em></div>
+          </div>
+        </a>
+
+	 </volist>
+		</div>
+		
+		
+    <div class="broadcasting-center">
+     <volist name="videoal4" id="voal4">
+		 <div class="broadcasting-col-1" style="transition: 0.2s;">
+            <img src="{:cutImg($voal4['cover'] ,256 , 160 )}" alt="">
+            <i>{$voal4.video_title|msubstr=0,12,'utf-8',true}</i>
+            <i>【{:limitNumber($voal4['school']['title'],16)}】</i>
+            <div class="money"><i><if condition="$voal4['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$voal4['t_price']}</if></i><em><php>if($marketConf['order_switch'] == 1) {</php>{$voal4['video_order_count_mark']}<php>}else{</php>{$voal4['video_order_count']}<php>}</php>人购买</em></div>
+        </div>
+	 </volist>  
+    </div> 
+		
+		
+		
+    <div class="broadcasting-center">	 	
+     <volist name="videoal5" id="voal5">
+		 <div class="broadcasting-col-1" style="transition: 0.2s;">
+            <img src="{:cutImg($voal5['cover'] ,256 , 160 )}" alt="">
+            <i>{$voal5.video_title|msubstr=0,12,'utf-8',true}</i>
+            <i>【{:limitNumber($voal5['school']['title'],16)}】</i>
+            <div class="money"><i><if condition="$voal5['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$voall['t_price']}</if></i><em><php>if($marketConf['order_switch'] == 1) {</php>{$voal5['video_order_count_mark']}<php>}else{</php>{$voal5['video_order_count']}<php>}</php>人购买</em></div>
+          </div>
+    </volist>
+    </div> 
+		
+		
+    <div class="broadcasting-center">
+        <volist name="videoal6" id="voal6">
+		 <div class="broadcasting-col-1" style="transition: 0.2s;">
+            <img src="{:cutImg($voal6['cover'] ,256 , 160 )}" alt="">
+            <i>{$voal6.video_title|msubstr=0,12,'utf-8',true}</i>
+            <i>【{:limitNumber($voal6['school']['title'],16)}】</i>
+            <div class="money"><i><if condition="$voal6['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$voal6['t_price']}</if></i><em><php>if($marketConf['order_switch'] == 1) {</php>{$voal6['video_order_count_mark']}<php>}else{</php>{$voall['video_order_count']}<php>}</php>人购买</em></div>
+          </div>
+
+	 </volist>
+    </div> 
+		
+		
+    <div class="broadcasting-center">
+          	
+     <volist name="videoal7" id="voal7">
+       <div class="broadcasting-col-1" style="transition: 0.2s;">
+            <img src="{:cutImg($voal7['cover'] ,256 , 160 )}" alt="">
+            <i>{$voal7.video_title|msubstr=0,12,'utf-8',true}</i>
+            <i>【{:limitNumber($voal7['school']['title'],16)}】</i>
+            <div class="money"><i><if condition="$voal7['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$voal7['t_price']}</if></i><em><php>if($marketConf['order_switch'] == 1) {</php>{$voal7['video_order_count_mark']}<php>}else{</php>{$voal7['video_order_count']}<php>}</php>人购买</em></div>
+          </div>
+	 </volist>
+    </div> 
+		
+		
+    <div class="broadcasting-center"> 	
+     <volist name="videoal10" id="voall">
+		 <div class="broadcasting-col-1" style="transition: 0.2s;">
+            <img src="{:cutImg($voall0['cover'] ,256 , 160 )}" alt="">
+            <i>{$voall0.video_title|msubstr=0,12,'utf-8',true}</i>
+            <i>【{:limitNumber($voall0['school']['title'],16)}】</i>
+            <div class="money"><i><if condition="$voall0['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$voall0['t_price']}</if></i><em><php>if($marketConf['order_switch'] == 1) {</php>{$voall['video_order_count_mark']}<php>}else{</php>{$voall0['video_order_count']}<php>}</php>人购买</em></div>
+          </div>
+	 </volist>
+    </div> 
+		
+		
+    <div class="broadcasting-center">
+          	
+     <volist name="videoall1" id="voall1">
+		 <div class="broadcasting-col-1" style="transition: 0.2s;">
+            <img src="{:cutImg($voall1['cover'] ,256 , 160 )}" alt="">
+            <i>{$voall1.video_title|msubstr=0,12,'utf-8',true}</i>
+            <i>【{:limitNumber($voall1['school']['title'],16)}】</i>
+            <div class="money"><i><if condition="$voall1['t_price'] eq 0"><span style="color: #56b02a;">免费</span> <else/> ￥{$voall1['t_price']}</if></i><em><php>if($marketConf['order_switch'] == 1) {</php>{$voall1['video_order_count_mark']}<php>}else{</php>{$voall1['video_order_count']}<php>}</php>人购买</em></div>
+          </div>
+	 </volist>
+    </div> 
+		
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 录播 END-->
+<style>
+.more_d{width: 100%;height: 44px;margin-bottom: 30px;}
+.more_d .more_a{width: 210px;height: 44px;display: block;margin: 0 auto;border-radius: 4px;color: #fff;background: #00BED4;text-align: center;line-height: 44px;margin-bottom: 50px;}
+
+.recommend .recommend_title{text-align: center;margin: 0 auto;}
+.first_p{font-size: 26px;color: #333;text-align: center;}
+.second_p{font-size: 16px;color: #888;margin: 20px 0 30px 0;text-align: center;}
+.hot-box{height: 583px;}
+.hot{margin-top: 37px;height: 358px;background: #434343;}
+.hot .first_p{color: #fff;padding-top: 48px;}
+.hot ul{margin-left: -30px;margin-top: 2px;}
+.hot .hot_list ul li{width: 33.33333%;float: left;}
+.hot .hot_list ul li .div_box:hover{box-shadow: 0 2px 30px 0 rgba(64,107,182,.3)}
+.hot .hot_list ul li .div_box{margin: 0px 0 40px 30px;display: block;background: #fff;height: 400px;margin-top: 53px;}
+.hot .hot_list li .div_box img{width: 100%;height: 220px;}
+.hot .hot_list .content_box{padding: 14px 20px 20px 24px;width: 90%}
+.hot .hot_list .content_box .title{font-size: 18px;color: #333;}
+.hot .hot_list .content_box .time{font-size: 12px;color: #dbdbdb;margin: 14px 0 20px 0;}
+.hot .hot_list .content_box .text{font-size: 14px;color: #888;}
+.a_hover:hover{
+ color:#00a3f1;
+}
+
+</style>
+<div class="clearfix">  </div>
+<div class="hot-box">
+          <div class="content_box hot">
+              <div class="main">
+
+                  <p class="first_p">
+				  <span style="float:left;color: #fff;font-size: 26px">觅职业</span>
+				  <span style="margin-left: -83px;color: #fff;font-size: 26px"> 热门资讯</span>				   				   				   </p>
+                  <a href="{:U('classroom/Topic/index')}" class="a_hover" style="float: right;margin-top:-25px">查看更多></a>
+			
+                  <div class="hot_list">
+				  
+                      <ul>
+					     <volist name="topic" id="pic" offset="0" length="3">
+						 
+						
+                          <li>
+                                  <div class="div_box">
+                                      <a href="{:U('classroom/Topic/view',array('id'=>$pic['id']))}">
+                                          <img class="lazyload" src="{:getCover($pic['image'],370,220)}" alt="">
+                                      </a>
+                                      <div class="content_box">
+                                          <a href="{:U('classroom/Topic/view',array('id'=>$pic['id']))}" class="title">{:msubstr(t($pic['title']),0,15,'utf-8',true)}</a>
+                                          <p class="time">{:date('m-d H:i',$pic['dateline'])}</p>
+                                          <p class="text">{:msubstr(t($pic['desc']),0,50,'utf-8',true)}</p>
+                                      </div>
+                                  </div>
+                          </li>
+                        </volist>
+					 </ul>					 
+                      <div class="clear"></div>
+                  </div>
+              </div>
+          </div>
+        </div>
+		
+ 
+ 
+ 
+<div class="clearfix"></div>		
+		
+<!-- 觅职业END -->
+<!-- 觅创业 -->
+<div class="Entrepreneurship">
+  <div class="main">
+    <div class="Entrepreneurship-title">
+      <span>觅创业</span>
+      <a href="{:U('classroom/Topic/index')}" class="a_hover">查看更多></a>
+    </div>
+    <div class="Entrepreneurship-box">
+   <volist name="object_topic" id="object_topic">
+    <a href="{:U('classroom/Topic/view',array('id'=>$object_topic['id']))}"><img class="micy" src="{:getCover($object_topic['image'],270,160)}" alt=""></a>
+    </volist>
+    </div>
+  </div>
+</div>
+<!-- 觅创业END -->
+<!-- 觅好友 -->
+<div class="friend">
+  <div class="main">
+    <div class="friend-title">
+      <span>觅好友</span>
+      <div>
+        <em>好友推荐</em>
+        <i>优秀平台，优秀好友</i>
+      </div>
+      <a href="{:U('classroom/Teacher/index')}" class="a_hover">查看更多></a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="friend-col-row">
+     <volist name="teacher" id="tea"> 
+	  <div onclick="window.location.href='{:U('classroom/Teacher/view',array('id'=>$tea['id']))}'">
+        <img src="{:getCover($tea['head_id'],180,180)}" alt="">
+        <div>
+          <em class="tearch">{:msubstr(t($tea['name']),0,10,'utf-8',true)}</em>
+          <hr>
+          <em>{$tea.title}</em>
+        </div>
+	  </div>
+	  </volist> 
+      
+
+	  
+    </div>
+    <div class="clearfix"></div>
+    
+  </div>
+</div>
+<!-- 觅好友END -->
+<div class="clearfix"></div>
+
+<div class="main hr">
+  <hr>
+</div>
+<!-- 伙伴 -->
+
+<style>
+.body01 {
+    margin: 0 auto 50px;
+    width: 1228px;
+    display: table;
+}
+.settled-shcool ul{width:1228px}
+.settled-shcool li{display:inline-block;width:170px;height:170px;overflow:hidden;border:1px solid #F0F1EC;text-align:center;position:relative;transition:.3s;margin:0 16px 30px;}
+.settled-shcool li:hover{box-shadow:0 2px 8px 0 rgba(86,94,117,.3)}
+.settled-shcool li:hover p{top:140px}
+.settled-shcool li img{width:140px;margin-top:15px}
+.settled-shcool li p{width:100%;position:absolute;top:170px;left:0;color:#333;font-size:14px;line-height:30px;border-top:1px solid #F0F1EC;background:rgba(255,255,255,.8);transition:.3s}
+
+.post-service{float:left;width:100%;height:auto;background-color:#24252a;color: #ccc;}
+.other-service{width:1200px;height:214px;margin:0 auto;}
+.other-service .service-class a{margin:5px 0 0 35px;}
+.post-service-per{width:1200px;height:135px;}
+.service-class{float:left;margin:27px 10px 0 0;width:190px;height:155px;border-right:1px solid #555;}
+.service-class a span{font-size:16px;}
+.service-class a{display:block;margin:5px 0 0 60px;color:#ccc!important;text-decoration:none;font-size:14px;}
+.service-class a:hover{text-decoration:underline;}
+.tel-box{float:left;margin:0 0 0 20px;width:180px;height:155px;text-align: center}
+.tel-icon{width:120px;height:120px;margin: 30px auto 15px;}
+.tel-icon img{width:120px; min-height: 120px;}
+.week{color:#999;text-align:center;font-size:14px;}
+.about{text-align: center;overflow: hidden;width: 1200px;margin: 0 auto;}
+.about a{padding: 0 10px;width:93px;height:16px;border-right:1px solid #9d9d9d;color:#434343;text-align:center;text-decoration:none;font-size:14px;line-height:16px;}
+.about a:hover{color:#00BDD6!important;text-decoration:none;}
+.copyright{float:left;margin:auto;margin-top:16px;width:300px;height:14px;color:#434343;font-size:14px;line-height:14px;}
+.copyright-box{height: 60px;line-height: 60px;text-align: center;border-top: solid 1px #4d4d4d;}
+</style>
+<div class="body01">
+            <h1 style="font-size: 26px;margin-bottom:30px;margin-top:30px;">合作伙伴</h1>
+            <div class="settled-shcool">
+                <ul>
+                        
+						<volist name="ad_list_d" id="adlt_d">
+						<li>
+                            <a href="{$adlt_d['bannerurl']}">
+                                <img class="lazyload" src="{:getCover($adlt_d['banner'],140,140)}" data-bd-imgshare-binded="1" style="display: inline;">
+                                <p>{$adlt_d['banner_title']}</p>
+                            </a>
+                        </li>
+				        </volist>
+						
+						
+						
+						</ul>
+            </div>
+        </div>
+        <!--入驻机构 end-->
+
+
+ <include file="__THEME__/public_footer" />
+<style>.swiper-pagination-clickable .swiper-pagination-bullet{cursor:pointer}.swiper-pagination-white .swiper-pagination-bullet{background:#fff}.swiper-pagination-bullet-active{margin-top:-5px;width:8px;height:14px;color:#fff;opacity:1;transition:height 1s}.swiper-pagination-white .swiper-pagination-bullet-active{background:#08aabc}.swiper-pagination-black .swiper-pagination-bullet-active{background:#000}</style>
+<!-- 无缝滚动 -->
+<script src="__THEME__/../_static_new/js_g/jquery.kxbdMarquee.js"></script>
+<!-- swiper插件 -->
+<script src="__THEME__/../_static_new/js_g/swiper.js"></script>
+<script>
+  var swiper = new Swiper('.swiper-containera', {
+    pagination: '.swiper-pagination',
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev', 
+    spaceBetween: 30,
+    centeredSlides: true,
+    autoplay: 2500,
+    autoplayDisableOnInteraction: false,
+    paginationClickable: true,
+    paginationBulletRender: function (swiper, index, className) {
+        return '<span class="' + className + '"></span>'
+    }    
+  });
+  var swiper = new Swiper('.swiper-containerb', {
+      pagination: '.swiper-pagination',
+      nextButton: '.swiper-button-next',
+      prevButton: '.swiper-button-prev', 
+      slidesPerView: 3,
+      paginationClickable: true,
+      spaceBetween: 30, 
+      autoplay: 2500,
+      autoplayDisableOnInteraction: false,
+      paginationClickable: true,
+      paginationBulletRender: function (swiper, index, className) {
+        return '<span class="' + className + '"></span>'
+      }
+  });
+
+</script>
+<script>
+  // 直播内容切换
+  $('.box-a a').click(function(event) {  
+    var index = $(this).index();
+    $(this).addClass('hover').siblings().removeClass('hover');
+    $('.content .conter').eq(index).show().siblings().hide();
+  });
+  // 直播的图标图片切换
+  $('.Live a').hover(function(){
+    var abc = $(this).children('img');
+    abc.attr('src','__THEME__/../_static_new/images_g/dian.jpg')
+  },function(){
+    var abc = $(this).children('img');
+    abc.attr('src','__THEME__/../_static_new/images_g/live.png')
+  })
+  // 录播切换
+  $('.broadcasting-box-a a').click(function(event) {  
+    var index = $(this).index();
+    $(this).addClass('hover').siblings().removeClass('hover');
+    $('.broadcasting-center').eq(index).show().siblings().hide();
+  });
+  // 弹出登录框
+  $('.Sign-in').click(function(){
+    $('.Popup').show();
+  })
+  // 关闭登录框
+  $('.Popup-box img').click(function(){
+    $('.Popup').hide();
+  })
+ 
+</script>
+<script>
+  
+
+(function(){
+
+  $("#marquee1").kxbdMarquee({direction:"right"});
+
+  $("#marquee2").kxbdMarquee({isEqual:false});
+
+  $("#marquee3").kxbdMarquee({direction:"down"});
+
+  $("#marquee4").kxbdMarquee({direction:"up",isEqual:false});
+
+})();
+
+</script>
+</body>
+</html>
